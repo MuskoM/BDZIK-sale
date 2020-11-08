@@ -1,1 +1,1 @@
-web: gunicorn budzet_domowy.wsgi --log-file -
+web: gunicorn RezerwacjaSaliAkademikow.wsgi --log-file -
