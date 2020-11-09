@@ -136,7 +136,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'budzet_domowy/static'),
+    os.path.join(BASE_DIR, 'RezerwacjaSaliAkademikow/static'),
 )
 
 prod_db = dj_database_url.config(conn_max_age=500)
