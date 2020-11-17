@@ -7,3 +7,4 @@ pytz
 whitenoise
 dj-database-url
 djangorestframework
+django-cors-headers
