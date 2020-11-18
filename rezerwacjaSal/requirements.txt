@@ -1,0 +1,11 @@
+django
+django-heroku
+django-crispy-forms
+gunicorn
+psycopg2
+pytz
+whitenoise
+dj-database-url
+djangorestframework
+django-cors-headers
+django-rest-knox
