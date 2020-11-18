@@ -6,11 +6,23 @@ class Wydzial(models.Model):
     id_wydzialu = models.AutoField(primary_key=True)
     nazwa_wydzialu = models.CharField(max_length=30)
 
+    def __str__(self):
+        return f'{self.nazwa_wydzialu}'
+
+    class Meta:
+        verbose_name_plural = "Wydziały"
+
 
 class Kierunek(models.Model):
     id_kierunku = models.AutoField(primary_key=True)
     nazwa_kierunku = models.CharField(max_length=30)
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.nazwa_kierunku}'
+
+    class Meta:
+        verbose_name_plural = "Kierunki"
 
 
 class Uzytkownik(models.Model):
@@ -21,6 +33,12 @@ class Uzytkownik(models.Model):
     status = models.CharField(max_length=15)
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.imie} {self.nazwisko}'
+
+    class Meta:
+        verbose_name_plural = "Użytkownicy"
+
 
 class Student(models.Model):
     nr_indeksu = models.AutoField(primary_key=True)
@@ -28,12 +46,24 @@ class Student(models.Model):
     id_uzytkowanika = models.OneToOneField(Uzytkownik, on_delete=models.CASCADE)
     id_kierunku = models.ForeignKey(Kierunek, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.nr_indeksu}'
+
+    class Meta:
+        verbose_name_plural = "Studenci"
+
 
 class Pomieszczenie(models.Model):
     id_pomieszczenia = models.AutoField(primary_key=True)
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
     opis = models.TextField()
     rodzaj_pom = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f'Pom: {self.id_pomieszczenia} Wydz: {self.id_wydzialu}'
+
+    class Meta:
+        verbose_name_plural = "Pomieszczenia"
 
 
 class RezerwacjaSali(models.Model):
@@ -44,12 +74,24 @@ class RezerwacjaSali(models.Model):
     id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
 
+    def __str__(self):
+        return f'{self.id_rezerwacji_sali}'
+
+    class Meta:
+        verbose_name_plural = "Rezerwacje Sal"
+
 
 class PracowaniaSpecjalistyczna(Pomieszczenie):
     nr_pracowni = models.AutoField(primary_key=True)
     ilosc_miejsc = models.IntegerField()
     czy_rzutnik = models.BooleanField()
     osprzet = models.TextField()
+
+    def __str__(self):
+        return f'{self.nr_pracowni}'
+
+    class Meta:
+        verbose_name_plural = "Pracownie Specjalistyczne"
 
 
 class Sala(Pomieszczenie):
@@ -58,6 +100,12 @@ class Sala(Pomieszczenie):
     czy_rzutnik = models.BooleanField()
     jaka_tablica = models.TextField()
 
+    def __str__(self):
+        return f'Sala: {self.nr_sali}'
+
+    class Meta:
+        verbose_name_plural = "Sale"
+
 
 class Laboratorium(Pomieszczenie):
     nr_laboratorium = models.AutoField(primary_key=True)
@@ -65,10 +113,22 @@ class Laboratorium(Pomieszczenie):
     czy_rzutnik = models.BooleanField()
     osprzet = models.TextField()
 
+    def __str__(self):
+        return f'Laboratorium {self.nr_laboratorium}'
+
+    class Meta:
+        verbose_name_plural = "Laboratoria"
+
 
 class Akademik(models.Model):
     id_akademika = models.AutoField(primary_key=True)
     nazwa_akademika = models.CharField(max_length=25)
+
+    def __str__(self):
+        return f'{self.nazwa_akademika}'
+
+    class Meta:
+        verbose_name_plural = "Akademiki"
 
 
 class Pokoj(models.Model):
@@ -76,6 +136,12 @@ class Pokoj(models.Model):
     id_akademika = models.ForeignKey(Akademik,on_delete=models.CASCADE)
     ilosc_lozek = models.IntegerField()
     opis = models.TextField()
+
+    def __str__(self):
+        return f'Pokoj {self.id_pokoju} Akademik {self.id_akademika}'
+
+    class Meta:
+        verbose_name_plural = "Pokoje"
 
 
 class RezerwacjaPokoju(models.Model):
@@ -85,3 +151,9 @@ class RezerwacjaPokoju(models.Model):
     data_do = models.DateTimeField()
     id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
+
+    def __str__(self):
+        return f'Rezerwacja: {self.id_rezerwacji_pokoju} Użytkownik {self.id_uzytkownika}'
+
+    class Meta:
+        verbose_name_plural = "Rezerwacje Pokoi"
