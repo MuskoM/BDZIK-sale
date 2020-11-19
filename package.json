@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./rezerwacjaSal/frontend/src/index.js --output-path ./rezerwacjaSal/frontend/static/frontend/",
-    "build": "webpack --mode production ./rezerwacjaSal/frontend/src/index.js --output-path ./rezerwacjaSal/frontend/static/frontend/"
+    "dev": "webpack --mode development ./frontend/src/index.js --output-path ./frontend/static/frontend/",
+    "build": "webpack --mode production ./frontend/src/index.js --output-path ./frontend/static/frontend/"
   },
   "repository": {
     "type": "git",
