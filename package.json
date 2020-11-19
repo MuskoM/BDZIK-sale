@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development ./rezerwacjaSal/frontend/src/index.js --output-path ./rezerwacjaSal/frontend/static/frontend/",
+    "build": "webpack --mode production ./rezerwacjaSal/frontend/src/index.js --output-path ./rezerwacjaSal/frontend/static/frontend/"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,22 @@
   "bugs": {
     "url": "https://github.com/MuskoM/BDZIK-sale/issues"
   },
-  "homepage": "https://github.com/MuskoM/BDZIK-sale#readme"
+  "homepage": "https://github.com/MuskoM/BDZIK-sale#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "babel-loader": "^8.2.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^5.5.1",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "css-loader": "^5.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
+    "react-dom": "^17.0.1",
+    "style-loader": "^2.0.0"
+  }
 }
