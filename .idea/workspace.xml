@@ -2,46 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5aa393c4-3a87-4d7b-bd54-a8d6d1c39971" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/RezerwacjaSaliAkademikow.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/my.cnf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/static/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/wsgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/migrations/0002_auto_20201117_1759.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/rezerwacjaSal/frontend/src/components/Topbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rezerwacjaSal/frontend/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/rezerwacjaSal/frontend/src/components/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="3955ce97-a36d-4b3b-9edf-1d68773dd0ce" />
+  <component name="JupyterTrust" id="2167223f-d6e6-48c2-9aef-840e61e55ffe" />
   <component name="ProjectId" id="1jVfQJc9HcoA1yud7dT6SHhrlQq" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -75,18 +38,25 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/rezerwacjaSal/frontend/src/components" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rezerwacjaSal/frontend/src/components" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="RezerwacjaSaliAkademikow" type="Python.DjangoServer" factoryName="Django server">
-      <module name="RezerwacjaSaliAkademikow" />
+      <module name="BDZIK-sale" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="RezerwacjaSaliAkademikow.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="/usr/bin/python3.8" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -137,21 +107,25 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1046" y="503" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879051413" />
-    <state width="2517" height="397" key="GridCell.Tab.0.bottom" timestamp="1604879997615">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1638" height="267" key="GridCell.Tab.0.bottom" timestamp="1605794924641">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="1638" height="267" key="GridCell.Tab.0.bottom/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794924641" />
     <state width="2517" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879997615" />
-    <state width="2517" height="397" key="GridCell.Tab.0.center" timestamp="1604879997614">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1638" height="267" key="GridCell.Tab.0.center" timestamp="1605794924641">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="1638" height="267" key="GridCell.Tab.0.center/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794924641" />
     <state width="2517" height="397" key="GridCell.Tab.0.center/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879997614" />
-    <state width="2517" height="397" key="GridCell.Tab.0.left" timestamp="1604879997614">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1638" height="267" key="GridCell.Tab.0.left" timestamp="1605794924641">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="1638" height="267" key="GridCell.Tab.0.left/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794924641" />
     <state width="2517" height="397" key="GridCell.Tab.0.left/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879997614" />
-    <state width="2517" height="397" key="GridCell.Tab.0.right" timestamp="1604879997615">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1638" height="267" key="GridCell.Tab.0.right" timestamp="1605794924641">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="1638" height="267" key="GridCell.Tab.0.right/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794924641" />
     <state width="2517" height="397" key="GridCell.Tab.0.right/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879997615" />
     <state x="3021" y="425" key="SettingsEditor" timestamp="1605618515417">
       <screen x="2560" y="255" width="1920" height="1050" />
