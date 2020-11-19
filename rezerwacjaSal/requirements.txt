@@ -3,6 +3,7 @@ django-heroku
 django-crispy-forms
 gunicorn
 psycopg2
+psycopg2-binary
 pytz
 whitenoise
 dj-database-url
