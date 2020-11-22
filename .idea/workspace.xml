@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5aa393c4-3a87-4d7b-bd54-a8d6d1c39971" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/RezerwacjaSaliAkademikow/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Topbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Topbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/frontend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/frontend/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/frontend/main.js.LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/frontend/main.js.LICENSE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,74 +55,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DjangoTestsConfigurationType">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="RezerwacjaSaliAkademikow" type="Python.DjangoServer" factoryName="Django server">
       <module name="BDZIK-sale" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,84 +79,6 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <configuration default="true" type="Python.FlaskServer">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="docs" factoryName="Docutils task">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="docutils_input_file" value="" />
-      <option name="docutils_output_file" value="" />
-      <option name="docutils_params" value="" />
-      <option name="docutils_task" value="" />
-      <option name="docutils_open_in_browser" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="docs" factoryName="Sphinx task">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="docutils_input_file" value="" />
-      <option name="docutils_output_file" value="" />
-      <option name="docutils_params" value="" />
-      <option name="docutils_task" value="" />
-      <option name="docutils_open_in_browser" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <module name="BDZIK-sale" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -237,6 +96,8 @@
       <workItem from="1605616999807" duration="1904000" />
       <workItem from="1605630984646" duration="2006000" />
       <workItem from="1605714246788" duration="8743000" />
+      <workItem from="1606072475803" duration="327000" />
+      <workItem from="1606076078550" duration="3824000" />
     </task>
     <servers />
   </component>
@@ -258,26 +119,26 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1046" y="503" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879051413" />
-    <state width="2517" height="397" key="GridCell.Tab.0.bottom" timestamp="1605800756380">
+    <state width="2517" height="397" key="GridCell.Tab.0.bottom" timestamp="1605804682182">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.bottom/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970478" />
-    <state width="2517" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605800756380" />
-    <state width="2517" height="397" key="GridCell.Tab.0.center" timestamp="1605800756380">
+    <state width="2517" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682182" />
+    <state width="2517" height="397" key="GridCell.Tab.0.center" timestamp="1605804682181">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.center/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970477" />
-    <state width="2517" height="397" key="GridCell.Tab.0.center/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605800756380" />
-    <state width="2517" height="397" key="GridCell.Tab.0.left" timestamp="1605800756380">
+    <state width="2517" height="397" key="GridCell.Tab.0.center/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682181" />
+    <state width="2517" height="397" key="GridCell.Tab.0.left" timestamp="1605804682181">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.left/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970477" />
-    <state width="2517" height="397" key="GridCell.Tab.0.left/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605800756380" />
-    <state width="2517" height="397" key="GridCell.Tab.0.right" timestamp="1605800756380">
+    <state width="2517" height="397" key="GridCell.Tab.0.left/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682181" />
+    <state width="2517" height="397" key="GridCell.Tab.0.right" timestamp="1605804682182">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.right/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970478" />
-    <state width="2517" height="397" key="GridCell.Tab.0.right/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605800756380" />
+    <state width="2517" height="397" key="GridCell.Tab.0.right/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682182" />
     <state x="3021" y="425" key="SettingsEditor" timestamp="1605618515417">
       <screen x="2560" y="255" width="1920" height="1050" />
     </state>

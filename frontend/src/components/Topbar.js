@@ -25,7 +25,7 @@ class Topbar extends Component {
                                 <Nav.Link href={"#home"}>Twoje rezerwacje</Nav.Link>
                             </Nav>
                             <Nav className={"ml-auto"}>
-                                <Nav.Link href={"bumcfksz"}>Ustawienia konta</Nav.Link>
+                                <Nav.Link href={"{% link %}"}>Ustawienia konta</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
