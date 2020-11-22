@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import {Jumbotron, Form, Col, Button} from "react-bootstrap";
+import "../../css/index.css"
 
-class MainBanner extends Component {
+class MainPageBanner extends Component {
     render() {
+
+
         return(
-            <Jumbotron className={"text-center"} >
+            <Jumbotron className={"text-center"}>
                 <h1><b>Zarezerwuj salę na Politechnice Białostockiej</b></h1>
                 <p>Wypróbuj nowy system rezerwacji pomieszczeń na największej uczelni technicznej we wschodniej Polsce!</p>
                 <Form>
@@ -34,4 +37,4 @@ class MainBanner extends Component {
     }
 }
 
-export default MainBanner;
+export default MainPageBanner;

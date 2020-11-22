@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Media} from "react-bootstrap"
 
-class Description extends Component {
+class MainPageDescription extends Component {
     render() {
         return (
             <div className={"w-75 mx-auto"}>
@@ -23,4 +23,4 @@ class Description extends Component {
 
 }
 
-export default Description;
+export default MainPageDescription;
