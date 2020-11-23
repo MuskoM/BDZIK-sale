@@ -37,3 +37,38 @@ class StudentView(viewsets.ModelViewSet):
 class PomieszczenieView(viewsets.ModelViewSet):
     serializer_class = PomieszczenieSerializer
     queryset = Pomieszczenie.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class RezerwacjaSaliView(viewsets.ModelViewSet):
+    serializer_class = RezerwacjaSaliSerializer
+    queryset = RezerwacjaSali.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class PracowniaSpecjalistycznaView(viewsets.ModelViewSet):
+    serializer_class = PracowniaSpecjalistycznaSerializer
+    queryset = PracowaniaSpecjalistyczna.objects.all()
+    permission_classes =  [
+        permissions.AllowAny
+    ]
+
+
+class SalaView(viewsets.ModelViewSet):
+    serializer_class = SalaSerializer
+    queryset = Sala.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class LaboratoriumView(viewsets.ModelViewSet):
+    serializer_class = LaboratoriumSerializer
+    queryset = Laboratorium.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
