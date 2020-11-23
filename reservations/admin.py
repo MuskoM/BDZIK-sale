@@ -7,8 +7,8 @@ class Admin(admin.ModelAdmin):
 
 
 class UzytkownikAdmin(admin.ModelAdmin):
-    fields = ['imie', 'nazwisko', "e_mail", 'status','id_wydzialu']
-    list_display = ('id_uzytkownika', 'imie', 'nazwisko', "e_mail", 'status')
+    fields = ['konto','imie', 'nazwisko', "e_mail", 'status','id_wydzialu']
+    list_display = ('konto','id_uzytkownika', 'imie', 'nazwisko', "e_mail", 'status')
 
 
 class WydzialAdmin(admin.ModelAdmin):
@@ -21,10 +21,6 @@ class KierunekAdmin(admin.ModelAdmin):
 
 class StudentAdmin(admin.ModelAdmin):
     list_display = ['id_uzytkowanika','nr_indeksu','nr_telefonu','id_kierunku']
-
-
-class PomieszczenieAdmin(admin.ModelAdmin):
-    list_display = ['id_pomieszczenia','id_wydzialu','opis','rodzaj_pom']
 
 
 class RezerwacjaSaliAdmin(admin.ModelAdmin):
@@ -58,7 +54,6 @@ class RezerwacjaPokojuAdmin(admin.ModelAdmin):
 admin.site.register(Uzytkownik,UzytkownikAdmin)
 admin.site.register(Wydzial,WydzialAdmin)
 admin.site.register(Student,StudentAdmin)
-admin.site.register(Pomieszczenie,PomieszczenieAdmin)
 admin.site.register(RezerwacjaSali,RezerwacjaSaliAdmin)
 admin.site.register(PracowaniaSpecjalistyczna,PracowaniaSpecjalistycznaAdmin)
 admin.site.register(Sala,SalaAdmin)

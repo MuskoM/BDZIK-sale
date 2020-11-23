@@ -118,10 +118,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605724238050">
+    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606125045613">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605724238050" />
+    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1606125045613" />
     <state x="1046" y="503" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604879051413">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -163,9 +163,9 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1014" y="591" key="git4idea.remote.GitConfigureRemotesDialog/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605618127393" />
-    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup" timestamp="1603976998324">
+    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup" timestamp="1606143690626">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1603976998324" />
+    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1606143690626" />
   </component>
 </project>
