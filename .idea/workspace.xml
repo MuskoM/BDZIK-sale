@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5aa393c4-3a87-4d7b-bd54-a8d6d1c39971" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/static/frontend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/frontend/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations/migrations/0002_auto_20201117_1759.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +100,7 @@
       <workItem from="1605714246788" duration="8743000" />
       <workItem from="1606072475803" duration="327000" />
       <workItem from="1606076078550" duration="3824000" />
-      <workItem from="1606119648787" duration="1306000" />
+      <workItem from="1606119648787" duration="6852000" />
     </task>
     <servers />
   </component>
@@ -112,14 +114,18 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605724238050">
+    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606125045613">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605724238050" />
+    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1606125045613" />
     <state x="1046" y="503" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604879051413">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1046" y="503" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879051413" />
+    <state x="1010" y="452" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606125341037">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1010" y="452" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1606125341037" />
     <state width="1638" height="212" key="GridCell.Tab.0.bottom" timestamp="1606082134691">
       <screen x="0" y="30" width="1680" height="1050" />
     </state>

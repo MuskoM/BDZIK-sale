@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 
 class Wydzial(models.Model):
@@ -26,6 +27,7 @@ class Kierunek(models.Model):
 
 
 class Uzytkownik(models.Model):
+    konto = models.OneToOneField(User, on_delete=models.CASCADE)
     id_uzytkownika = models.AutoField(primary_key=True)
     imie = models.CharField(max_length=15)
     nazwisko = models.CharField(max_length=25)
@@ -71,7 +73,7 @@ class RezerwacjaSali(models.Model):
     id_pomieszczenia = models.ForeignKey(Pomieszczenie, on_delete=models.CASCADE)
     data_od = models.DateTimeField()
     data_do = models.DateTimeField()
-    id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
+    id_uzytkownika = models.ForeignKey(Uzytkownik,related_name="rezerwacje_sal", on_delete=models.CASCADE)
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
 
     def __str__(self):

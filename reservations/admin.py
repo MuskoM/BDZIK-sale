@@ -7,8 +7,8 @@ class Admin(admin.ModelAdmin):
 
 
 class UzytkownikAdmin(admin.ModelAdmin):
-    fields = ['imie', 'nazwisko', "e_mail", 'status','id_wydzialu']
-    list_display = ('id_uzytkownika', 'imie', 'nazwisko', "e_mail", 'status')
+    fields = ['konto','imie', 'nazwisko', "e_mail", 'status','id_wydzialu']
+    list_display = ('konto','id_uzytkownika', 'imie', 'nazwisko', "e_mail", 'status')
 
 
 class WydzialAdmin(admin.ModelAdmin):
