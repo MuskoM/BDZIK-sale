@@ -35,7 +35,6 @@ class Uzytkownik(models.Model):
     status = models.CharField(max_length=15)
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return f'{self.imie} {self.nazwisko}'
 

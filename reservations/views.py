@@ -46,11 +46,14 @@ class RezerwacjaSaliView(viewsets.ModelViewSet):
     serializer_class = RezerwacjaSaliSerializer
 
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
 
     def get_queryset(self):
         return self.request.user.uzytkownik.rezerwacje_sal.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class PracowniaSpecjalistycznaView(viewsets.ModelViewSet):
