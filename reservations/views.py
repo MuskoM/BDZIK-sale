@@ -16,3 +16,24 @@ class WydzialView(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
+
+
+class KierunekView(viewsets.ModelViewSet):
+    serializer_class = KierunekSerializer
+    queryset = Kierunek.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class StudentView(viewsets.ModelViewSet):
+    serializer_class = StudentSerializer
+    queryset = Student.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+
+
+class PomieszczenieView(viewsets.ModelViewSet):
+    serializer_class = PomieszczenieSerializer
+    queryset = Pomieszczenie.objects.all()
