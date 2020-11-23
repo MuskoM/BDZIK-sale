@@ -17,11 +17,11 @@ code {
   grid-template-columns: repeat(10, 1fr);
 }
 
-.jumbotron{
-  background: url("https://d-pt.ppstatic.pl/k/r/1/3b/d4/5fae540cce000_p.jpg") center center;
-  background-size: cover;
-  color: white;
-}
+/*.jumbotron{*/
+/*  background: url("https://d-pt.ppstatic.pl/k/r/1/3b/d4/5fae540cce000_p.jpg") center center;*/
+/*  background-size: cover;*/
+/*  color: white;*/
+/*}*/
 
 .PLACEHOLDER {
   grid-column: 8/10;

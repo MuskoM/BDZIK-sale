@@ -4,33 +4,17 @@ import "../../css/index.css"
 
 class MainPageBanner extends Component {
     render() {
-
+        const background = 'https://d-pt.ppstatic.pl/k/r/1/3b/d4/5fae540cce000_p.jpg';
+        const jumbotronStyle = {
+            color: "white",
+            background: "url(" + background + ") center center",
+            backgroundSize: "cover",
+        };
 
         return(
-            <Jumbotron className={"text-center"}>
+            <Jumbotron className={"text-center"} style={jumbotronStyle}>
                 <h1><b>Zarezerwuj salę na Politechnice Białostockiej</b></h1>
                 <p>Wypróbuj nowy system rezerwacji pomieszczeń na największej uczelni technicznej we wschodniej Polsce!</p>
-                <Form>
-                    <Form.Row className={"align-center w-responsive"}>
-                        <Col xs={"auto"}>
-                            <Form.Control placeholder={"Typ sali"} as={"select"}>
-                                <option>Sala wykładowa</option>
-                                <option>Sala ćwiczeniowa</option>
-                                <option>Pracownia specjalistyczna</option>
-                                <option>Laboratorium</option>
-                            </Form.Control>
-                        </Col>
-                        <Col xs={"auto"}>
-                            <Form.Control placeholder={"Od..."}/>
-                        </Col>
-                        <Col xs={"auto"}>
-                            <Form.Control placeholder={"Do..."}/>
-                        </Col>
-                        <Col xs={"auto"}>
-                            <Button type={"submit"}>Szukaj</Button>
-                        </Col>
-                    </Form.Row>
-                </Form>
             </Jumbotron>
         )
         // TODO wyśrodkowanie formularza wyszukiwania na głównej stronie

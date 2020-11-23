@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5aa393c4-3a87-4d7b-bd54-a8d6d1c39971" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/newReservationPage/SearchBanner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/newReservationPage/SearchTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Topbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Topbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/mainPage/MainPageBanner.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/mainPage/MainPageBanner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/newReservationPage/NewReservationPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/newReservationPage/NewReservationPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/static/frontend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/frontend/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -28,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="3955ce97-a36d-4b3b-9edf-1d68773dd0ce" />
+  <component name="JupyterTrust" id="2167223f-d6e6-48c2-9aef-840e61e55ffe" />
   <component name="ProjectId" id="1jVfQJc9HcoA1yud7dT6SHhrlQq" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -43,7 +48,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/rezerwacjaSal/frontend/src/components" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -99,6 +104,7 @@
       <workItem from="1606072475803" duration="327000" />
       <workItem from="1606076078550" duration="3824000" />
       <workItem from="1606119648787" duration="1306000" />
+      <workItem from="1606126553219" duration="6871000" />
     </task>
     <servers />
   </component>
@@ -120,34 +126,35 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1046" y="503" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1604879051413" />
-    <state width="1638" height="212" key="GridCell.Tab.0.bottom" timestamp="1606082134691">
+    <state width="1638" height="212" key="GridCell.Tab.0.bottom" timestamp="1606151704667">
       <screen x="0" y="30" width="1680" height="1050" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.bottom/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970478" />
     <state width="2517" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682182" />
-    <state width="1638" height="212" key="GridCell.Tab.0.bottom/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606082134691" />
-    <state width="1638" height="212" key="GridCell.Tab.0.center" timestamp="1606082134691">
+    <state width="1638" height="212" key="GridCell.Tab.0.bottom/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606151704667" />
+    <state width="1638" height="212" key="GridCell.Tab.0.center" timestamp="1606151704667">
       <screen x="0" y="30" width="1680" height="1050" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.center/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970477" />
     <state width="2517" height="397" key="GridCell.Tab.0.center/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682181" />
-    <state width="1638" height="212" key="GridCell.Tab.0.center/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606082134691" />
-    <state width="1638" height="212" key="GridCell.Tab.0.left" timestamp="1606082134691">
+    <state width="1638" height="212" key="GridCell.Tab.0.center/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606151704667" />
+    <state width="1638" height="212" key="GridCell.Tab.0.left" timestamp="1606151704667">
       <screen x="0" y="30" width="1680" height="1050" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.left/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970477" />
     <state width="2517" height="397" key="GridCell.Tab.0.left/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682181" />
-    <state width="1638" height="212" key="GridCell.Tab.0.left/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606082134691" />
-    <state width="1638" height="212" key="GridCell.Tab.0.right" timestamp="1606082134691">
+    <state width="1638" height="212" key="GridCell.Tab.0.left/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606151704667" />
+    <state width="1638" height="212" key="GridCell.Tab.0.right" timestamp="1606151704667">
       <screen x="0" y="30" width="1680" height="1050" />
     </state>
     <state width="1638" height="267" key="GridCell.Tab.0.right/0.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1605794970478" />
     <state width="2517" height="397" key="GridCell.Tab.0.right/0.0.2560.1410/2560.255.1920.1050@0.0.2560.1410" timestamp="1605804682182" />
-    <state width="1638" height="212" key="GridCell.Tab.0.right/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606082134691" />
-    <state x="3021" y="425" key="SettingsEditor" timestamp="1605618515417">
-      <screen x="2560" y="255" width="1920" height="1050" />
+    <state width="1638" height="212" key="GridCell.Tab.0.right/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606151704667" />
+    <state x="403" y="200" key="SettingsEditor" timestamp="1606126532685">
+      <screen x="0" y="30" width="1680" height="1050" />
     </state>
     <state x="3021" y="425" key="SettingsEditor/0.0.2560.1410/2560.255.1920.1050@2560.255.1920.1050" timestamp="1605618515417" />
+    <state x="403" y="200" key="SettingsEditor/0.30.1680.1050/1680.0.1920.1080@0.30.1680.1050" timestamp="1606126532685" />
     <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1605618105508">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
