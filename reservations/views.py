@@ -44,10 +44,13 @@ class PomieszczenieView(viewsets.ModelViewSet):
 
 class RezerwacjaSaliView(viewsets.ModelViewSet):
     serializer_class = RezerwacjaSaliSerializer
-    queryset = RezerwacjaSali.objects.all()
+
     permission_classes = [
         permissions.AllowAny
     ]
+
+    def get_queryset(self):
+        return self.request.user.uzytkownik.rezerwacje_sal.all()
 
 
 class PracowniaSpecjalistycznaView(viewsets.ModelViewSet):
