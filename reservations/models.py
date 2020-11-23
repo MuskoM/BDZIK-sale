@@ -62,7 +62,7 @@ class Pomieszczenie(models.Model):
     rodzaj_pom = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'Pom: {self.id_pomieszczenia} Wydz: {self.id_wydzialu}'
+        return f' {self.id_pomieszczenia} : {self.rodzaj_pom} : {self.id_wydzialu}'
 
     class Meta:
         verbose_name_plural = "Pomieszczenia"

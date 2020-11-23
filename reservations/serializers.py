@@ -26,12 +26,6 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PomieszczenieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pomieszczenie
-        fields = '__all__'
-
-
 class RezerwacjaSaliSerializer(serializers.ModelSerializer):
     class Meta:
         model = RezerwacjaSali

@@ -23,10 +23,6 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ['id_uzytkowanika','nr_indeksu','nr_telefonu','id_kierunku']
 
 
-class PomieszczenieAdmin(admin.ModelAdmin):
-    list_display = ['id_pomieszczenia','id_wydzialu','opis','rodzaj_pom']
-
-
 class RezerwacjaSaliAdmin(admin.ModelAdmin):
     list_display = ['id_rezerwacji_sali','id_pomieszczenia','data_od','data_do','id_uzytkownika']
 
@@ -58,7 +54,6 @@ class RezerwacjaPokojuAdmin(admin.ModelAdmin):
 admin.site.register(Uzytkownik,UzytkownikAdmin)
 admin.site.register(Wydzial,WydzialAdmin)
 admin.site.register(Student,StudentAdmin)
-admin.site.register(Pomieszczenie,PomieszczenieAdmin)
 admin.site.register(RezerwacjaSali,RezerwacjaSaliAdmin)
 admin.site.register(PracowaniaSpecjalistyczna,PracowaniaSpecjalistycznaAdmin)
 admin.site.register(Sala,SalaAdmin)
