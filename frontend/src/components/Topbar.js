@@ -9,8 +9,8 @@ class Topbar extends Component {
                     <Navbar bg="light" expand="lg">
                         <Navbar.Brand><img src={"https://navoica.pl/static/images/org/Politechnika%20Bia%C5%82ostocka.png"} style={{width: "30%", height: "30%"}}/></Navbar.Brand>
                         <Nav className={"ml-auto"}>
-                            <Button variant={"link"} style={{float: "right"}}>Zarejestruj się</Button>
-                            <Button variant={"primary"} style={{float: "right"}}>Zaloguj się</Button>
+                            <Button variant={"link"} style={{float: "right"}} href={"#/register"}>Zarejestruj się</Button>
+                            <Button variant={"primary"} style={{float: "right"}} href={"#/login"}>Zaloguj się</Button>
                         </Nav>
                     </Navbar>
                 </div>
