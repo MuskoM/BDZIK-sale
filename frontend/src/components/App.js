@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Topbar from "./Topbar";
+import store from '../store';
 import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import MainPage from "./mainPage/MainPage";
 import NewReservationPage from './newReservationPage/NewReservationPage';
 import RegisterPage from "./registerPage/RegisterPage";
 import LoginPage from "./loginPage/LoginPage";
+import {Provider} from "react-redux";
 
 class App extends Component {
     render() {
         return (
-            <div className={"w-responsive mx-auto p-3 mt-2 container"}>
+            <Provider store={store}>
+                <div className={"w-responsive mx-auto p-3 mt-2 container"}>
                 <Topbar/>
                 <Router>
                     <div>
@@ -23,7 +26,8 @@ class App extends Component {
                         </Switch>
                     </div>
                 </Router>
-            </div>
+            </div></Provider>
+
         );
     }
 }

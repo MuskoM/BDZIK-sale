@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Form, Button} from "react-bootstrap";
 import PropTypes from 'prop-types';
-import {registerUser} from '../actions/auth'
-import {createMessage} from "../actions/messages";
+import {registerUser} from '../../actions/auth'
+import {createMessage} from "../../actions/messages";
 import {Redirect} from "react-router-dom";
+import { connect } from "react-redux";
 
 
 class RegisterPage extends Component {
