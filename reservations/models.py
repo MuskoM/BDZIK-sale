@@ -27,8 +27,9 @@ class Kierunek(models.Model):
 
 
 class Uzytkownik(models.Model):
-    konto = models.OneToOneField(User, on_delete=models.CASCADE)
     id_uzytkownika = models.AutoField(primary_key=True)
+    konto = models.OneToOneField(User, on_delete=models.CASCADE)
+
     imie = models.CharField(max_length=15)
     nazwisko = models.CharField(max_length=25)
     e_mail = models.CharField(max_length=25)
