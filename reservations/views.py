@@ -1,107 +1,43 @@
 from django.shortcuts import render
-
-from rest_framework import viewsets, permissions
-from .serializers import *
-from .models import Uzytkownik
+from django.views import View
 
 
-class UzytkownikView(viewsets.ModelViewSet):
-    serializer_class = UzytkownikSerializer
-    queryset = Uzytkownik.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        current_status = str(self.request.query_params.get("status")).lower()
-
-        if not bool(self.request.query_params):
-            return qs
-
-        return qs.filter(status=current_status)
+class MainSite(View):
+    def get(self, request):
+        return render(request, 'reservations/MainTemplate.html')
 
 
-class WydzialView(viewsets.ModelViewSet):
-    serializer_class = WydzialSerializer
-    queryset = Wydzial.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
+class FacultiesView(View):
+    def get(self, request, faculty_id):
+        return render(request, 'reservations/FacultiesTemplate.html')
 
 
-class KierunekView(viewsets.ModelViewSet):
-    serializer_class = KierunekSerializer
-    queryset = Kierunek.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        wydzial = str(self.request.query_params.get("wydzial")).lower()
-
-        if not bool(self.request.query_params):
-            return qs
-
-        return qs.filter(id_wydzialu=wydzial)
+class FacultyRoomView(View):
+    def get(self, request, faculty_id, room_id):
+        return render(request, "reservations/FacultyRoomTemplate.html")
 
 
-class StudentView(viewsets.ModelViewSet):
-    serializer_class = StudentSerializer
-    queryset = Student.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        kierunek = str(self.request.query_params.get("kierunek")).lower()
-
-        if not bool(self.request.query_params):
-            return qs
-
-        return qs.filter(id_kierunku=kierunek)
+class DormView(View):
+    def get(self, request, dorm_id):
+        return render(request, 'reservations/DormsTemplate.html')
 
 
-class RezerwacjaSaliView(viewsets.ModelViewSet):
-    serializer_class = RezerwacjaSaliSerializer
-
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-    def get_queryset(self):
-        print(self.request.user)
-        return self.request.user.uzytkownik.rezerwacje_sal.all()
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+class DormRoomView(View):
+    def get(self, request, dorm_id, room_id):
+        return render(request,"reservations/DormRoomTemplate.html")
 
 
-class NewViewSet(viewsets.GenericViewSet):
-    pass
+class UserView(View):
+    def get(self,request):
+        return render(request, 'reservations/UserTemplate.html')
 
 
-class PracowniaSpecjalistycznaView(viewsets.ModelViewSet):
-    serializer_class = PracowniaSpecjalistycznaSerializer
-    queryset = PracowaniaSpecjalistyczna.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
+class UserEditView(View):
+    def get(self,request):
+        return render(request, 'reservations/UserEditTemplate.html')
 
 
-class SalaView(viewsets.ModelViewSet):
-    serializer_class = SalaSerializer
-    queryset = Sala.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-
-
-class LaboratoriumView(viewsets.ModelViewSet):
-    serializer_class = LaboratoriumSerializer
-    queryset = Laboratorium.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
+class UserReservationsView(View):
+    def get(self,request, reservation_status):
+        return render(request,'reservations/UserReservationsTemplate.html',
+                      context={"status": reservation_status})
