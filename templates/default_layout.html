@@ -21,7 +21,7 @@
     </style>
     <style>
         html {
-            background: url('{% static "reservations/jason-leung-tmWNPhSPKUk-unsplash.jpg" %}') no-repeat center center fixed;
+            background-color: white;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -29,7 +29,7 @@
         }
 
         body {
-            background: url('{% static "reservations/jason-leung-tmWNPhSPKUk-unsplash.jpg" %}') no-repeat center center fixed;
+            background-color: white;
             background-size: auto;
             -family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
             font-size: 14px;
@@ -75,10 +75,10 @@
         crossorigin="anonymous"></script>
 
 
-<nav id="navbar" class="navbar navbar-expand-lg static-top shadow">
+<nav id="navbar" class="navbar navbar-expand-lg static-top shadow w-responsive mx-auto">
 
     <div id="navbar" class="container">
-        <a class="navbar-brand" href="#">{{ title|default:"PB rezerwacje" }}</a>
+        <a class="navbar-brand" href="#">{{ title|default:"System Rezerwacyjny PB" }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -97,7 +97,7 @@
                         <a class="nav-link" href="#">Akademiki</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profil</a>
+                        <a class="nav-link" href="user/">Profil</a>
                     </li>
                     </ul>
                     </div>
@@ -118,7 +118,7 @@
 
 <div class="container">
     <div class="card border-0 shadow my-5">
-        <div class="card-body p-5" style="display: flex; flex-direction: column">
+        <div class="card-body p-0" style="display: flex; flex-direction: column">
             {% block contents %}
                 <h1 class="font-weight-light">Fixed Full Page Background Image</h1>
                 <p class="lead">In this snippet, the background image is fixed to the body element. Content on the page

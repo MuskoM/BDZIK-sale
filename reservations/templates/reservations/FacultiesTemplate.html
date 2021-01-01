@@ -2,6 +2,15 @@
 
 {% block contents %}
 
-    <h1>Faculties</h1>
+    <h1>Rooms in faculty: {{ faculty_name }}</h1>
+
+    {% if classrooms.count == 0 %}
+        <h2>There are no classrooms in this faculty. Sorry mate.</h2>
+    {% endif %}
+
+    {% for room in classrooms %}
+        <h2>{{ room.id_pomieszczenia }}</h2>
+        <h3>{{ room.opis }}</h3>
+    {% endfor %}
 
 {% endblock contents %}
