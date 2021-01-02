@@ -11,6 +11,8 @@
                     aria-expanded="false">Wydziały
             </button>
             <div class="dropdown-menu" aria-labelledby="wydzialy">
+                <a class="dropdown-item" href="#">Wszystkie wydziały</a>
+                <div class="dropdown-divider"></div>
                 {% for faculty in faculties %}
                     <a class="dropdown-item" href="faculty={{ faculty.id_wydzialu }}">{{ faculty }}</a>
                 {% endfor %}

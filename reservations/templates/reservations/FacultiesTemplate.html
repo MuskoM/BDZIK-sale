@@ -6,11 +6,20 @@
 
     {% if classrooms.count == 0 %}
         <h2>There are no classrooms in this faculty. Sorry mate.</h2>
+    {% else %}
+        <div class="card-columns">
+            {% for room in classrooms %}
+                <div class="card">
+                    <h4 class="card-title">{{ room.opis }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Typ pomieszczenia: {{ room.rodzaj_pom }}</h6>
+                    <p class="card-text">Wydział: {{ room.id_wydzialu.nazwa_wydzialu }}</p>
+                    <a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>
+                </div>
+            {% endfor %}
+        </div>
+
     {% endif %}
 
-    {% for room in classrooms %}
-        <h2>{{ room.id_pomieszczenia }}</h2>
-        <h3>{{ room.opis }}</h3>
-    {% endfor %}
+
 
 {% endblock contents %}

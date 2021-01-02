@@ -78,7 +78,7 @@
 <nav id="navbar" class="navbar navbar-expand-lg static-top shadow w-responsive mx-auto dropdown">
 
     <div id="navbar" class="container">
-        <a class="navbar-brand" href="#">{{ title|default:"System Rezerwacyjny PB" }}</a>
+        <a class="navbar-brand" href="/reservations">{{ title|default:"System Rezerwacyjny PB" }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -102,7 +102,7 @@
                     {% if user.is_authenticated %}
                         <span style="margin-right: 4px; font-family: Helvetica,monospace; font-size: medium">Hej, {{ user.get_username }} </span>
                         <a href="#">
-                            <button type="button" class="btn btn-danger ">Logout</button>
+                            <button type="button" class="btn btn-danger ">Wyloguj się</button>
                         </a>
                     {% else %}
                         <div>
@@ -113,12 +113,12 @@
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="login">
                                     <form class="px-4 py-3">
                                         <div class="form-group">
-                                            <label for="exampleDropdownFormEmail1">Email address</label>
+                                            <label for="exampleDropdownFormEmail1">Adres email</label>
                                             <input type="email" class="form-control" id="exampleDropdownFormEmail1"
                                                    placeholder="email@example.com">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleDropdownFormPassword1">Password</label>
+                                            <label for="exampleDropdownFormPassword1">Hasł</label>
                                             <input type="password" class="form-control"
                                                    id="exampleDropdownFormPassword1"
                                                    placeholder="Password">
@@ -126,14 +126,13 @@
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" id="dropdownCheck">
                                             <label class="form-check-label" for="dropdownCheck">
-                                                Remember me
+                                                Zapamiętaj
                                             </label>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Sign in</button>
+                                        <button type="submit" class="btn btn-primary">Zaloguj się</button>
                                     </form>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">New around here? Sign up</a>
-                                    <a class="dropdown-item" href="#">Forgot password?</a>
+                                    <a class="dropdown-item" href="#">Zapomniałeś hasła?</a>
                                 </div>
                             </li>
                         </div>
@@ -147,7 +146,7 @@
 
 
 <div class="container">
-    <div class="card border-0 shadow my-5">
+    <div class="card border-0 shadow p-2 my-5">
         <div class="card-body p-0" style="display: flex; flex-direction: column">
             {% block contents %}
                 <h1 class="font-weight-light">Fixed Full Page Background Image</h1>
