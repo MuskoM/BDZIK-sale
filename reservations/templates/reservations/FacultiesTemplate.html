@@ -2,10 +2,12 @@
 
 {% block contents %}
 
-    <h1>Rooms in faculty: {{ faculty_name }}</h1>
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Wydział: <b>{{ faculty_name }}</b></h1>
+    </div>
 
     {% if classrooms.count == 0 %}
-        <h2>There are no classrooms in this faculty. Sorry mate.</h2>
+        <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale. Sory ziomuś.</h2>
     {% else %}
         <div class="card-columns">
             {% for room in classrooms %}

@@ -32,8 +32,24 @@ class FacultiesView(View):
 
 
 class FacultyRoomView(View):
+    room_types = {
+        "S": "Sala wykładowa",
+        "P": "Pracownia specjalistyczna",
+        "L": "Laburatorium",
+        "A": "ja nie wiem XD"
+    }
+
     def get(self, request, faculty_id, room_id):
-        return render(request, "reservations/FacultyRoomTemplate.html")
+        faculty_id = faculty_id
+        room_id = room_id
+        room = Pomieszczenie.objects.get(id_pomieszczenia=room_id)
+        room_type = self.room_types[room.rodzaj_pom]
+
+        context = {
+            "classroom": room,
+            "classroom_type": room_type
+        }
+        return render(request, "reservations/FacultyRoomTemplate.html", context)
 
 
 class DormView(View):
