@@ -5,6 +5,9 @@ from reservations.models import Wydzial, Akademik, Pomieszczenie
 
 
 class MainSite(View):
+
+
+
     def get(self, request):
         faculties = Wydzial.objects.all()
         dorms = Akademik.objects.all()

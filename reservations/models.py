@@ -149,7 +149,7 @@ class Pokoj(models.Model):
 
 class RezerwacjaPokoju(models.Model):
     id_rezerwacji_pokoju = models.AutoField(primary_key=True)
-    id_pokoju = models.ForeignKey(Pokoj,on_delete=models.CASCADE)
+    id_pokoju = models.ForeignKey(Pokoj, on_delete=models.CASCADE)
     data_od = models.DateTimeField()
     data_do = models.DateTimeField()
     id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
