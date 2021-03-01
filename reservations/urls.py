@@ -20,16 +20,16 @@ urlpatterns = [
 urlpatterns += [
 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('faculty/', views.FacultiesView.as_view(), name="FacultiesPage"),
+    path('faculty/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
 
-    path('faculty=<int:faculty_id>', views.FacultiesView.as_view(), name="FacultiesPage"),
-    path('faculty=<int:faculty_id>/classroom_type=<classroom_type>', views.FacultiesView.as_view(), name="FacultiesPage"),
-    path('faculty=<int:faculty_id>/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
+    path('reservations/',views.ReservationsView.as_view(), name="ReservationsView"),
+
 
     path('dorm=<int:dorm_id>', views.DormView.as_view(), name="DormsPage"),
     path('dorm=<int:dorm_id>/room=<int:room_id>', views.DormRoomView, name="DormRoomPage"),
 
     path('user/', views.UserView.as_view(),name="UserPage"),
     path('user/detail', views.UserEditView.as_view(),name="UserEditPage"),
-    path('user/reservations=<reservation_status>', views.UserReservationsView.as_view(),name="UserReservationsPage"),
 
 ]

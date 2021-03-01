@@ -1,0 +1,43 @@
+{% extends 'default_layout.html' %}
+
+{% block contents %}
+
+    <h1>Reservations</h1>
+
+    {% load crispy_forms_tags %}
+
+    <form method="get" class="form-inline" style="">
+        <div class="row">
+            <div class="col-md-6">
+                {{ reservations.form.data_od|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ reservations.form.data_do|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+           <div class="col-md-6">
+                {{ reservations.form.id_uzytkownika|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ reservations.form.id_pomieszczenia|as_crispy_field }}
+            </div>
+        </div>
+        <input type="submit" class="btn btn-info"/>
+    </form>
+
+
+    {% if reservations.qs.count == 0 %}
+        <h2>Nie znaleziono rezerwacji na ten moment.</h2>
+    {% else %}
+        <div class="card-columns">
+            {% for reservation in reservations.qs %}
+                <div class="card">
+                    <h4 class="card-title">{{ reservation }}</h4>
+                    <!--<a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>-->
+                </div>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+{% endblock contents %}

@@ -90,10 +90,10 @@
             <ul class="navbar-nav ml-auto">
                 {% block navbar %}
                     <li class="nav-item">
-                        <a class="nav-link" id="io_skrypt" href="#">Rezerwacje</a>
+                        <a class="nav-link" id="io_skrypt" href={% url 'ReservationsView' %}>Rezerwacje</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sale</a>
+                        <a class="nav-link" href={% url 'FacultiesPage' %}>Sale</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Akademiki</a>
