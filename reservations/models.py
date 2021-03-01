@@ -68,10 +68,17 @@ class Student(models.Model):
 
 
 class Pomieszczenie(models.Model):
+    type_of_classroom = (
+        ("S", "Sala"),
+        ("L", "Laboratorium"),
+        ("P", "Pracownia"),
+        ("A", "Aula wykladowa")
+    )
+
     id_pomieszczenia = models.AutoField(primary_key=True)
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
     opis = models.TextField()
-    rodzaj_pom = models.CharField(max_length=30)
+    rodzaj_pom = models.CharField(max_length=1, choices=type_of_classroom, default="S")
 
     def __str__(self):
         return f' {self.id_pomieszczenia} : {self.rodzaj_pom} : {self.id_wydzialu}'
@@ -92,6 +99,7 @@ class RezerwacjaSali(models.Model):
     data_do = models.DateTimeField()
     id_uzytkownika = models.ForeignKey(Uzytkownik, related_name="rezerwacje_sal", on_delete=models.CASCADE)
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
+    status = models.CharField(max_length=1, choices=status_labels, default="R")
 
     def save(self, *args, **kwargs):
         if self.data_od < datetime.now() or self.data_do < datetime.now():
@@ -171,12 +179,18 @@ class Pokoj(models.Model):
 
 
 class RezerwacjaPokoju(models.Model):
+    status_labels = (
+        ("Z", "Zaakceptowana"),
+        ("O", "Odrzucona"),
+        ("R", "W trakcie rozpatrywania")
+    )
     id_rezerwacji_pokoju = models.AutoField(primary_key=True)
     id_pokoju = models.ForeignKey(Pokoj, on_delete=models.CASCADE)
     data_od = models.DateTimeField()
     data_do = models.DateTimeField()
     id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
+    status = models.CharField(max_length=1, choices=status_labels, default="R")
 
     def save(self, *args, **kwargs):
         if self.data_od < datetime.now() or self.data_do < datetime.now():
