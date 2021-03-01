@@ -57,13 +57,20 @@ class Student(models.Model):
 
 
 class Pomieszczenie(models.Model):
+    classroom_types = (
+        ("S", "Sala"),
+        ("L", "Laboratorium"),
+        ("P", "Pracownia"),
+        ("A", "Aula wykladowa")
+    )
+
     id_pomieszczenia = models.AutoField(primary_key=True)
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
     opis = models.TextField()
-    rodzaj_pom = models.CharField(max_length=30)
+    rodzaj_pom = models.CharField(max_length=1, choices=classroom_types, default="S")
 
     def __str__(self):
-        return f' {self.id_pomieszczenia} : {self.rodzaj_pom} : {self.id_wydzialu}'
+        return f'{self.get_rodzaj_pom_display()} {self.id_pomieszczenia}'
 
     class Meta:
         verbose_name_plural = "Pomieszczenia"
@@ -89,6 +96,7 @@ class PracowaniaSpecjalistyczna(Pomieszczenie):
     ilosc_miejsc = models.IntegerField()
     czy_rzutnik = models.BooleanField()
     osprzet = models.TextField()
+
 
     def __str__(self):
         return f'{self.nr_pracowni}'

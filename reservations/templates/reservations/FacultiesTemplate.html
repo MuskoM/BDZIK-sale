@@ -1,20 +1,21 @@
 {% extends 'default_layout.html' %}
-
 {% block contents %}
 
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Wydział: <b>{{ faculty_name }}</b></h1>
-    </div>
+    {% load crispy_forms_tags %}
+
+    <form method="get" class="form">
+        {{ classrooms.form| crispy}}
+        <input type="submit" class="btn btn-info" />
+    </form>
 
     {% if classrooms.count == 0 %}
-        <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale. Sory ziomuś.</h2>
+        <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale.</h2>
     {% else %}
         <div class="card-columns">
-            {% for room in classrooms %}
+            {% for room in classrooms.qs %}
                 <div class="card">
-                    <h4 class="card-title">{{ room.opis }}</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Typ pomieszczenia: {{ room.rodzaj_pom }}</h6>
-                    <p class="card-text">Wydział: {{ room.id_wydzialu.nazwa_wydzialu }}</p>
+                    <h4 class="card-title">{{ room }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Opis: {{ room.opis }}</h6>
                     <a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>
                 </div>
             {% endfor %}

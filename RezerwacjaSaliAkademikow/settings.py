@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'reservations',
     'knox',
-    'accounts'
+    'accounts',
+    'bootstrap4'
 ]
 
 REST_FRAMEWORK = {
@@ -160,3 +163,5 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://localhost:8080',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

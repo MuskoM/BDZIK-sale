@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views import View
+from django.core.paginator import Paginator
+from .filters import PomieszczenieFilter
 
 from reservations.models import Wydzial, Akademik, Pomieszczenie
 
@@ -23,13 +25,12 @@ class MainSite(View):
 class FacultiesView(View):
     def get(self, request, faculty_id):
         faculty_id = faculty_id
-        faculty = Wydzial.objects.get(id_wydzialu=faculty_id)
-        classrooms = Pomieszczenie.objects.filter(id_wydzialu=faculty_id)
+        classrooms_by_faculty = Pomieszczenie.objects.all()
+        classrooms = PomieszczenieFilter(request.GET,queryset=classrooms_by_faculty)
 
         context = {
-            "faculty_name": faculty,
             "faculty_id": faculty_id,
-            "classrooms": classrooms
+            "classrooms": classrooms,
         }
         return render(request, 'reservations/FacultiesTemplate.html', context)
 
@@ -39,7 +40,7 @@ class FacultyRoomView(View):
         "S": "Sala wykładowa",
         "P": "Pracownia specjalistyczna",
         "L": "Laburatorium",
-        "A": "ja nie wiem XD"
+        "A": "Aula Wykładowa"
     }
 
     def get(self, request, faculty_id, room_id):

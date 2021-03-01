@@ -22,6 +22,7 @@ urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 
     path('faculty=<int:faculty_id>', views.FacultiesView.as_view(), name="FacultiesPage"),
+    path('faculty=<int:faculty_id>/classroom_type=<classroom_type>', views.FacultiesView.as_view(), name="FacultiesPage"),
     path('faculty=<int:faculty_id>/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
 
     path('dorm=<int:dorm_id>', views.DormView.as_view(), name="DormsPage"),
