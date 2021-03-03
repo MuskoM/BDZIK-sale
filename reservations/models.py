@@ -54,11 +54,11 @@ class Student(models.Model):
     id_uzytkowanika = models.OneToOneField(Uzytkownik, on_delete=models.CASCADE)
     id_kierunku = models.ForeignKey(Kierunek, on_delete=models.CASCADE)
 
-    # nie jestem pewien czy to jest dobrze bo krzyczy że ja chce inta a nr_telefonu to integerfield
-    # niby nie jest na czerwono czyli chyba powinno to zadziałać ale nie mam pewności
+
     def save(self, *args, **kwargs):
-        if 100000000 > self.nr_telefonu > 999999999:
+        if 100000000 < self.nr_telefonu or self.nr_telefonu < 999999999:
             raise ValidationError("Nie ma takiego numeru telefonu! Podaj prawdziwy numer.")
+        super(Student, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.nr_indeksu}'
