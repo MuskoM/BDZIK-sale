@@ -232,3 +232,21 @@ class RezerwacjaPokoju(models.Model):
     class Meta:
         verbose_name_plural = "Rezerwacje Pokoi"
 
+
+class Zajecie(models.Model):
+    rodzaj_zajecia = (
+        ("R", "Obowiązkowy"),
+        ("O", "Obieralny")
+    )
+    id_zajecia = models.AutoField(primary_key=True)
+    nazwa_zajecia = models.CharField(max_length=50)
+    kod_zajecia = models.CharField(max_length=10)
+    punkty_ECTS = models.IntegerField()
+    jednostka_zajecia = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
+    rodzaj = models.CharField(max_length=1, choices=rodzaj_zajecia, default="R")
+
+    def __str__(self):
+        return f'Zajęcie: {self.nazwa_zajecia} Wydział {self.jednostka_zajecia}'
+
+    class Meta:
+        verbose_name_plural = "Zajęcia"
