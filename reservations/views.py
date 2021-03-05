@@ -41,8 +41,8 @@ class FacultyRoomView(View):
         "A": "Aula Wykładowa"
     }
 
-    def get(self, request, faculty_id, room_id):
-        faculty_id = faculty_id
+    def get(self, request, room_id):
+
         room_id = room_id
         room = Pomieszczenie.objects.get(id_pomieszczenia=room_id)
         room_type = self.room_types[room.rodzaj_pom]

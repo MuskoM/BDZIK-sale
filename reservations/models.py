@@ -1,7 +1,31 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
+from django.db.models import Q,F
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+
+
+def check_do_reservations_collide(begin_date,end_date,room_id):
+    if begin_date > end_date:
+        condition = (
+                Q(data_od__gte=F('data_do')) |
+                Q(data_od__lte=end_date) |
+                Q(data_do__gte=begin_date)
+        )
+    else:
+        condition = (
+                Q(data_od__gte=F('data_do'), data_od__lte=end_date) |
+                Q(data_od__gte=F('data_do'), data_do__gte=begin_date) |
+                Q(data_od__lte=end_date, data_do__gte=begin_date)
+        )
+
+    colliding = RezerwacjaSali.objects.filter(condition)
+    if colliding:
+        return True
+    else:
+        return False
+
 
 
 class Wydzial(models.Model):
@@ -102,10 +126,12 @@ class RezerwacjaSali(models.Model):
     status = models.CharField(max_length=1, choices=status_labels, default="R")
 
     def save(self, *args, **kwargs):
-        if self.data_od < datetime.now() or self.data_do < datetime.now():
+        if self.data_od < timezone.now() or self.data_do < timezone.now():
             raise ValidationError("Nie można użyć daty z przeszłości!")
         if self.data_od > self.data_do:
             raise ValidationError("Data początku rezerwacji poźniejsza od daty końca rezerwacji!")
+        if check_do_reservations_collide(self.data_od,self.data_do,self.id_pomieszczenia):
+            raise ValidationError("Rezerwacja koliduje z innymi")
         super(RezerwacjaSali, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -205,3 +231,4 @@ class RezerwacjaPokoju(models.Model):
 
     class Meta:
         verbose_name_plural = "Rezerwacje Pokoi"
+

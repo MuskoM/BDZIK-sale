@@ -34,6 +34,8 @@
             {% for reservation in reservations.qs %}
                 <div class="card">
                     <h4 class="card-title">{{ reservation }}</h4>
+                    <h4 class="card-title">{{ reservation.data_od }}</h4>
+                    <h4 class="card-title">{{ reservation.data_do }}</h4>
                     <!--<a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>-->
                 </div>
             {% endfor %}
