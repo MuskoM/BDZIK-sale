@@ -103,38 +103,22 @@
                     </li>
                     {% if user.is_authenticated %}
                         <span style="margin-right: 4px; font-family: Helvetica,monospace; font-size: medium">Hej, {{ user.get_username }} </span>
-                        <a href="#">
-                            <button type="button" class="btn btn-danger ">Wyloguj się</button>
+                        <a href="{% url 'logout' %}?next={{ request.path }}">
+                            <button type="button" class="btn btn-danger">Wyloguj się</button>
                         </a>
                     {% else %}
+                        {% csrf_token %}
                         <div>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="login" aria-haspopup="true"
                                    data-toggle="dropdown"
                                    aria-expanded="false">Zaloguj się</a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="login">
-                                    <form class="px-4 py-3">
-                                        <div class="form-group">
-                                            <label for="exampleDropdownFormEmail1">Adres email</label>
-                                            <input type="email" class="form-control" id="exampleDropdownFormEmail1"
-                                                   placeholder="email@example.com">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleDropdownFormPassword1">Hasło</label>
-                                            <input type="password" class="form-control"
-                                                   id="exampleDropdownFormPassword1"
-                                                   placeholder="Password">
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                            <label class="form-check-label" for="dropdownCheck">
-                                                Zapamiętaj
-                                            </label>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Zaloguj się</button>
-                                    </form>
+                                    <button type="submit" class="btn-lg btn-primary">
+                                        <a href="{% url 'login' %}?next={{ request.path }}" style="padding-left: inherit; padding-right: inherit;">Login</a>
+                                    </button>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Zapomniałeś hasła?</a>
+                                    <a class="dropdown-item" href="{% url 'password_reset' %}">Zapomniałeś hasła?</a>
                                 </div>
                             </li>
                         </div>

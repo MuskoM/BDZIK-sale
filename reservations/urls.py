@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path, include
-
+from django.contrib.auth.decorators import login_required, permission_required
 
 urlpatterns = [
 
@@ -10,7 +10,7 @@ urlpatterns = [
 
 urlpatterns += [
 
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('registration/', include('django.contrib.auth.urls')),
     path('faculty/', views.FacultiesView.as_view(), name="FacultiesPage"),
     path('faculty/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
 
