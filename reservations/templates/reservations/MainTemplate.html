@@ -1,4 +1,9 @@
 {% extends 'default_layout.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/" %}
+{% endblock %}
 
 {% block contents %}
 

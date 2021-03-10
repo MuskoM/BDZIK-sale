@@ -1,10 +1,16 @@
 {% extends 'default_layout.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/reservations/" %}
+    {% breadcrumb "Wydziały" "/reservations/faculty/" %}
+{% endblock %}
+
 {% block contents %}
 
     {% load crispy_forms_tags %}
 
     <form method="get" class="form">
-        {{ classrooms.form| crispy}}
+        {{ classrooms.form| crispy }}
         <input type="submit" class="btn btn-info" />
     </form>
 
