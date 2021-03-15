@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views import View
 from .filters import PomieszczenieFilter,RezerwacjaSaliFilter
+from django.contrib.auth import get_user
 
-from reservations.models import Wydzial, Akademik, Pomieszczenie,RezerwacjaSali
+from reservations.models import Wydzial, Akademik, Pomieszczenie,RezerwacjaSali,Uzytkownik
 
 
 class MainSite(View):
@@ -66,7 +67,15 @@ class DormRoomView(View):
 
 class UserView(View):
     def get(self, request):
-        return render(request, 'reservations/UserTemplate.html')
+        current_user = get_user(request)
+        user = Uzytkownik.objects.get(pk=current_user.pk)
+        made_reservations = RezerwacjaSali.objects.filter(id_uzytkownika=current_user.pk)
+        context = {
+            "username": user,
+            "made_reservations": made_reservations
+        }
+
+        return render(request, 'reservations/UserTemplate.html',context)
 
 
 class UserEditView(View):

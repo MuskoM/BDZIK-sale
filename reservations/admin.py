@@ -24,7 +24,7 @@ class StudentAdmin(admin.ModelAdmin):
 
 
 class RezerwacjaSaliAdmin(admin.ModelAdmin):
-    list_display = ['id_rezerwacji_sali','id_pomieszczenia','data_od','data_do','id_uzytkownika']
+    list_display = ['id_rezerwacji_sali','id_pomieszczenia','data_od','data_do','id_uzytkownika','status']
 
 
 class PracowaniaSpecjalistycznaAdmin(admin.ModelAdmin):

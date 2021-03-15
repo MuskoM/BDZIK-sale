@@ -4,23 +4,56 @@
 
     {% if user.is_authenticated %}
         <div class="jumbotron text-center">
-            <h1 class="display-4">Twój profil</h1>
+            <h1 class="display-4">Cześć,{{ username.imie }} </h1>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col w-75">
-                    <b>Imię i nazwisko:</b>
-                    <b>Adres email:</b>
-                </div>
                 <div class="col w-25">
-                    tu kiedyś będzie lista tych ostatnich rezerwacji
+                    <div class="card border-primary mb-3" style="max-width: 20rem;">
+                        <h4 class="card-header">Dane szczegółowe</h4>
+                        <div class="card-body">
+                            <p class="card-title">{{ username.imie }} {{ username.nazwisko }}</p>
+                            <p class="card-text">
+                                E-mail: {{ username.e_mail }}<br>
+                                Wydział: {{username.id_wydzialu}}<br>
+                                Status: {{ username.status }}<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col w-75">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <td>Pomieszczenie</td>
+                            <td>Data od</td>
+                            <td>Data do</td>
+                            <td>Status</td>
+                        </tr>
+                        </thead>
+                        {% for reservation in made_reservations %}
+                            <tr class="table table-hover table-striped">
+                                <td>{{ reservation.id_pomieszczenia }}</td>
+                                <td>{{ reservation.data_od }}</td>
+                                <td>{{ reservation.data_do }}</td>
+                                {% if reservation.status == 'Z' %}
+                                    <td><span class="badge badge-pill badge-success">Zaakceptowano</span></td>
+                                {% elif reservation.status == 'O' %}
+                                    <td><span class="badge badge-pill badge-danger">Odrzucono</span></td>
+                                {% else %}
+                                    <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>
     {% else %}
         <div class="jumbotron text-center">
             <h1 class="display-4">Jesteś niezalogowany.</h1>
-            <h3 class="text-muted">Kliknij na przycisk "Zaloguj się" i wpisz swoje dane, aby się zalogować do systemu.</h3>
+            <h3 class="text-muted">Kliknij na przycisk "Zaloguj się" i wpisz swoje dane, aby się zalogować do
+                systemu.</h3>
         </div>
     {% endif %}
 

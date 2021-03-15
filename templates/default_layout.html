@@ -99,7 +99,7 @@
                         <a class="nav-link" href="#">Akademiki</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/">Profil</a>
+                        <a class="nav-link" href={% url 'UserPage' %}>Profil</a>
                     </li>
                     {% if user.is_authenticated %}
                         <span style="margin-right: 4px; font-family: Helvetica,monospace; font-size: medium">Hej, {{ user.get_username }} </span>
