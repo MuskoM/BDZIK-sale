@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'reservations',
     'knox',
     'accounts',
-    'bootstrap4'
+    'bootstrap4',
+    'django_bootstrap_breadcrumbs'
 ]
 
 REST_FRAMEWORK = {

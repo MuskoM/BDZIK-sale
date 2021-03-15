@@ -1,5 +1,10 @@
 {% extends 'default_layout.html' %}
-
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/reservations/" %}
+    {% breadcrumb "Wydziały" "/reservations/faculty/" %}
+    {% breadcrumb classroom.opis "/reservations/faculty/faculty={{ classroom.id_wydzialu }}/room={{ classroom.id }}" %}
+{% endblock %}
 {% block contents %}
     <div class="jumbotron text-center">
         <h1 class="display-4">{{ classroom_type }} <b>{{ classroom.opis }}</b></h1>

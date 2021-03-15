@@ -1,3 +1,6 @@
+{% load django_bootstrap_breadcrumbs %}
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -134,6 +137,12 @@
 <div class="container">
     <div class="card border-0 shadow p-2 my-5">
         <div class="card-body p-0" style="display: flex; flex-direction: column">
+            {% block breadcrumbs %}
+                {% breadcrumb "test breadcrumb, it shouldn't be here..." "/" %}
+            {% endblock %}
+
+            {% render_breadcrumbs %}
+
             {% block contents %}
                 <h1 class="font-weight-light">Fixed Full Page Background Image</h1>
                 <p class="lead">In this snippet, the background image is fixed to the body element. Content on the page
