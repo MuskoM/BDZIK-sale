@@ -15,16 +15,6 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
 
     <style>
-        .task-list-item {
-            list-style-type: none;
-        }
-
-        .task-list-item-checkbox {
-            margin-left: -20px;
-            vertical-align: middle;
-        }
-    </style>
-    <style>
         html {
             background-color: white;
             -webkit-background-size: cover;
@@ -105,26 +95,16 @@
                         <a class="nav-link" href={% url 'UserPage' %}>Profil</a>
                     </li>
                     {% if user.is_authenticated %}
-                        <span style="margin-right: 4px; font-family: Helvetica,monospace; font-size: medium">Hej, {{ user.get_username }} </span>
-                        <a href="{% url 'logout' %}">
-                            <button type="button" class="btn btn-danger">Wyloguj się</button>
-                        </a>
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}">
+                                <button type="button" class="btn btn-danger">Wyloguj się</button>
+                            </a>
+                            <span style="margin-left: 1rem">Hej, {{ request.user.uzytkownik.imie }}</span>
+                        </li>
                     {% else %}
-                        {% csrf_token %}
-                        <div>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="login" aria-haspopup="true"
-                                   data-toggle="dropdown"
-                                   aria-expanded="false">Zaloguj się</a>
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="login">
-                                    <button type="submit" class="btn-lg btn-primary">
-                                        <a href="{% url 'login' %}" style="padding-left: inherit; padding-right: inherit;">Login</a>
-                                    </button>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'password_reset' %}">Zapomniałeś hasła?</a>
-                                </div>
-                            </li>
-                        </div>
+                        <a href="{% url 'login' %}">
+                            <button type="button" class="btn btn-info">Zaloguj się</button>
+                        </a>
                     {% endif %}
                     </ul>
                     </div>
@@ -135,13 +115,32 @@
 
 
 <div class="container">
-    <div class="card border-0 shadow p-2 my-5">
-        <div class="card-body p-0" style="display: flex; flex-direction: column">
-            {% block breadcrumbs %}
-                {% breadcrumb "test breadcrumb, it shouldn't be here..." "/" %}
-            {% endblock %}
+    <style>
+        #scrollable-res {
+            overflow: auto;
+            height: 30rem;
+        }
 
-            {% render_breadcrumbs %}
+        #scrollable-res::-webkit-scrollbar {
+            width: 0;
+        }
+
+        td > a:hover, td > a:visited, td > a:link, td > a:active {
+            text-decoration: none;
+        }
+
+    </style>
+
+    <div style="margin-top:2rem;margin-bottom: -1rem">
+        {% block breadcrumbs %}
+            {% breadcrumb "test breadcrumb, it shouldn't be here..." "/" %}
+        {% endblock %}
+
+        {% render_breadcrumbs %}
+    </div>
+
+    <div class="card border-0 shadow p-4 my-5">
+        <div class="card-body p-0" style="display: flex; flex-direction: column">
 
             {% block contents %}
                 <h1 class="font-weight-light">Fixed Full Page Background Image</h1>

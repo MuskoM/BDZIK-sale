@@ -1,9 +1,10 @@
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
+{% load crispy_forms_tags %}
 {% block breadcrumbs %}
-    {% breadcrumb "Strona główna" "/reservations/" %}
-    {% breadcrumb "Wydziały" "/reservations/faculty/" %}
-    {% breadcrumb classroom.opis "/reservations/faculty/faculty={{ classroom.id_wydzialu }}/room={{ classroom.id }}" %}
+    {% breadcrumb "Strona główna" "/" %}
+    {% breadcrumb "Wydziały" "/reservations/" %}
+    {% breadcrumb classroom.opis "/reservations/room={{ classroom.id }}" %}
 {% endblock %}
 {% block contents %}
     <div class="jumbotron text-center">
@@ -11,5 +12,37 @@
 {#        <h2 class="text-muted">{{ classroom_type }}</h2>#}
         <h3 class="text-muted">Wydział: {{ classroom.id_wydzialu.nazwa_wydzialu }}</h3>
     </div>
+
+    <form method="post" role="form">
+        {% csrf_token %}
+     <div class="form-group">
+            <label class="col-form-label col-form-label-sm" style="font-weight: bold; float: left;">
+                Wybierz kiedy chcesz zarezerwować pokój:
+            </label>
+
+            <div style="float: left; clear: both;">
+                <strong>OD:</strong>
+                <input class="form-control form-control-sm" type="datetime-local" style="width: 185px" name="data_od">
+            </div>
+            <div style="float: left; margin-left: 3px;">
+                <strong>DO:</strong>
+                <input class="form-control form-control-sm" type="datetime-local" style="width: 185px" name="data_do" >
+            </div>
+
+            <div type="submit" id="add-btn" style="clear: both;">
+                <br>
+                <button class="btn btn-primary">ZAREZERWUJ</button>
+            </div>
+        </div>
+    </form>
+
+     {% if messages %}
+        <div class="alert alert-dismissible alert-warning messages">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {% for message in messages %}
+                <strong> {{ message }}</strong>
+            {% endfor %}
+        </div>
+    {% endif %}
 
 {% endblock contents %}

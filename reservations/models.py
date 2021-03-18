@@ -126,14 +126,14 @@ class RezerwacjaSali(models.Model):
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
     status = models.CharField(max_length=1, choices=status_labels, default="R")
 
-    def save(self, *args, **kwargs):
-        if self.data_od < timezone.now() or self.data_do < timezone.now():
-            raise ValidationError("Nie można użyć daty z przeszłości!")
-        if self.data_od > self.data_do:
-            raise ValidationError("Data początku rezerwacji poźniejsza od daty końca rezerwacji!")
-        if check_do_reservations_collide(self.data_od,self.data_do,self.id_pomieszczenia):
-            raise ValidationError("Rezerwacja koliduje z innymi")
-        super(RezerwacjaSali, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.data_od < timezone.now() or self.data_do < timezone.now():
+    #         raise ValidationError("Nie można użyć daty z przeszłości!")
+    #     if self.data_od > self.data_do:
+    #         raise ValidationError("Data początku rezerwacji poźniejsza od daty końca rezerwacji!")
+    #     if check_do_reservations_collide(self.data_od,self.data_do,self.id_pomieszczenia):
+    #         raise ValidationError("Rezerwacja koliduje z innymi")
+    #     super(RezerwacjaSali, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.id_rezerwacji_sali}'

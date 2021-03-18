@@ -1,0 +1,61 @@
+{% extends 'default_layout.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/" %}
+    {% breadcrumb "Profil" "/user/reservations_manager" %}
+{% endblock breadcrumbs %}
+
+{% block contents %}
+    <div id="scrollable-res">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <td>Pomieszczenie</td>
+                <td>Data od</td>
+                <td>Data do</td>
+                <td>Użytkownik</td>
+                <td>Status</td>
+                <td></td>
+            </tr>
+            </thead>
+            {% for reservation in reservations %}
+                <tr class="table table-hover table-striped">
+                    <td>
+                        <a href="{% url 'FacultyRoomPage' room_id=reservation.id_pomieszczenia.id_pomieszczenia %}">
+                            {{ reservation.id_pomieszczenia }}
+                        </a>
+                    </td>
+                    <td>{{ reservation.data_od }}</td>
+                    <td>{{ reservation.data_do }}</td>
+                    <td>{{ reservation.id_uzytkownika }}</td>
+                    {% if reservation.status == 'Z' %}
+                        <td><span class="badge badge-pill badge-success">Zaakceptowano</span></td>
+                    {% elif reservation.status == 'O' %}
+                        <td><span class="badge badge-pill badge-danger">Odrzucono</span></td>
+                    {% else %}
+                        <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
+                    {% endif %}
+                    <td>
+                        <form action="{% url 'ReservationsManager_POST' reservation%}" method="post" role="form">
+                            {% csrf_token %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Opcje
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button class="dropdown-item" name="status" value="Z" type="submit">Zatwierdź</button>
+                                    <button class="dropdown-item" name="status" value="O" type="submit">Odrzuć</button>
+                                    <a class="dropdown-item" href="#">Dodaj komentarz</a>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+{% endblock contents %}

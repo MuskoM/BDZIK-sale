@@ -1,14 +1,16 @@
-from django.shortcuts import render
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.db.models import Q, F
+from django.shortcuts import render, redirect
 from django.views import View
-from .filters import PomieszczenieFilter,RezerwacjaSaliFilter
+from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
+from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm
 from django.contrib.auth import get_user
+from django.contrib import messages
 
-from reservations.models import Wydzial, Akademik, Pomieszczenie,RezerwacjaSali,Uzytkownik
+from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik
 
 
 class MainSite(View):
-
-
 
     def get(self, request):
         faculties = Wydzial.objects.all()
@@ -24,14 +26,35 @@ class MainSite(View):
 
 class FacultiesView(View):
     def get(self, request):
-
         classrooms_by_faculty = Pomieszczenie.objects.all()
-        classrooms = PomieszczenieFilter(request.GET,queryset=classrooms_by_faculty)
+        classrooms = PomieszczenieFilter(request.GET, queryset=classrooms_by_faculty)
 
         context = {
             "classrooms": classrooms,
         }
         return render(request, 'reservations/FacultiesTemplate.html', context)
+
+
+def check_do_reservations_collide(begin_date, end_date, room_id):
+    if begin_date > end_date:
+        condition = (
+                Q(data_od__gte=F('data_do')) |
+                Q(data_od__lte=end_date) |
+                Q(data_do__gte=begin_date)
+        )
+    else:
+        condition = (
+                Q(data_od__gte=F('data_do'), data_od__lte=end_date) |
+                Q(data_od__gte=F('data_do'), data_do__gte=begin_date) |
+                Q(data_od__lte=end_date, data_do__gte=begin_date)
+        )
+
+    colliding = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id).filter(condition)
+
+    if colliding:
+        return True
+    else:
+        return False
 
 
 class FacultyRoomView(View):
@@ -54,6 +77,25 @@ class FacultyRoomView(View):
         }
         return render(request, "reservations/FacultyRoomTemplate.html", context)
 
+    def post(self, request, room_id):
+        new_reservation = NewClassroomReservationForm(request.POST)
+        if new_reservation.is_valid():
+            new_reservation_form = new_reservation.save(commit=False)
+            new_reservation_form.id_pomieszczenia = Pomieszczenie.objects.get(pk=room_id)
+            new_reservation_form.id_uzytkownika = request.user.uzytkownik
+            new_reservation_form.data_od = new_reservation.cleaned_data['data_od']
+            new_reservation_form.data_do = new_reservation.cleaned_data['data_do']
+            try:
+                if check_do_reservations_collide(new_reservation_form.data_od,
+                                                 new_reservation_form.data_do, new_reservation_form.id_pomieszczenia):
+                    messages.error(request, "Rezerwacje kolidują z innymi")
+                else:
+                    new_reservation_form.save()
+                    messages.success(request, "Pomyślnie dokonano rezerwacji")
+            except ValidationError:
+                messages.error(request, "Błąd w dokonywaniu rezerwacji")
+        return redirect('FacultyRoomPage', room_id)
+
 
 class DormView(View):
     def get(self, request, dorm_id):
@@ -68,14 +110,38 @@ class DormRoomView(View):
 class UserView(View):
     def get(self, request):
         current_user = get_user(request)
-        user = Uzytkownik.objects.get(pk=current_user.pk)
+
+        try:
+            user = Uzytkownik.objects.get(pk=current_user.pk)
+        except ObjectDoesNotExist:
+            return redirect('login')
+
         made_reservations = RezerwacjaSali.objects.order_by('-data_od').filter(id_uzytkownika=current_user.pk)
         context = {
             "username": user,
             "made_reservations": made_reservations
         }
 
-        return render(request, 'reservations/UserTemplate.html',context)
+        return render(request, 'reservations/UserTemplate.html', context)
+
+
+class ReservationManagerView(View):
+    def get(self, request):
+        reservations = RezerwacjaSali.objects.all()
+
+        context = {
+            "reservations": reservations
+        }
+        return render(request, 'reservations/ReservationsManagerTemplate.html', context)
+
+    def post(self, request, reservation_id):
+        new_status = ChangeClassroomReservationStatusForm(request.POST)
+        reservation = RezerwacjaSali.objects.get(pk=reservation_id)
+        if new_status.is_valid():
+            reservation.status = new_status.cleaned_data['status']
+            reservation.save()
+
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 class UserEditView(View):
@@ -89,7 +155,7 @@ class ReservationsView(View):
         reservations_filter = RezerwacjaSaliFilter(request.GET, queryset=reservations)
 
         context = {
-            "reservations":reservations_filter
+            "reservations": reservations_filter
         }
 
         return render(request, 'reservations/ReservationsTemplate.html',

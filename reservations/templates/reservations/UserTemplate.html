@@ -1,8 +1,8 @@
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
-    {% breadcrumb "Strona główna" "/reservations/" %}
-    {% breadcrumb "Profil" "/reservations/user/" %}
+    {% breadcrumb "Strona główna" "/" %}
+    {% breadcrumb "Profil" "/user/" %}
 {% endblock %}
 {% block contents %}
 
@@ -28,7 +28,7 @@
                         <div class="card border-danger mb-3" style="max-width: 20rem;">
                             <h4 class="card-header">Admin Panel</h4>
                             <div class="card-body">
-                                <button class="btn btn-info" style="margin-bottom: 1rem">Classroom Reservations</button>
+                                <a href=" {% url 'ReservationsManager' %}" class="btn btn-info" style="margin-bottom: 1rem">Classroom Reservations</a>
                                 <button class="btn btn-warning">Class planning</button>
                                 </p>
                             </div>
@@ -38,7 +38,7 @@
                 <style>
                     #scrollable-res {
                         overflow: auto;
-                        height: 32rem;
+                        height: 30rem;
                     }
 
                     #scrollable-res::-webkit-scrollbar {
