@@ -1,5 +1,5 @@
 from . import views
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.auth.decorators import login_required, permission_required
 
 urlpatterns = [
@@ -11,8 +11,9 @@ urlpatterns = [
 urlpatterns += [
 
     path('registration/', include('django.contrib.auth.urls')),
-    path('faculty/', views.FacultiesView.as_view(), name="FacultiesPage"),
-    path('faculty/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
+    path('classrooms/', views.FacultiesView.as_view(), name="FacultiesPage"),
+    path('classrooms/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
+
 
     path('reservations/',views.ReservationsView.as_view(), name="ReservationsView"),
 

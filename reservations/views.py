@@ -69,7 +69,7 @@ class UserView(View):
     def get(self, request):
         current_user = get_user(request)
         user = Uzytkownik.objects.get(pk=current_user.pk)
-        made_reservations = RezerwacjaSali.objects.filter(id_uzytkownika=current_user.pk)
+        made_reservations = RezerwacjaSali.objects.order_by('-data_od').filter(id_uzytkownika=current_user.pk)
         context = {
             "username": user,
             "made_reservations": made_reservations

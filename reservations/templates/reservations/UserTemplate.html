@@ -19,13 +19,38 @@
                             <p class="card-title">{{ username.imie }} {{ username.nazwisko }}</p>
                             <p class="card-text">
                                 E-mail: {{ username.e_mail }}<br>
-                                Wydział: {{username.id_wydzialu}}<br>
+                                Wydział: {{ username.id_wydzialu }}<br>
                                 Status: {{ username.status }}<br>
                             </p>
                         </div>
                     </div>
+                    {% if user.is_staff %}
+                        <div class="card border-danger mb-3" style="max-width: 20rem;">
+                            <h4 class="card-header">Admin Panel</h4>
+                            <div class="card-body">
+                                <button class="btn btn-info" style="margin-bottom: 1rem">Classroom Reservations</button>
+                                <button class="btn btn-warning">Class planning</button>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="col w-75">
+                <style>
+                    #scrollable-res {
+                        overflow: auto;
+                        height: 32rem;
+                    }
+
+                    #scrollable-res::-webkit-scrollbar {
+                        width: 0;
+                    }
+
+                    td>a:hover, td>a:visited, td>a:link, td>a:active {
+                        text-decoration: none;
+                    }
+
+                </style>
+                <div id="scrollable-res" class="col w-75">
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
@@ -37,7 +62,11 @@
                         </thead>
                         {% for reservation in made_reservations %}
                             <tr class="table table-hover table-striped">
-                                <td>{{ reservation.id_pomieszczenia }}</td>
+                                <td>
+                                    <a href="{% url 'FacultyRoomPage' room_id=reservation.id_pomieszczenia.id_pomieszczenia %}">
+                                        {{ reservation.id_pomieszczenia }}
+                                    </a>
+                                </td>
                                 <td>{{ reservation.data_od }}</td>
                                 <td>{{ reservation.data_do }}</td>
                                 {% if reservation.status == 'Z' %}

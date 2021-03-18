@@ -20,7 +20,8 @@ def check_do_reservations_collide(begin_date,end_date,room_id):
                 Q(data_od__lte=end_date, data_do__gte=begin_date)
         )
 
-    colliding = RezerwacjaSali.objects.filter(condition)
+    colliding = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id).filter(condition)
+
     if colliding:
         return True
     else:

@@ -4,6 +4,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('reservations/', include('reservations.urls')),
-    path('reservations/', include('accounts.urls'))
+    path('', include('reservations.urls')),
+    path('', include('accounts.urls'))
 ]

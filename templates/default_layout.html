@@ -106,7 +106,7 @@
                     </li>
                     {% if user.is_authenticated %}
                         <span style="margin-right: 4px; font-family: Helvetica,monospace; font-size: medium">Hej, {{ user.get_username }} </span>
-                        <a href="{% url 'logout' %}?next={{ request.path }}">
+                        <a href="{% url 'logout' %}">
                             <button type="button" class="btn btn-danger">Wyloguj się</button>
                         </a>
                     {% else %}
@@ -118,7 +118,7 @@
                                    aria-expanded="false">Zaloguj się</a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="login">
                                     <button type="submit" class="btn-lg btn-primary">
-                                        <a href="{% url 'login' %}?next={{ request.path }}" style="padding-left: inherit; padding-right: inherit;">Login</a>
+                                        <a href="{% url 'login' %}" style="padding-left: inherit; padding-right: inherit;">Login</a>
                                     </button>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{% url 'password_reset' %}">Zapomniałeś hasła?</a>

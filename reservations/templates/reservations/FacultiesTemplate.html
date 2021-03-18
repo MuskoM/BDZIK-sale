@@ -22,7 +22,7 @@
                 <div class="card">
                     <h4 class="card-title">{{ room }}</h4>
                     <h6 class="card-subtitle mb-2 text-muted">Opis: {{ room.opis }}</h6>
-                    <a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>
+                    <a href="room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>
                 </div>
             {% endfor %}
         </div>
