@@ -14,6 +14,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import django_heroku
 import dj_database_url
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
