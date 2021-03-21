@@ -1,3 +1,4 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
@@ -9,26 +10,31 @@
 
     {% load crispy_forms_tags %}
 
-    <form method="get" class="form">
-        {{ classrooms.form| crispy }}
-        <input type="submit" class="btn btn-info" />
-    </form>
+    <div class="row" >
+        <form method="get" class="col-sm-3">
+            {{ classrooms.form|crispy}}
+            <input type="submit" class="btn btn-info" />
+        </form>
+    </div>
 
     {% if classrooms.count == 0 %}
         <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale.</h2>
     {% else %}
-        <div class="card-columns">
-            {% for room in classrooms.qs %}
-                <div class="card">
-                    <h4 class="card-title">{{ room }}</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">Opis: {{ room.opis }}</h6>
-                    <a href="room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>
+
+    <div class="row margin10px">
+        {% for room in classrooms.qs %}
+        <div class="col-sm-4 margintop">
+            <a href="room={{ room.id_pomieszczenia }}" class="card-link">
+                <div class="card margintop">
+                    <h4 class="card-title margin10px">{{ room }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted margin10px" >Opis: {{ room.opis }}</h6>
                 </div>
-            {% endfor %}
+            </a>
+
         </div>
+        {% endfor %}
+    </div>
+
 
     {% endif %}
-
-
-
 {% endblock contents %}
