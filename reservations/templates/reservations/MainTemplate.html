@@ -11,26 +11,15 @@
         <h1 class="display-4">System rezerwacyjny Politechniki Białostockiej</h1>
         <p>Wypróbuj nowy system rezerwacji pomieszczeń na największej uczelni technicznej we wschodniej Polsce!</p>
         <div>
-            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" id="wydzialy" data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">Wydziały
-            </button>
-            <div class="dropdown-menu" aria-labelledby="wydzialy">
-                <a class="dropdown-item" href="#">Wszystkie wydziały</a>
-                <div class="dropdown-divider"></div>
-                {% for faculty in faculties %}
-                    <a class="dropdown-item" href="faculty={{ faculty.id_wydzialu }}">{{ faculty }}</a>
-                {% endfor %}
-            </div>
-            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" id="akademce" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Akademiki
-            </button>
-            <div class="dropdown-menu" aria-labelledby="akademce">
-                {% for dormitory in dormitories %}
-                    <a class="dropdown-item"
-                       href="dorm={{ dormitory.id_akademika }}">{{ dormitory }}</a>
-                {% endfor %}
-            </div>
+            <a href="/reservations" class="btn btn-lg btn-primary" role="button">
+                Rezerwacje
+            </a>
+            <a href="/classrooms" class="btn btn-lg btn-primary" role="button">
+                Sale
+            </a>
+            <a href="/#" class="btn btn-lg btn-primary" role="button">
+                Akademiki
+            </a>
         </div>
     </div>
 

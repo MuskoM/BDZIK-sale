@@ -73,7 +73,7 @@
 <nav id="navbar" class="navbar navbar-expand-lg static-top shadow w-responsive mx-auto dropdown">
 
     <div id="navbar" class="container">
-        <a class="navbar-brand" href="/reservations">{{ title|default:"System Rezerwacyjny PB" }}</a>
+        <a class="navbar-brand" href="/">{{ title|default:"System Rezerwacyjny PB" }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -96,10 +96,10 @@
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <span style="margin-left: 1rem">Hej, {{ request.user.uzytkownik.imie }}</span>
                             <a href="{% url 'logout' %}">
                                 <button type="button" class="btn btn-danger">Wyloguj się</button>
                             </a>
-                            <span style="margin-left: 1rem">Hej, {{ request.user.uzytkownik.imie }}</span>
                         </li>
                     {% else %}
                         <a href="{% url 'login' %}">
