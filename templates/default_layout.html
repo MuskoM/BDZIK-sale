@@ -107,11 +107,10 @@
                         </a>
                     {% endif %}
                     </ul>
-                    </div>
-                    </div>
-
-                    </nav>
                 {% endblock %}
+        </div>
+    </div>
+</nav>
 
 
 <div class="container">
@@ -131,16 +130,13 @@
 
     </style>
 
-    <div style="margin-top:2rem;margin-bottom: -1rem">
-        {% block breadcrumbs %}
-            {% breadcrumb "test breadcrumb, it shouldn't be here..." "/" %}
-        {% endblock %}
-
-        {% render_breadcrumbs %}
-    </div>
-
     <div class="card border-0 shadow p-4 my-5">
         <div class="card-body p-0" style="display: flex; flex-direction: column">
+            {% block breadcrumbs %}
+                {% breadcrumb "test breadcrumb, it shouldn't be here..." "/" %}
+            {% endblock %}
+
+            {% render_breadcrumbs %}
 
             {% block contents %}
                 <h1 class="font-weight-light">Fixed Full Page Background Image</h1>
