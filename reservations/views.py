@@ -66,10 +66,16 @@ class FacultyRoomView(View):
     }
 
     def get(self, request, room_id):
-
         room_id = room_id
         room = Pomieszczenie.objects.get(id_pomieszczenia=room_id)
         room_type = self.room_types[room.rodzaj_pom]
+
+        all_reservations = RezerwacjaSali.objects.all()
+        # for i in all_reservations:
+        #
+        #
+        # reservations_arr = []
+        # if request.GET.get('')
 
         context = {
             "classroom": room,
