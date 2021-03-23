@@ -9,14 +9,33 @@
 {% block contents %}
     <div class="jumbotron text-center">
         <h1 class="display-4">{{ classroom_type }} <b>{{ classroom.opis }}</b></h1>
-{#        <h2 class="text-muted">{{ classroom_type }}</h2>#}
+        {#        <h2 class="text-muted">{{ classroom_type }}</h2>#}
         <h3 class="text-muted">Wydział: {{ classroom.id_wydzialu.nazwa_wydzialu }}</h3>
     </div>
 
     <form method="post" role="form">
         {% csrf_token %}
-     <div class="form-group">
-
+        <div class="form-group">
+        <div id="calendar">
+            <script>
+                $(document).ready(function () {
+                    $("#calendar").fullCalendar({
+                        defaultDate: '2137-04-20',
+                        editable: false,
+                        eventLimit: true,
+                        events: [
+                            {% for i in events %}
+                                {
+                                    title: "{{ i.status }}",
+                                    start: "{{ i.data_od|date:"Y-m-d" }}",
+                                    end: "{{ i.data_do|date:"Y-m-d" }}"
+                                },
+                            {% endfor %}
+                        ]
+                    }).render();
+                });
+            </script>
+        </div>
 
             <label class="col-form-label col-form-label-sm" style="font-weight: bold; float: left;">
                 Wybierz kiedy chcesz zarezerwować pokój:
@@ -28,7 +47,7 @@
             </div>
             <div style="float: left; margin-left: 3px;">
                 <strong>DO:</strong>
-                <input class="form-control form-control-sm" type="datetime-local" style="width: 185px" name="data_do" >
+                <input class="form-control form-control-sm" type="datetime-local" style="width: 185px" name="data_do">
             </div>
 
             <div type="submit" id="add-btn" style="clear: both;">
@@ -38,7 +57,7 @@
         </div>
     </form>
 
-     {% if messages %}
+    {% if messages %}
         <div class="alert alert-dismissible alert-warning messages">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             {% for message in messages %}
