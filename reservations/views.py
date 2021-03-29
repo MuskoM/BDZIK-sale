@@ -140,14 +140,27 @@ class ReservationManagerView(View):
     def post(self, request, reservation_id):
         new_status = ChangeClassroomReservationStatusForm(request.POST)
         reservation = RezerwacjaSali.objects.get(pk=reservation_id)
-        message_name = "Accepted the reservation"
-        message_email = reservation.id_uzytkownika.e_mail
-        context={
-            'user': reservation.id_uzytkownika,
-            'reservation_date': str(reservation.data_wykonania_rezerwacji)
-        }
-        html_message = render_to_string('mail_template.html',context)
-        plain_message = strip_tags(html_message)
+        print()
+        if request.POST['status'] == "Z":
+            message_name = "Zaakceptowano rezerwację nr. " + str(reservation.id_rezerwacji_sali)
+            message_email = reservation.id_uzytkownika.e_mail
+            context = {
+                'user': reservation.id_uzytkownika,
+                'reservation_date': str(reservation.data_wykonania_rezerwacji),
+                'status': 'ZAAKCEPTOWANA'
+            }
+            html_message = render_to_string('mail_template.html', context)
+            plain_message = strip_tags(html_message)
+        else:
+            message_name = "Odrzucono rezerwację nr. " + str(reservation.id_rezerwacji_sali)
+            message_email = reservation.id_uzytkownika.e_mail
+            context = {
+                'user': reservation.id_uzytkownika,
+                'reservation_date': str(reservation.data_wykonania_rezerwacji),
+                'status': "ODRZUCONA"
+            }
+            html_message = render_to_string('mail_template.html', context)
+            plain_message = strip_tags(html_message)
 
         if new_status.is_valid():
             reservation.status = new_status.cleaned_data['status']
@@ -163,7 +176,17 @@ class ReservationManagerView(View):
 
 class UserEditView(View):
     def get(self, request):
-        return render(request, 'reservations/UserEditTemplate.html')
+        return render(request, 'reservations/UserPermissionsPanelTemplate.html')
+
+
+class UserPermissionsPanelView(View):
+    def get(self,request):
+
+        return render(request, 'reservations/UserPermissionsPanelTemplate.html')
+
+    def post(self,request):
+
+        return render(request, 'reservations/UserPermissionsPanelTemplate.html')
 
 
 class ReservationsView(View):

@@ -24,6 +24,8 @@ urlpatterns += [
     path('user/', views.UserView.as_view(),name="UserPage"),
     path('user/detail', views.UserEditView.as_view(),name="UserEditPage"),
     path('user/reservationsManager',views.ReservationManagerView.as_view(), name="ReservationsManager"),
-    path('user/reservationsManager/reservation_id=<int:reservation_id>',views.ReservationManagerView.as_view(), name="ReservationsManager_POST")
+    path('user/reservationsManager/reservation_id=<int:reservation_id>',views.ReservationManagerView.as_view(),
+         name="ReservationsManager_POST"),
+    path('admin/permissionManager', views.UserPermissionsPanelView.as_view(), name="PermissionsManager")
 
 ]

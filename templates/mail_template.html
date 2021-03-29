@@ -52,8 +52,6 @@
             border-radius: 1rem;
             box-shadow: 10px 5px 5px black;
         }
-
-
     </style>
 
 </head>
@@ -65,7 +63,12 @@
     </div>
     <div class="inside-container">
         <h1>Witaj,{{ user }}!</h1>
-        <h3>Twoja rezerwacja z dnia {{ reservation_date }} została <span style="color: #4cae4c"><br>Zaakceptowana</span></h3>
+        <h3>Twoja rezerwacja z dnia {{ reservation_date }} została
+            {% if status == "ZAAKCEPTOWANA" %}
+                <span style="color: #4cae4c"><br>{{ status }}</span>
+                {% else %}
+                <span style="color: #b32626"><br>{{ status }}</span>
+            {% endif %}</h3>
         <p>W razie problemów skontaktuj się z nami pod mailem</p>
     </div>
 </div>
