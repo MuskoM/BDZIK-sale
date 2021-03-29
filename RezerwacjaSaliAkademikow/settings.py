@@ -32,8 +32,6 @@ ALLOWED_HOSTS = ['system-rezerwacji-pb.herokuapp.com',
                  '127.0.0.1']
 
 # Application definition
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -171,3 +169,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL = 'MainSite'
 LOGIN_REDIRECT_URL = 'UserPage'
+
+#SMTP config
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'd7e8fcc088c2ac'
+EMAIL_HOST_PASSWORD = '6612fdd5242afa'
+EMAIL_PORT = '2525'

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+
+        .logo {
+            font: 400 1.5rem/1.4 "Open Sans", sans-serif;
+            text-align: center;
+            box-sizing: border-box;
+            text-decoration: none;
+            text-decoration-color: initial;
+            position: relative;
+            display: inline-block;
+            width: 240px;
+            height: 60px;
+            margin-top: 15px;
+            background: url("https://pb.edu.pl/wp-content/themes/pb/assets/img/logo-pb-w.png") center no-repeat;
+            background-size: contain;
+            overflow: hidden;
+            white-space: nowrap;
+            text-indent: 100%;
+            border-left-color: rgb(48, 52, 54);
+            color: rgb(232, 230, 227);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+             background-color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .container-email {
+            width: 600px;
+            text-align: center;
+            background: #2b542c;
+            border-radius: 1rem;
+        }
+
+        .inside-container {
+            margin: 1rem;
+            background: slategray;
+            border-radius: 1rem;
+            box-shadow: 10px 5px 5px black;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<div class="container-email">
+    <div>
+        <a class="logo" href="https://pb.edu.pl/"></a>
+    </div>
+    <div class="inside-container">
+        <h1>Witaj,{{ user }}!</h1>
+        <h3>Twoja rezerwacja z dnia {{ reservation_date }} została <span style="color: #4cae4c"><br>Zaakceptowana</span></h3>
+        <p>W razie problemów skontaktuj się z nami pod mailem</p>
+    </div>
+</div>
+
+
+</body>
+</html>

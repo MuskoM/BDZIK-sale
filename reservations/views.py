@@ -1,6 +1,9 @@
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.db.models import Q, F
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.views import View
 from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm
@@ -137,8 +140,22 @@ class ReservationManagerView(View):
     def post(self, request, reservation_id):
         new_status = ChangeClassroomReservationStatusForm(request.POST)
         reservation = RezerwacjaSali.objects.get(pk=reservation_id)
+        message_name = "Accepted the reservation"
+        message_email = reservation.id_uzytkownika.e_mail
+        context={
+            'user': reservation.id_uzytkownika,
+            'reservation_date': str(reservation.data_wykonania_rezerwacji)
+        }
+        html_message = render_to_string('mail_template.html',context)
+        plain_message = strip_tags(html_message)
+
         if new_status.is_valid():
             reservation.status = new_status.cleaned_data['status']
+            send_mail(message_name,
+                      plain_message,
+                      'admin-e53753@inbox.mailtrap.io',
+                      [message_email],
+                      html_message=html_message)
             reservation.save()
 
         return redirect(request.META.get('HTTP_REFERER'))
