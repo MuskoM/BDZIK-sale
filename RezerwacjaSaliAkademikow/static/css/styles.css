@@ -6,6 +6,10 @@ body {
   -o-background-size: cover;
 }
 
+.textStyle{
+    font-size: 14px;
+}
+
 .margin10px{
     margin: 10px;
 }
