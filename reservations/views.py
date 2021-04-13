@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db.models import Q, F
@@ -69,14 +71,28 @@ class FacultyRoomView(View):
     }
 
     def get(self, request, room_id):
-
         room_id = room_id
         room = Pomieszczenie.objects.get(id_pomieszczenia=room_id)
         room_type = self.room_types[room.rodzaj_pom]
 
+        all_reservations = RezerwacjaSali.objects.all()
+
+
+        if request.GET:
+            reservations_array = []
+            for i in all_reservations:
+                reserv_subarray = {}
+                reserv_subarray['title'] = i.id_rezerwacji_sali
+                start_date = datetime.datetime.strptime(str(i.data_od.date()), "%Y-%m-%d").strftime("%Y-%m-%d")
+                end_date = datetime.datetime.strptime(str(i.data_do.date()), "%Y-%m-%d").strftime("%Y-%m-%d")
+                reserv_subarray['start'] = start_date
+                reserv_subarray['end'] = end_date
+                reservations_array.append(reserv_subarray)
+
         context = {
             "classroom": room,
-            "classroom_type": room_type
+            "classroom_type": room_type,
+            "events": all_reservations
         }
         return render(request, "reservations/FacultyRoomTemplate.html", context)
 
