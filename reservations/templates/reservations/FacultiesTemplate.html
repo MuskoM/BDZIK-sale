@@ -10,11 +10,17 @@
 
     {% load crispy_forms_tags %}
 
-    <div class="row" >
-        <form method="get" class="col-sm-3">
-            {{ classrooms.form|crispy}}
+    <div class="col-md-3 margin10px">
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#filtry"
+                aria-expanded="false" aria-controls="filtry">Filtry + </a>
+    </div>
+    <div class="collapse multi-collapse" id="filtry">
+        <div >
+            <form method="get" class="col-sm-3">
+                {{ classrooms.form|crispy}}
             <input type="submit" class="btn btn-info" />
         </form>
+        </div>
     </div>
 
     {% if classrooms.count == 0 %}

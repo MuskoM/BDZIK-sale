@@ -1,3 +1,4 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
@@ -11,38 +12,54 @@
 
     {% load crispy_forms_tags %}
 
-    <form method="get" class="form-inline" style="">
-        <div class="row">
-            <div class="col-md-6">
-                {{ reservations.form.data_od|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-                {{ reservations.form.data_do|as_crispy_field }}
-            </div>
+    <div class="col-md-3 margin10px">
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#filtryRezerwacji"
+                aria-expanded="false" aria-controls="filtryRezerwacji">Filtry +</a>
+    </div>
+
+    <div class="collapse multi-collapse" id="filtryRezerwacji">
+        <div>
+            <form method="get" class="form-inline padding">
+                <div class="row margin10px">
+                    <div class="col-ms-4 marginleftright">
+                        {{ reservations.form.data_od|as_crispy_field }}
+                    </div>
+                    <div class="col-ms-4 marginleftright">
+                        {{ reservations.form.data_do|as_crispy_field }}
+                    </div>
+                </div>
+            </form>
+            <form method="get" class="form-inline padding">
+                <div class="row margin10px">
+                    <div class="col-ms-4 marginleftright">
+                        {{ reservations.form.id_uzytkownika|as_crispy_field }}
+                    </div>
+                    <div class="col-ms-4 marginleftright">
+                        {{ reservations.form.id_pomieszczenia|as_crispy_field }}
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-info align"/>
+            </form>
         </div>
-        <div class="row">
-           <div class="col-md-6">
-                {{ reservations.form.id_uzytkownika|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-                {{ reservations.form.id_pomieszczenia|as_crispy_field }}
-            </div>
-        </div>
-        <input type="submit" class="btn btn-info"/>
-    </form>
+    </div>
+
 
 
     {% if reservations.qs.count == 0 %}
         <h2>Nie znaleziono rezerwacji na ten moment.</h2>
     {% else %}
-        <div class="card-columns">
+        <div class="row margin10px">
             {% for reservation in reservations.qs %}
-                <div class="card">
-                    <h4 class="card-title">{{ reservation }}</h4>
-                    <h4 class="card-title">{{ reservation.data_od }}</h4>
-                    <h4 class="card-title">{{ reservation.data_do }}</h4>
-                    <!--<a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>-->
-                </div>
+            <div class="col-sm-4 margintop">
+                <a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">
+                    <div class="card margintop">
+                        <h4 class="card-title margin10px text-center">Rezerwacja: {{ reservation }}</h4>
+                        <h5 class="card-text margin10px text-center textStyle">{{ reservation.data_od }}</h5>
+                        <h5 class="card-text margin10px text-center textStyle">{{ reservation.data_do }}</h5>
+                        <!--<a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>-->
+                    </div>
+                </a>
+            </div>
             {% endfor %}
         </div>
 
