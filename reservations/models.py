@@ -104,6 +104,7 @@ class Pomieszczenie(models.Model):
     id_wydzialu = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
     opis = models.TextField()
     rodzaj_pom = models.CharField(max_length=1, choices=classroom_types, default="S")
+    opiekun = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.get_rodzaj_pom_display()} {self.id_pomieszczenia}'
