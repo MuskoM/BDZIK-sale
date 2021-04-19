@@ -19,22 +19,37 @@
         <div class="form-group">
         <div id="calendar">
             <script>
-                $(document).ready(function () {
-                    $("#calendar").fullCalendar({
-                        defaultDate: '2137-04-20',
-                        editable: false,
-                        eventLimit: true,
-                        events: [
-                            {% for i in events %}
+                document.addEventListener('DOMContentLoaded', function () {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridMonth',
+                            events: [
                                 {
-                                    title: "{{ i.status }}",
-                                    start: "{{ i.data_od|date:"Y-m-d" }}",
-                                    end: "{{ i.data_do|date:"Y-m-d" }}"
+                                    title: "Parka",
+                                    start: "2021-04-19",
+                                    end: "2021-04-21"
                                 },
-                            {% endfor %}
-                        ]
-                    }).render();
-                });
+                                  {
+                                    title: "Test",
+                                    start: "2021-04-19",
+                                    end: "2021-04-19"
+                                },
+                            ]
+                        });
+                        calendar.render();
+                    });
+
+
+                    $(document).ready(function () {
+                        $("#class-planer-tool").fullCalendar({
+                            defaultDate: '2021-04-05',
+                            editable: true,
+                            eventLimit: true,
+                            events: [
+
+                            ]
+                        }).render();
+                    });
             </script>
         </div>
             <div class="marginleftright" type="submit" id="add-btn" style="clear: both;">

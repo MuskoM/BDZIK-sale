@@ -22,6 +22,7 @@ class MainSite(View):
         dorms = Akademik.objects.all()
 
         context = {
+            "title": "PB",
             "faculties": faculties,
             "dormitories": dorms
         }
@@ -189,6 +190,18 @@ class ReservationManagerView(View):
 
         return redirect(request.META.get('HTTP_REFERER'))
 
+
+class ClassManager(View):
+
+    def get(self,request):
+
+        check_classroom_reservations = RezerwacjaSali.objects.all()
+
+
+        context = {
+            "reservations_all": check_classroom_reservations
+        }
+        return render(request,'reservations/ClassManagerTemplate.html',context)
 
 class UserEditView(View):
     def get(self, request):

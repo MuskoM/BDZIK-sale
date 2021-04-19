@@ -1,0 +1,24 @@
+.class-planner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.class-planer-sidebar{
+    justify-self: start;
+    margin-right: 2rem;
+}
+
+.class-planer-container{
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+}
+
+.class-planer-tool{
+    color: black;
+}
+
+.class-planer-filters{
+    color: rgba(90,169,10,0.99);
+}

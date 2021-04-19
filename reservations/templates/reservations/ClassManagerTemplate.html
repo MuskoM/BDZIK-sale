@@ -1,0 +1,74 @@
+{% extends 'default_layout.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% load static %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/" %}
+    {% breadcrumb "Panel użytkownika" '/user' %}
+    {% breadcrumb "Menadżer zajęć" "" %}
+{% endblock breadcrumbs %}
+
+{% block contents %}
+    <link rel="stylesheet" type="text/css" href={% static "css/classPlanner.css" %}>
+    <div class="class-planner">
+        <div class="class-planer-sidebar">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cras justo odio
+                    <span class="badge badge-primary badge-pill">14</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Dapibus ac facilisis in
+                    <span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Morbi leo risus
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li>
+            </ul>
+        </div>
+        <div class="class-planer-container">
+            <div class="class-planer-filters">
+            </div>
+            <div class="class-planer-tool ">
+                <div id="calendar"></div>
+                <script>
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridWeek',
+                            events: [
+                                {
+                                    title: "Parka",
+                                    start: "2021-04-19T12:00:00",
+                                    end: "2021-04-19T10:00:00"
+                                },
+                                  {
+                                    title: "Test",
+                                    start: "2021-04-19",
+                                    end: "2021-04-19"
+                                },
+                            ]
+                        });
+                        calendar.render();
+                    });
+
+
+                    $(document).ready(function () {
+                        $("#class-planer-tool").fullCalendar({
+                            defaultDate: '2021-04-05',
+                            editable: true,
+                            eventLimit: true,
+                            events: [
+
+                            ]
+                        }).render();
+                    });
+                </script>
+            </div>
+        </div>
+
+    </div>
+    <script type="module" src={% static "js/classPlanner.js" %}></script>
+{% endblock contents %}
