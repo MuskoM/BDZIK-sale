@@ -10,65 +10,66 @@
 
 {% block contents %}
     <link rel="stylesheet" type="text/css" href={% static "css/classPlanner.css" %}>
-    <div class="class-planner">
-        <div class="class-planer-sidebar">
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Cras justo odio
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Dapibus ac facilisis in
-                    <span class="badge badge-primary badge-pill">2</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Morbi leo risus
-                    <span class="badge badge-primary badge-pill">1</span>
-                </li>
-            </ul>
+    <div class="class-planer-sidebar">
+        <ul class="list-group" id="sidebar-class-planner" style="width: 0px;visibility: hidden">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Przedmioty
+                <span class="badge badge-primary badge-success badge-pill">:)</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Filtry
+                <span class="badge badge-primary badge-secondary badge-pill">?</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Something else
+                <span class="badge badge-primary badge-danger badge-pill">!</span>
+            </li>
+        </ul>
+        <div class="list-group-hide-control">
+            <img src="{% static 'assets/outline_black_forward_arrow.png' %}" height="24px" alt="forward_arrow">
         </div>
-        <div class="class-planer-container">
-            <div class="class-planer-filters">
-            </div>
-            <div class="class-planer-tool ">
-                <div id="calendar"></div>
-                <script>
-
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var calendarEl = document.getElementById('calendar');
-                        var calendar = new FullCalendar.Calendar(calendarEl, {
-                            initialView: 'dayGridWeek',
-                            events: [
-                                {
-                                    title: "Parka",
-                                    start: "2021-04-19T12:00:00",
-                                    end: "2021-04-19T10:00:00"
-                                },
-                                  {
-                                    title: "Test",
-                                    start: "2021-04-19",
-                                    end: "2021-04-19"
-                                },
-                            ]
-                        });
-                        calendar.render();
-                    });
-
-
-                    $(document).ready(function () {
-                        $("#class-planer-tool").fullCalendar({
-                            defaultDate: '2021-04-05',
-                            editable: true,
-                            eventLimit: true,
-                            events: [
-
-                            ]
-                        }).render();
-                    });
-                </script>
-            </div>
-        </div>
-
     </div>
-    <script type="module" src={% static "js/classPlanner.js" %}></script>
+    <div id="calendar"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                businessHours: {
+                    daysOfWeek: [1, 2, 3, 4, 5],
+                    startTime: '8:00',
+                    endTime: '22:00'
+                },
+                slotDuration: '00:15:00',
+                slotMinTime: '08:00:00',
+                slotMaxTime: '22:00:00',
+                slotLabelInterval: '00:30:00',
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                },
+                expandRows: true,
+                editable: true,
+                events: [
+                    {
+                        title: "Parka",
+                        start: "2021-04-19T12:00:00",
+                        end: "2021-04-19T10:00:00"
+                    },
+                    {
+                        title: "Test",
+                        start: "2021-04-19",
+                        end: "2021-04-19"
+                    },
+                ]
+            });
+            calendar.render();
+        });
+
+    </script>
 {% endblock contents %}
+
+{% block scripts %}
+    <script type="module" src={% static "js/classPlanner.js" %}></script>
+{% endblock scripts %}

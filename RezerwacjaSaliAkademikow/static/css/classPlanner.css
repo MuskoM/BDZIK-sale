@@ -1,24 +1,15 @@
 .class-planner{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .class-planer-sidebar{
-    justify-self: start;
-    margin-right: 2rem;
-}
-
-.class-planer-container{
-    display: inherit;
-    flex-direction: column;
+    display: flex;
     align-items: center;
-}
-
-.class-planer-tool{
-    color: black;
-}
-
-.class-planer-filters{
-    color: rgba(90,169,10,0.99);
+    flex-direction: row;
+    position: fixed;
+    margin-right: 2rem;
+    z-index: 1;
+    left: 0;
 }
