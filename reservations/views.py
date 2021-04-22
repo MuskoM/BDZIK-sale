@@ -196,6 +196,7 @@ class ClassManager(View):
     def get(self,request):
 
         check_classroom_reservations = RezerwacjaSali.objects.all()
+        test_res = RezerwacjaSali.objects.first()
 
 
         context = {

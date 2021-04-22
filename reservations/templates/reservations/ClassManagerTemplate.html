@@ -20,10 +20,6 @@
                 Filtry
                 <span class="badge badge-primary badge-secondary badge-pill">?</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Something else
-                <span class="badge badge-primary badge-danger badge-pill">!</span>
-            </li>
         </ul>
         <div class="list-group-hide-control">
             <img src="{% static 'assets/outline_black_forward_arrow.png' %}" height="24px" alt="forward_arrow">
@@ -32,39 +28,32 @@
     <div id="calendar"></div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
+            let calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridWeek',
-                businessHours: {
-                    daysOfWeek: [1, 2, 3, 4, 5],
-                    startTime: '8:00',
-                    endTime: '22:00'
+                initialView:'timeGridWeek',
+                selectable: true,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
                 },
-                slotDuration: '00:15:00',
-                slotMinTime: '08:00:00',
-                slotMaxTime: '22:00:00',
-                slotLabelInterval: '00:30:00',
-                slotLabelFormat: {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
+                dateClick: function (info) {
+                    alert('clicked ' + info.dateStr);
                 },
-                expandRows: true,
-                editable: true,
+                select: function (info) {
+                    alert('selected ' + info.startStr + ' to ' + info.endStr);
+                },
                 events: [
-                    {
-                        title: "Parka",
-                        start: "2021-04-19T12:00:00",
-                        end: "2021-04-19T10:00:00"
-                    },
-                    {
-                        title: "Test",
-                        start: "2021-04-19",
-                        end: "2021-04-19"
-                    },
-                ]
+                                {% for i in events %}
+                                    {
+                                        title: "{{ i.id_pomieszczenia }}",
+                                        start: "{{ i.data_od|date:'c'}}",
+                                        end: "{{ i.data_do|date:'c' }}"
+                                    },
+                                {% endfor %}
+                            ]
             });
             calendar.render();
+            console.log(calendar)
         });
 
     </script>
