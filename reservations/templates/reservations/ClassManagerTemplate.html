@@ -1,0 +1,64 @@
+{% extends 'default_layout.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% load static %}
+
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/" %}
+    {% breadcrumb "Panel użytkownika" '/user' %}
+    {% breadcrumb "Menadżer zajęć" "" %}
+{% endblock breadcrumbs %}
+
+{% block contents %}
+    <link rel="stylesheet" type="text/css" href={% static "css/classPlanner.css" %}>
+    <div class="class-planer-sidebar">
+        <ul class="list-group" id="sidebar-class-planner" style="width: 0px;visibility: hidden">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Przedmioty
+                <span class="badge badge-primary badge-success badge-pill">:)</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Filtry
+                <span class="badge badge-primary badge-secondary badge-pill">?</span>
+            </li>
+        </ul>
+        <div class="list-group-hide-control">
+            <img src="{% static 'assets/outline_black_forward_arrow.png' %}" height="24px" alt="forward_arrow">
+        </div>
+    </div>
+    <div id="calendar"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView:'timeGridWeek',
+                selectable: true,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                },
+                dateClick: function (info) {
+                    alert('clicked ' + info.dateStr);
+                },
+                select: function (info) {
+                    alert('selected ' + info.startStr + ' to ' + info.endStr);
+                },
+                events: [
+                                {% for i in events %}
+                                    {
+                                        title: "{{ i.id_pomieszczenia }}",
+                                        start: "{{ i.data_od|date:'c'}}",
+                                        end: "{{ i.data_do|date:'c' }}"
+                                    },
+                                {% endfor %}
+                            ]
+            });
+            calendar.render();
+            console.log(calendar)
+        });
+
+    </script>
+{% endblock contents %}
+
+{% block scripts %}
+    <script type="module" src={% static "js/classPlanner.js" %}></script>
+{% endblock scripts %}

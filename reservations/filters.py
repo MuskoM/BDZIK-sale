@@ -2,6 +2,7 @@ import django_filters
 from .models import Pomieszczenie,RezerwacjaSali,Uzytkownik
 
 
+
 class PomieszczenieFilter(django_filters.FilterSet):
     opis = django_filters.CharFilter(lookup_expr='contains')
 

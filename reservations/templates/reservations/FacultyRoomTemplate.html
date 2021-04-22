@@ -17,26 +17,37 @@
     <form class="margin10px" method="post" role="form">
         {% csrf_token %}
         <div class="form-group">
-        <div id="calendar">
-            <script>
-                $(document).ready(function () {
-                    $("#calendar").fullCalendar({
-                        defaultDate: '2137-04-20',
-                        editable: false,
-                        eventLimit: true,
-                        events: [
-                            {% for i in events %}
-                                {
-                                    title: "{{ i.status }}",
-                                    start: "{{ i.data_od|date:"Y-m-d" }}",
-                                    end: "{{ i.data_do|date:"Y-m-d" }}"
-                                },
-                            {% endfor %}
-                        ]
-                    }).render();
-                });
-            </script>
-        </div>
+            <div id="calendar">
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            selectable: true,
+                            headerToolbar: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                            },
+                            dateClick: function (info) {
+                                alert('clicked ' + info.dateStr);
+                            },
+                            select: function (info) {
+                                alert('selected ' + info.startStr + ' to ' + info.endStr);
+                            },
+                            events: [
+                                {% for i in events %}
+                                    {
+                                        title: "{{ i.id_pomieszczenia }}",
+                                        start: "{{ i.data_od|date:'c'}}",
+                                        end: "{{ i.data_do|date:'c' }}"
+                                    },
+                                {% endfor %}
+                            ]
+                        });
+                        calendar.render();
+                    });
+                </script>
+            </div>
             <div class="marginleftright" type="submit" id="add-btn" style="clear: both;">
                 <button class="btn btn-primary">ZAREZERWUJ</button>
             </div>

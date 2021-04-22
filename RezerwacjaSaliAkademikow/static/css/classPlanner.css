@@ -1,0 +1,15 @@
+.class-planner{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.class-planer-sidebar{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: fixed;
+    margin-right: 2rem;
+    z-index: 1;
+    left: 0;
+}
