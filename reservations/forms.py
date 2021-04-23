@@ -28,3 +28,10 @@ class ChangeClassroomReservationStatusForm(forms.ModelForm):
     class Meta:
         model = RezerwacjaSali
         fields = ["status"]
+
+
+class NewSubjectClassesReservationForm(forms.ModelForm):
+
+    class Meta:
+        model = RezerwacjaSali
+        fields = ['data_od', 'data_do', 'id_pomieszczenia','przedmiot']
