@@ -8,8 +8,11 @@
     {% breadcrumb "Menadżer zajęć" "" %}
 {% endblock breadcrumbs %}
 
-{% block contents %}
+{% block stylesheets %}
     <link rel="stylesheet" type="text/css" href={% static "css/classPlanner.css" %}>
+{% endblock stylesheets %}
+
+{% block contents %}
     <div class="class-planer-sidebar">
         <ul class="list-group" id="sidebar-class-planner" style="width: 0px;visibility: hidden">
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -25,36 +28,124 @@
             <img src="{% static 'assets/outline_black_forward_arrow.png' %}" height="24px" alt="forward_arrow">
         </div>
     </div>
+    <div class="form-popup" id="myForm">
+        <form action="{% url 'ClassManager' %}" class="form-container" method="post">
+        {% csrf_token %}
+            <h1>Nowy wpis</h1>
+            <div class="form-group">
+                <label for="example-datetime-local-input">Początek</label>
+                <div class="col-10">
+                    <input class="form-control" type="datetime-local" name="data_od"
+                           id="reservation-begin-datetime-input">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="example-datetime-local-input">Koniec</label>
+                <div class="col-10">
+                    <input class="form-control" type="datetime-local" name="data_do"
+                           id="reservation-end-datetime-input">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleSelect2">Sala</label>
+                <select multiple="" class="form-control" id="exampleSelect2" name="id_pomieszczenia">
+                    {% for classroom in classrooms_all %}
+                        <option value="{{ classroom.id_pomieszczenia }}">{{ classroom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleSelect2">Przedmiot</label>
+                <select multiple="" class="form-control" id="exampleSelect2" name="przedmiot">
+                    {% for subject in subjects_all %}
+                        <option value="{{ subject.subject_id }}">{{ subject.subject_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
+            <p id="temp-submit" class="btn-sm btn-danger">Close</p>
+        </form>
+    </div>
+
     <div id="calendar"></div>
     <script>
+        let calendarEl;
+        let calendar;
+        let submit_new_class_btn = document.getElementById("temp-submit")
+        submit_new_class_btn.addEventListener('click', () => addEvent())
         document.addEventListener('DOMContentLoaded', function () {
-            let calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView:'timeGridWeek',
+            calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
                 selectable: true,
+                slotDuration: '01:00:00',
+                expandRows: true,
+                slotMinTime: '07:00:00',
+                slotMaxTime: '22:00:00',
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                },
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
                 },
+                // IMPORTANT FUNCTION
+                eventClick: function (info) {
+                    openForm()
+                },
                 dateClick: function (info) {
-                    alert('clicked ' + info.dateStr);
+                    openForm()
+                },
+                eventMouseEnter: function (info) {
+                    info.el.title = info.event.title
                 },
                 select: function (info) {
-                    alert('selected ' + info.startStr + ' to ' + info.endStr);
+                    let date = new Date(info.startStr).toISOString().slice(0, 19)
+                    let begin_input = document.getElementById("reservation-begin-datetime-input")
+                    begin_input.value = date
+                    let end_input = document.getElementById("reservation-end-datetime-input")
+                    let date_end = new Date(info.endStr).toISOString().slice(0, 19)
+                    end_input.value = date_end
+                    openForm()
                 },
                 events: [
-                                {% for i in events %}
-                                    {
-                                        title: "{{ i.id_pomieszczenia }}",
-                                        start: "{{ i.data_od|date:'c'}}",
-                                        end: "{{ i.data_do|date:'c' }}"
-                                    },
-                                {% endfor %}
-                            ]
+                    {% for i in reservations_all %}
+                        {
+                            title: "{{ i.przedmiot.subject_name }}",
+                            start: "{{ i.data_od|date:'c'}}",
+                            end: "{{ i.data_do|date:'c' }}"
+                        },
+                    {% endfor %}
+                ]
             });
             calendar.render();
-            console.log(calendar)
         });
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+        function addEvent() {
+            let startDate = document.getElementById('reservation-begin-datetime-input').value
+            let endDate = document.getElementById('reservation-end-datetime-input').value
+            console.log(startDate, endDate)
+            calendar.addEvent(
+                {
+                    title: "TEST EVENT",
+                    start: startDate,
+                    end: endDate,
+                }
+            )
+        }
 
     </script>
 {% endblock contents %}

@@ -1,5 +1,5 @@
 import datetime
-
+from django.utils import timezone
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db.models import Q, F
@@ -8,11 +8,11 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views import View
 from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
-from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm
+from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm
 from django.contrib.auth import get_user
 from django.contrib import messages
 
-from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik
+from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject
 
 
 class MainSite(View):
@@ -76,7 +76,8 @@ class FacultyRoomView(View):
         room = Pomieszczenie.objects.get(id_pomieszczenia=room_id)
         room_type = self.room_types[room.rodzaj_pom]
 
-        all_reservations = RezerwacjaSali.objects.all()
+        res = RezerwacjaSali.objects.first()
+        all_reservations = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id)
 
 
         if request.GET:
@@ -93,7 +94,7 @@ class FacultyRoomView(View):
         context = {
             "classroom": room,
             "classroom_type": room_type,
-            "events": all_reservations
+            "events": all_reservations,
         }
         return render(request, "reservations/FacultyRoomTemplate.html", context)
 
@@ -103,8 +104,7 @@ class FacultyRoomView(View):
             new_reservation_form = new_reservation.save(commit=False)
             new_reservation_form.id_pomieszczenia = Pomieszczenie.objects.get(pk=room_id)
             new_reservation_form.id_uzytkownika = request.user.uzytkownik
-            new_reservation_form.data_od = new_reservation.cleaned_data['data_od']
-            new_reservation_form.data_do = new_reservation.cleaned_data['data_do']
+            new_reservation_form.data_wykonania_rezerwacji = timezone.now()
             try:
                 if check_do_reservations_collide(new_reservation_form.data_od,
                                                  new_reservation_form.data_do, new_reservation_form.id_pomieszczenia):
@@ -157,7 +157,7 @@ class ReservationManagerView(View):
     def post(self, request, reservation_id):
         new_status = ChangeClassroomReservationStatusForm(request.POST)
         reservation = RezerwacjaSali.objects.get(pk=reservation_id)
-        print()
+
         if request.POST['status'] == "Z":
             message_name = "Zaakceptowano rezerwację nr. " + str(reservation.id_rezerwacji_sali)
             message_email = reservation.id_uzytkownika.e_mail
@@ -196,13 +196,31 @@ class ClassManager(View):
     def get(self,request):
 
         check_classroom_reservations = RezerwacjaSali.objects.all()
-        test_res = RezerwacjaSali.objects.first()
-
-
+        subjects_all = Subject.objects.filter(subject_faculty=request.user.uzytkownik.id_wydzialu)
+        classrooms_all = Pomieszczenie.objects.all()
         context = {
-            "reservations_all": check_classroom_reservations
+            "subjects_all": subjects_all,
+            "reservations_all": check_classroom_reservations,
+            "classrooms_all":classrooms_all
         }
         return render(request,'reservations/ClassManagerTemplate.html',context)
+
+    def post(self,request):
+
+        new_class_res_form = NewSubjectClassesReservationForm(request.POST)
+
+        if new_class_res_form.is_valid():
+            new_reservation_form = new_class_res_form.save(commit=False)
+            new_reservation_form.id_uzytkownika = request.user.uzytkownik
+            new_reservation_form.data_wykonania_rezerwacji = timezone.now()
+            new_reservation_form.status = 'Z'
+            new_reservation_form.save()
+
+        context={
+            'request': request.POST
+        }
+
+        return redirect('ClassManager')
 
 class UserEditView(View):
     def get(self, request):
