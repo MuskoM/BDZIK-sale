@@ -82,7 +82,7 @@
                         events: [
                             {% for i in events %}
                                 {
-                                    title: "{{ i.przedmiot.subject_name }}",
+                                    title: "{{i.data_do|date:'c' }}",
                                     start: "{{ i.data_od|date:'c'}}",
                                     end: "{{ i.data_do|date:'c' }}"
                                 },

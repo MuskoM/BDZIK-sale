@@ -99,8 +99,8 @@ class FacultyRoomView(View):
 
     def post(self, request, room_id):
         new_reservation = NewClassroomReservationForm(request.POST)
-        print(new_reservation.is_valid())
         if new_reservation.is_valid():
+            print(new_reservation)
             new_reservation_form = new_reservation.save(commit=False)
             new_reservation_form.id_pomieszczenia = Pomieszczenie.objects.get(pk=room_id)
             new_reservation_form.id_uzytkownika = request.user.uzytkownik
