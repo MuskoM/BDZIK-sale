@@ -1,3 +1,4 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% load static %}
@@ -66,7 +67,7 @@
                 </select>
             </div>
             <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
-            <p id="temp-submit" class="btn-sm btn-danger">Close</p>
+            <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-danger">Close</p>
         </form>
     </div>
 
@@ -75,7 +76,6 @@
         let calendarEl;
         let calendar;
         let submit_new_class_btn = document.getElementById("temp-submit")
-        submit_new_class_btn.addEventListener('click', () => addEvent())
         document.addEventListener('DOMContentLoaded', function () {
             calendarEl = document.getElementById('calendar');
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -134,18 +134,6 @@
             document.getElementById("myForm").style.display = "none";
         }
 
-        function addEvent() {
-            let startDate = document.getElementById('reservation-begin-datetime-input').value
-            let endDate = document.getElementById('reservation-end-datetime-input').value
-            console.log(startDate, endDate)
-            calendar.addEvent(
-                {
-                    title: "TEST EVENT",
-                    start: startDate,
-                    end: endDate,
-                }
-            )
-        }
 
     </script>
 {% endblock contents %}

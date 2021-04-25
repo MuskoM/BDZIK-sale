@@ -8,27 +8,16 @@
 
 {% block contents %}
 
-    <h1>Reservations</h1>
 
     {% load crispy_forms_tags %}
 
     <div class="col-md-3 margin10px">
         <a class="btn btn-primary" role="button" data-toggle="collapse" href="#filtryRezerwacji"
-                aria-expanded="false" aria-controls="filtryRezerwacji">Filtry +</a>
+           aria-expanded="false" aria-controls="filtryRezerwacji">Filtry +</a>
     </div>
 
     <div class="collapse multi-collapse" id="filtryRezerwacji">
         <div>
-            <form method="get" class="form-inline padding">
-                <div class="row margin10px">
-                    <div class="col-ms-4 marginleftright">
-                        {{ reservations.form.data_od|as_crispy_field }}
-                    </div>
-                    <div class="col-ms-4 marginleftright">
-                        {{ reservations.form.data_do|as_crispy_field }}
-                    </div>
-                </div>
-            </form>
             <form method="get" class="form-inline padding">
                 <div class="row margin10px">
                     <div class="col-ms-4 marginleftright">
@@ -38,30 +27,69 @@
                         {{ reservations.form.id_pomieszczenia|as_crispy_field }}
                     </div>
                 </div>
-                <input type="submit" class="btn btn-info align"/>
+                <button type="submit" class="btn btn-info align">Filtruj</button>
             </form>
         </div>
     </div>
 
+    <div id="calendar"></div>
+    <script>
+        let calendarEl;
+        let calendar;
+        document.addEventListener('DOMContentLoaded', function () {
+            calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                slotDuration: '01:00:00',
+                expandRows: true,
+                slotMinTime: '07:00:00',
+                slotMaxTime: '22:00:00',
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                },
 
+                // IMPORTANT FUNCTION
+                eventClick: function (info) {
+                    openForm()
+                },
+                dateClick: function (info) {
+                    openForm()
+                },
+                eventMouseEnter: function (info) {
+                    info.el.title = info.event.title
+                },
+                select: function (info) {
+                    let date = new Date(info.startStr).toISOString().slice(0, 19)
+                    let begin_input = document.getElementById("reservation-begin-datetime-input")
+                    begin_input.value = date
+                    let end_input = document.getElementById("reservation-end-datetime-input")
+                    let date_end = new Date(info.endStr).toISOString().slice(0, 19)
+                    end_input.value = date_end
+                    openForm()
+                },
+                events: [
+                    {% for i in reservations.qs %}
+                        {
+                            title: "{{ i.przedmiot.subject_name }}",
+                            start: "{{ i.data_od|date:'c'}}",
+                            end: "{{ i.data_do|date:'c' }}"
+                        },
+                    {% endfor %}
+                ]
+            });
+            calendar.render();
+        });
 
-    {% if reservations.qs.count == 0 %}
-        <h2>Nie znaleziono rezerwacji na ten moment.</h2>
-    {% else %}
-        <div class="row margin10px">
-            {% for reservation in reservations.qs %}
-            <div class="col-sm-4 margintop">
-                <a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">
-                    <div class="card margintop">
-                        <h4 class="card-title margin10px text-center">Rezerwacja: {{ reservation }}</h4>
-                        <h5 class="card-text margin10px text-center textStyle">{{ reservation.data_od }}</h5>
-                        <h5 class="card-text margin10px text-center textStyle">{{ reservation.data_do }}</h5>
-                        <!--<a href="faculty={{ room.id_wydzialu.id_wydzialu }}/room={{ room.id_pomieszczenia }}" class="card-link">Szczegóły</a>-->
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
 
-    {% endif %}
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+    </script>
+
 {% endblock contents %}
