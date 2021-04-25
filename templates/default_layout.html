@@ -23,27 +23,21 @@
     {% endblock stylesheets %}
     <style>
         html {
-            background-color: white;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
+            margin: 0;
+            padding: 0;
         }
 
-        body {
-            background-color: white;
-            background-size: auto;
-            -family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
+        .background {
+            background-color:rgba(49,41,45,0.27);
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
         #navbar {
-            background: rgb(230, 232, 236);
+            background:  rgba(2,128,17,0.74);
         }
 
 
@@ -69,7 +63,7 @@
 
 <nav id="navbar" class="navbar navbar-expand-lg static-top shadow w-responsive mx-auto dropdown">
 
-    <div id="navbar" class="container">
+    <div class="container">
         <a class="navbar-brand" href="/">{{ title|default:"System Rezerwacyjny PB" }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,23 +115,7 @@
 </nav>
 
 
-<div class="container">
-    <style>
-        #scrollable-res {
-            overflow: auto;
-            height: 30rem;
-        }
-
-        #scrollable-res::-webkit-scrollbar {
-            width: 0;
-        }
-
-        td > a:hover, td > a:visited, td > a:link, td > a:active {
-            text-decoration: none;
-        }
-
-    </style>
-
+<div class="container" id="scrollable-res-main">
     <div class="card border-0 shadow p-4 my-5">
         <div class="card-body p-0" style="display: flex; flex-direction: column">
             {% block breadcrumbs %}
@@ -159,5 +137,20 @@
 </div>
 {% block scripts %}
 {% endblock scripts %}
+<canvas class="background"></canvas>
+<script src="{% static 'js/particles.min.js' %}"></script>
+<script>
+    window.onload
+        = function () {
+        Particles.init
+        ({
+            selector:
+                '.background',
+            color: ['#0cd70c','#12541c',],
+            connectParticles: true,
+            minDistance:250
+        });
+    };
+</script>
 </body>
 </html>

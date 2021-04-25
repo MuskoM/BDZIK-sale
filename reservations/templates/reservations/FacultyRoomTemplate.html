@@ -1,3 +1,4 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% load crispy_forms_tags %}
@@ -8,7 +9,7 @@
     {% breadcrumb classroom.opis "/reservations/room={{ classroom.id }}" %}
 {% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href={% static "css/classPlanner.css" %}>
+    <link rel="stylesheet" type="text/css" href={% static "css/FacultyRoom.css" %}>
 {% endblock stylesheets %}
 
 {% block contents %}
@@ -18,7 +19,6 @@
         <h3 class="text-muted">Wydział: {{ classroom.id_wydzialu.nazwa_wydzialu }}</h3>
     </div>
 
-    <form class="margin10px" method="post" role="form">
         <div class="form-popup" id="myForm">
             <form action="{% url 'ClassManager' %}" class="form-container" method="post">
                 {% csrf_token %}
@@ -39,16 +39,9 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="exampleSelect2">Opis</label>
-                    <select multiple="" class="form-control" id="exampleSelect2" name="przedmiot">
-                        {% for subject in subjects_all %}
-                            <option value="{{ subject.subject_id }}">{{ subject.subject_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+
                 <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
-                <p id="temp-submit" class="btn-sm btn-danger">Close</p>
+                <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-danger">Close</p>
             </form>
         </div>
         <div id="calendar">

@@ -5,7 +5,7 @@
     bottom: 0;
     right: 15px;
     border: 3px solid #f1f1f1;
-    z-index: 9;
+    z-index: 100;
 }
 
 /* Add styles to the form container */
@@ -16,6 +16,7 @@
     align-items: center;
     max-width: 400px;
     padding: 10px;
+    margin: 0px;
     background-color: white;
 }
 

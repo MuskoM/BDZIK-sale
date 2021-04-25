@@ -1,10 +1,3 @@
-body {
-    background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
 
 .textStyle {
     font-size: 14px;
@@ -64,7 +57,7 @@ body {
 }
 
 .myNav-item:hover {
-    background-color: rgba(2, 128, 17, 0.27);
+    background-color: rgba(233, 241, 234, 0.27);
 }
 
 #navbar a:visited {
@@ -93,4 +86,26 @@ body {
 
 .material-icons.dangerColor {
     color: red;
+}
+
+#scrollable-res {
+    overflow: auto;
+    height: 30rem;
+}
+
+#scrollable-res-main {
+    overflow: auto;
+    height: 100%;
+}
+
+#scrollable-res-main::-webkit-scrollbar {
+    width: 0;
+}
+
+#scrollable-res-main::-webkit-scrollbar {
+    width: 0;
+}
+
+td > a:hover, td > a:visited, td > a:link, td > a:active {
+    text-decoration: none;
 }

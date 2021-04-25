@@ -1,3 +1,4 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
@@ -35,21 +36,6 @@
                         </div>
                     {% endif %}
                 </div>
-                <style>
-                    #scrollable-res {
-                        overflow: auto;
-                        height: 30rem;
-                    }
-
-                    #scrollable-res::-webkit-scrollbar {
-                        width: 0;
-                    }
-
-                    td>a:hover, td>a:visited, td>a:link, td>a:active {
-                        text-decoration: none;
-                    }
-
-                </style>
                 <div id="scrollable-res" class="col w-75">
                     <table class="table table-hover table-striped">
                         <thead>
