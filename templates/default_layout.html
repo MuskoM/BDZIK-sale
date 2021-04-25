@@ -16,7 +16,11 @@
           integrity="sha256-ejA/z0dc7D+StbJL/0HAnRG/Xae3yS2gzg0OAnIURC4=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css"
           integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+    {% block stylesheets %}
+    {% endblock stylesheets %}
     <style>
         html {
             background-color: white;
@@ -40,20 +44,8 @@
 
         #navbar {
             background: rgb(230, 232, 236);
-            color: green;
         }
 
-        #navbar a:visited {
-            color: green;
-        }
-
-        #navbar a:link {
-            color: green;
-        }
-
-        #navbar a:hover {
-            color: black;
-        }
 
     </style>
 
@@ -85,31 +77,42 @@
         </button>
 
         <div class="collapse navbar-collapse " id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav myNav ml-auto">
                 {% block navbar %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="io_skrypt" href={% url 'ReservationsView' %}>Rezerwacje</a>
+                    <li class="myNav-item">
+                        <span class="material-icons">event_seat</span>
+                        <a class="myNav-link" id="io_skrypt" href={% url 'ReservationsView' %}>Rezerwacje</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href={% url 'FacultiesPage' %}>Sale</a>
+                    <li class="myNav-item">
+                        <span class="material-icons">meeting_room</span>
+                        <a class="myNav-link" href={% url 'FacultiesPage' %}>Sale</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Akademiki</a>
+                    <li class="myNav-item">
+                        <span class="material-icons">bed</span>
+                        <a class="myNav-link" href="#">Akademiki</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href={% url 'UserPage' %}>Profil</a>
+                    <li class="myNav-item">
+                        <span class="material-icons">account_circle</span>
+                        <a class="myNav-link" href={% url 'UserPage' %}>Profil</a>
                     </li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
+                        <li class="myNav-item">
+                            <span class="material-icons">face</span>
                             <span style="margin-left: 1rem">Hej, {{ request.user.uzytkownik.imie }}</span>
+                        </li>
+                        <li class="myNav-item">
                             <a href="{% url 'logout' %}">
-                                <button type="button" class="btn btn-danger">Wyloguj się</button>
+                                <span href="{% url 'logout' %}" class="material-icons dangerColor">logout</span>
+                                <a href="{% url 'logout' %}" type="button">Wyloguj się</a>
                             </a>
                         </li>
                     {% else %}
-                        <a href="{% url 'login' %}">
-                            <button type="button" class="btn btn-info">Zaloguj się</button>
-                        </a>
+                        <li class="myNav-item">
+                            <a href="{% url 'login' %}">
+                                <span href="{% url 'login' %}" type="button" class="material-icons pbGreen">login</span>
+                                <a href="{% url 'login' %}" type="button">Zaloguj się</a>
+                            </a>
+                        </li>
                     {% endif %}
                     </ul>
                 {% endblock %}

@@ -1,23 +1,8 @@
-.class-planner {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.class-planer-sidebar {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    position: fixed;
-    margin-right: 2rem;
-    z-index: 1;
-    left: 0;
-}
-
 /* The popup form - hidden by default */
-.form-popup{
+.form-popup {
     display: none;
     position: fixed;
+    flex-direction: column;
     bottom: 0;
     right: 15px;
     border: 3px solid #f1f1f1;

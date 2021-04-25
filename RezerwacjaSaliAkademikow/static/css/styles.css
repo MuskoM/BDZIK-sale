@@ -1,46 +1,96 @@
 body {
-  background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
+    background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
 
-.textStyle{
+.textStyle {
     font-size: 14px;
 }
 
-.margin10px{
+.margin10px {
     margin: 10px;
 }
 
-.margintop{
+.margintop {
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.marginleftright{
+.marginleftright {
     margin-left: 15px;
     margin-right: 15px;
 }
 
-.padding{
+.padding {
     padding: 10px;
 }
 
-.align{
+.align {
     margin-left: 20px;
 }
 
-.card{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.filters{
+.filters {
     display: inline-block
+}
+
+#navbar {
+    color: black;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+}
+
+.myNav-item {
+    display: flex;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+}
+
+.myNav-item:hover {
+    background-color: rgba(2, 128, 17, 0.27);
+}
+
+#navbar a:visited {
+    color: black;
+}
+
+#navbar a:link {
+    color: black;
+}
+
+
+.myNav-item > a {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.myNav-item > a:hover {
+    text-decoration: none;
+}
+
+.material-icons.pbGreen {
+    color: green;
+}
+
+.material-icons.dangerColor {
+    color: red;
 }

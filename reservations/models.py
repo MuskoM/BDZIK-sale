@@ -113,6 +113,30 @@ class Pomieszczenie(models.Model):
         verbose_name_plural = "Pomieszczenia"
 
 
+class Subject(models.Model):
+    subject_type = (
+        ("W", "Wykład"),
+        ("C", "Ćwiczenia"),
+        ("L", "Laboratorium"),
+        ("P", "Pracownia Specjalistyczna"),
+        ("S", "Seminarium")
+    )
+
+    subject_id = models.AutoField(primary_key=True)
+    subject_name = models.CharField(max_length=50)
+    subject_code = models.CharField(max_length=10)
+    ECTS = models.IntegerField()
+    subject_faculty = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
+    isObligatory = models.BooleanField(default=False)
+    type = models.CharField(max_length=1, choices=subject_type, default="R")
+
+    def __str__(self):
+        return f'Przedmiot: {self.subject_name} Wydział {self.subject_faculty}'
+
+    class Meta:
+        verbose_name_plural = "Przedmioty"
+
+
 class RezerwacjaSali(models.Model):
     status_labels = (
         ("Z", "Zaakceptowana"),
@@ -126,6 +150,7 @@ class RezerwacjaSali(models.Model):
     id_uzytkownika = models.ForeignKey(Uzytkownik, related_name="rezerwacje_sal", on_delete=models.CASCADE)
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
     status = models.CharField(max_length=1, choices=status_labels, default="R")
+    przedmiot = models.ForeignKey(Subject, on_delete=models.CASCADE,null=True)
 
     # def save(self, *args, **kwargs):
     #     if self.data_od < timezone.now() or self.data_do < timezone.now():
@@ -235,20 +260,4 @@ class RezerwacjaPokoju(models.Model):
         verbose_name_plural = "Rezerwacje Pokoi"
 
 
-class Zajecie(models.Model):
-    rodzaj_zajecia = (
-        ("R", "Obowiązkowy"),
-        ("O", "Obieralny")
-    )
-    id_zajecia = models.AutoField(primary_key=True)
-    nazwa_zajecia = models.CharField(max_length=50)
-    kod_zajecia = models.CharField(max_length=10)
-    punkty_ECTS = models.IntegerField()
-    jednostka_zajecia = models.ForeignKey(Wydzial, on_delete=models.CASCADE)
-    rodzaj = models.CharField(max_length=1, choices=rodzaj_zajecia, default="R")
 
-    def __str__(self):
-        return f'Zajęcie: {self.nazwa_zajecia} Wydział {self.jednostka_zajecia}'
-
-    class Meta:
-        verbose_name_plural = "Zajęcia"

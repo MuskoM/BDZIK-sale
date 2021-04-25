@@ -1,9 +1,14 @@
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
+{% load static %}
 {% block breadcrumbs %}
     {% breadcrumb "Strona główna" "/" %}
     {% breadcrumb "Profil" "/user/reservations_manager" %}
 {% endblock breadcrumbs %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href={% static "css/reservationManager.css" %}>
+{% endblock %}
 
 {% block contents %}
     <div id="scrollable-res">
@@ -36,7 +41,7 @@
                         <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
                     {% endif %}
                     <td>
-                        <form action="{% url 'ReservationsManager_POST' reservation%}" method="post" role="form">
+                        <form action="{% url 'ReservationsManager_POST' reservation %}" method="post" role="form">
                             {% csrf_token %}
                             <div class="dropdown">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
@@ -45,10 +50,25 @@
                                     Opcje
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <button class="dropdown-item" name="status"  value="Z" type="submit">Zatwierdź</button>
-                                    <button class="dropdown-item" name="status"  value="O" type="submit">Odrzuć</button>
-                                    <a class="dropdown-item" href="#">Dodaj komentarz</a>
+                                    <button class="dropdown-item" name="status" value="Z" type="submit">Zatwierdź
+                                    </button>
+                                    <button class="dropdown-item" onclick="openFormForDenial()" name="status" type="button">Odrzuć</button>
+                                    <button type="button" onclick="openFormForComment()" class="dropdown-item">Dodaj komentarz</button>
                                 </div>
+                            </div>
+                            <div class="form-popup" id="myForm">
+                                <h1>Nowy komentarz</h1>
+                                <div class="form-group">
+                                    <label for="example-contents-input"></label>
+                                    <div class="col-10">
+                                        <textarea class="form-control" name="comment"
+                                            id="reservation-contents-input"></textarea>
+                                    </div>
+                                </div>
+
+                                <button id="submit-new-class" type="submit" name="status" value="K" class="btn btn-primary">Submit</button>
+                                <button id="temp-submit" type="button" onclick="closeForm()" class="btn-sm btn-danger">Close</button>
+
                             </div>
                         </form>
                     </td>
@@ -56,6 +76,26 @@
             {% endfor %}
         </table>
     </div>
-
-
 {% endblock contents %}
+
+{% block scripts %}
+    <script>
+
+        function openFormForComment() {
+            console.log("OpenFormForComment")
+            document.getElementById('submit-new-class').value = 'K'
+            document.getElementById("myForm").style.display = "flex";
+        }
+
+        function openFormForDenial() {
+            console.log("OpenFormForDenial")
+            document.getElementById('submit-new-class').value = 'O'
+            document.getElementById("myForm").style.display = "flex";
+        }
+
+        function closeForm() {
+            console.log("closeForm")
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+{% endblock scripts %}
