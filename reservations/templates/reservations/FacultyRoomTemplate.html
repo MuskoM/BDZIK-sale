@@ -20,7 +20,7 @@
     </div>
 
         <div class="form-popup" id="myForm">
-            <form action="{% url 'ClassManager' %}" class="form-container" method="post">
+            <form action="{% url 'FacultyRoomPage' classroom.id_pomieszczenia %}" class="form-container" method="post">
                 {% csrf_token %}
                 <h1>Nowy wpis</h1>
                 <div class="form-group">
@@ -39,6 +39,11 @@
                     </div>
                 </div>
 
+                  <div class="form-group">
+                    <label for="exampleSelect2">Opis</label>
+                    <textarea class="form-control col-10" name="comment"
+                                            id="reservation-contents-input"></textarea>
+                </div>
 
                 <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
                 <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-danger">Close</p>
