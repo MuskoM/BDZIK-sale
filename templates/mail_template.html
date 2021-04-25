@@ -30,7 +30,7 @@
         body {
             display: flex;
             justify-content: center;
-             background-color: white;
+            background-color: white;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
             font-size: 14px;
             line-height: 1.6;
@@ -39,6 +39,7 @@
             -o-background-size: cover;
             background-size: cover;
         }
+
         .container-email {
             width: 600px;
             text-align: center;
@@ -63,12 +64,21 @@
     </div>
     <div class="inside-container">
         <h1>Witaj,{{ user }}!</h1>
-        <h3>Twoja rezerwacja z dnia {{ reservation_date }} została
-            {% if status == "ZAAKCEPTOWANA" %}
-                <span style="color: #4cae4c"><br>{{ status }}</span>
-                {% else %}
-                <span style="color: #b32626"><br>{{ status }}</span>
-            {% endif %}</h3>
+        {% if type == 'Z' %}
+            <h3>Twoja rezerwacja z dnia {{ reservation_date|date:"d-m-Y" }}, godz. {{ reservation_date|time:'H:i' }}
+            została
+            <span style="color: #4cae4c"><br>{{ status }}</span>
+        {% elif type == 'O' %}
+            <h3>Twoja rezerwacja z dnia {{ reservation_date|date:"d-m-Y" }}, godz. {{ reservation_date|time:'H:i' }}
+            została
+            <span style="color: #b32626"><br>{{ status }}</span>
+            <h4>Powód:</h4>
+            <p>{{ comment }}</p>
+        {% else %}
+            <h3>Do twojej rezerwacji z dnia {{ reservation_date|date:"d-m-Y" }}, godz. {{ reservation_date|time:'H:i' }}
+                został dodany nowy komentarz</h3>
+            <p>{{ comment }}</p>
+        {% endif %}
         <p>W razie problemów skontaktuj się z nami pod mailem</p>
     </div>
 </div>
