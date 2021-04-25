@@ -79,7 +79,6 @@ class FacultyRoomView(View):
         res = RezerwacjaSali.objects.first()
         all_reservations = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id)
 
-
         if request.GET:
             reservations_array = []
             for i in all_reservations:
@@ -158,26 +157,52 @@ class ReservationManagerView(View):
         new_status = ChangeClassroomReservationStatusForm(request.POST)
         reservation = RezerwacjaSali.objects.get(pk=reservation_id)
 
+        print(request.POST)
+
         if request.POST['status'] == "Z":
+            print("ZAAKCEPTOWANO")
             message_name = "Zaakceptowano rezerwację nr. " + str(reservation.id_rezerwacji_sali)
             message_email = reservation.id_uzytkownika.e_mail
             context = {
+                'type': request.POST['status'],
                 'user': reservation.id_uzytkownika,
-                'reservation_date': str(reservation.data_wykonania_rezerwacji),
+                'reservation_date': reservation.data_wykonania_rezerwacji,
                 'status': 'ZAAKCEPTOWANA'
             }
             html_message = render_to_string('mail_template.html', context)
             plain_message = strip_tags(html_message)
-        else:
+        elif request.POST['status'] == "O":
+            print("ODRZUCONO")
             message_name = "Odrzucono rezerwację nr. " + str(reservation.id_rezerwacji_sali)
             message_email = reservation.id_uzytkownika.e_mail
             context = {
+                'type': request.POST['status'],
                 'user': reservation.id_uzytkownika,
-                'reservation_date': str(reservation.data_wykonania_rezerwacji),
-                'status': "ODRZUCONA"
+                'reservation_date': reservation.data_wykonania_rezerwacji,
+                'status': "ODRZUCONA",
+                'comment': request.POST['comment'],
             }
             html_message = render_to_string('mail_template.html', context)
             plain_message = strip_tags(html_message)
+
+        else:
+            print("KOMENTARZ")
+            message_name = "Nowy komentarz do rezerwacji nr. " + str(reservation.id_rezerwacji_sali)
+            message_email = reservation.id_uzytkownika.e_mail
+            context = {
+                'type': request.POST['status'],
+                'user': reservation.id_uzytkownika,
+                'reservation_date': reservation.data_wykonania_rezerwacji,
+                'comment': request.POST['comment'],
+            }
+            html_message = render_to_string('mail_template.html', context)
+            plain_message = strip_tags(html_message)
+
+            send_mail(message_name,
+                      plain_message,
+                      'admin-e53753@inbox.mailtrap.io',
+                      [message_email],
+                      html_message=html_message)
 
         if new_status.is_valid():
             reservation.status = new_status.cleaned_data['status']
@@ -186,6 +211,7 @@ class ReservationManagerView(View):
                       'admin-e53753@inbox.mailtrap.io',
                       [message_email],
                       html_message=html_message)
+            print("Sent Mail")
             reservation.save()
 
         return redirect(request.META.get('HTTP_REFERER'))
@@ -193,20 +219,18 @@ class ReservationManagerView(View):
 
 class ClassManager(View):
 
-    def get(self,request):
-
+    def get(self, request):
         check_classroom_reservations = RezerwacjaSali.objects.all()
         subjects_all = Subject.objects.filter(subject_faculty=request.user.uzytkownik.id_wydzialu)
         classrooms_all = Pomieszczenie.objects.all()
         context = {
             "subjects_all": subjects_all,
             "reservations_all": check_classroom_reservations,
-            "classrooms_all":classrooms_all
+            "classrooms_all": classrooms_all
         }
-        return render(request,'reservations/ClassManagerTemplate.html',context)
+        return render(request, 'reservations/ClassManagerTemplate.html', context)
 
-    def post(self,request):
-
+    def post(self, request):
         new_class_res_form = NewSubjectClassesReservationForm(request.POST)
 
         if new_class_res_form.is_valid():
@@ -216,11 +240,12 @@ class ClassManager(View):
             new_reservation_form.status = 'Z'
             new_reservation_form.save()
 
-        context={
+        context = {
             'request': request.POST
         }
 
         return redirect('ClassManager')
+
 
 class UserEditView(View):
     def get(self, request):
@@ -228,12 +253,10 @@ class UserEditView(View):
 
 
 class UserPermissionsPanelView(View):
-    def get(self,request):
-
+    def get(self, request):
         return render(request, 'reservations/UserPermissionsPanelTemplate.html')
 
-    def post(self,request):
-
+    def post(self, request):
         return render(request, 'reservations/UserPermissionsPanelTemplate.html')
 
 
