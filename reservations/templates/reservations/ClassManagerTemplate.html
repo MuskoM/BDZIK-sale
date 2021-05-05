@@ -50,6 +50,12 @@
             </div>
 
             <div class="form-group">
+                <input type="checkbox" name="is_periodic" id="periodic">
+                <label>Cykliczne</label>
+                <input class="form-control" id="how_many_times" type="number" value="15">
+            </div>
+
+            <div class="form-group">
                 <label for="exampleSelect2">Sala</label>
                 <select multiple="" class="form-control" id="exampleSelect2" name="id_pomieszczenia">
                     {% for classroom in classrooms_all %}
@@ -57,6 +63,7 @@
                     {% endfor %}
                 </select>
             </div>
+
 
             <div class="form-group">
                 <label for="exampleSelect2">Przedmiot</label>
