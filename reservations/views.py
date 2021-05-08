@@ -77,7 +77,7 @@ class FacultyRoomView(View):
         room_type = self.room_types[room.rodzaj_pom]
 
         res = RezerwacjaSali.objects.first()
-        all_reservations = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id)
+        all_reservations = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id,status="Z")
 
         if request.GET:
             reservations_array = []
@@ -104,6 +104,7 @@ class FacultyRoomView(View):
             new_reservation_form = new_reservation.save(commit=False)
             new_reservation_form.id_pomieszczenia = Pomieszczenie.objects.get(pk=room_id)
             new_reservation_form.id_uzytkownika = request.user.uzytkownik
+            new_reservation_form.opis=request.POST['comment']
             new_reservation_form.data_wykonania_rezerwacji = timezone.now()
             try:
                 if check_do_reservations_collide(new_reservation_form.data_od,
@@ -111,7 +112,7 @@ class FacultyRoomView(View):
                     messages.error(request, "Rezerwacje kolidują z innymi")
                 else:
                     new_reservation_form.save()
-                    messages.success(request, "Pomyślnie dokonano rezerwacji")
+                    messages.success(request, "Pomyślnie wysłano prośbę o dokonanie rezerwacji.")
             except ValidationError:
                 messages.error(request, "Błąd w dokonywaniu rezerwacji")
         return redirect('FacultyRoomPage', room_id)

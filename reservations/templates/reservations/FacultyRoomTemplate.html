@@ -82,7 +82,7 @@
                         events: [
                             {% for i in events %}
                                 {
-                                    title: "{{i.data_do|date:'c' }}",
+                                    title: "{% if i.przedmiot is none %} {{ i.opis }} {% else %} {{ i.przedmiot.subject_name }} {% endif %}",
                                     start: "{{ i.data_od|date:'c'}}",
                                     end: "{{ i.data_do|date:'c' }}"
                                 },

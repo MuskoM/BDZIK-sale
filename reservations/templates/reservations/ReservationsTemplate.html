@@ -72,7 +72,7 @@
                 events: [
                     {% for i in reservations.qs %}
                         {
-                            title: "{{ i.przedmiot.subject_name }}",
+                            title: "{% if i.przedmiot is none %} {{ i.opis }} {% else %} {{ i.przedmiot.subject_name }} {% endif %}",
                             start: "{{ i.data_od|date:'c'}}",
                             end: "{{ i.data_do|date:'c' }}"
                         },
