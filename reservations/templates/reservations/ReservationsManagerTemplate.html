@@ -42,7 +42,8 @@
                         <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
                     {% endif %}
                     <td>
-                        <form action="{% url 'ReservationsManager_POST' reservation.id_rezerwacji_sali %}" method="post" role="form">
+                        <form action="{% url 'ReservationsManager_POST' reservation.id_rezerwacji_sali %}" method="post"
+                              role="form">
                             {% csrf_token %}
                             <div class="dropdown">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
@@ -51,10 +52,16 @@
                                     Opcje
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <button class="dropdown-item" name="status" value="Z" type="submit">Zatwierdź
+                                    {% if reservation.data_od > today %}
+                                        <button class="dropdown-item" name="status" value="Z" type="submit">Zatwierdź
+                                        </button>
+                                        <button class="dropdown-item" onclick="openFormForDenial()" name="status"
+                                                type="button">Odrzuć
+                                        </button>
+                                    {% endif %}
+                                    <button type="button" onclick="openFormForComment()" class="dropdown-item">Dodaj
+                                        komentarz
                                     </button>
-                                    <button class="dropdown-item" onclick="openFormForDenial()" name="status" type="button">Odrzuć</button>
-                                    <button type="button" onclick="openFormForComment()" class="dropdown-item">Dodaj komentarz</button>
                                 </div>
                             </div>
                             <div class="form-popup" id="myForm">
@@ -63,12 +70,16 @@
                                     <label for="example-contents-input"></label>
                                     <div class="col-10">
                                         <textarea class="form-control" name="comment"
-                                            id="reservation-contents-input"></textarea>
+                                                  id="reservation-contents-input"></textarea>
                                     </div>
                                 </div>
 
-                                <button id="submit-new-class" type="submit" name="status" value="K" class="btn btn-primary">Submit</button>
-                                <button id="temp-submit" type="button" onclick="closeForm()" class="btn-sm btn-danger">Close</button>
+                                <button id="submit-new-class" type="submit" name="status" value="K"
+                                        class="btn btn-primary">Submit
+                                </button>
+                                <button id="temp-submit" type="button" onclick="closeForm()" class="btn-sm btn-danger">
+                                    Close
+                                </button>
 
                             </div>
                         </form>

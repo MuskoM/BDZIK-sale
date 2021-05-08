@@ -149,8 +149,10 @@ class UserView(View):
 class ReservationManagerView(View):
     def get(self, request):
         reservations = RezerwacjaSali.objects.all()
+        today = timezone.now()
 
         context = {
+            "today":today,
             "reservations": reservations
         }
         return render(request, 'reservations/ReservationsManagerTemplate.html', context)
@@ -175,6 +177,7 @@ class ReservationManagerView(View):
             }
             html_message = render_to_string('mail_template.html', context)
             plain_message = strip_tags(html_message)
+
         elif request.POST['status'] == "O":
             print("ODRZUCONO")
             message_name = "Odrzucono rezerwację nr. " + str(reservation.id_rezerwacji_sali)
@@ -210,6 +213,7 @@ class ReservationManagerView(View):
 
         if new_status.is_valid():
             reservation.status = new_status.cleaned_data['status']
+            print("Reservation_status: ", reservation)
             send_mail(message_name,
                       plain_message,
                       'admin-e53753@inbox.mailtrap.io',
