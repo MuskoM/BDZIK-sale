@@ -31,7 +31,7 @@
                             {{ reservation.id_pomieszczenia }}
                         </a>
                     </td>
-                    <td>{{ reservation.data_od }}</td>
+                    <td>{{ reservation.data_od }} {{ reservation.id_rezerwacji_sali }}</td>
                     <td>{{ reservation.data_do }}</td>
                     <td>{{ reservation.id_uzytkownika }}</td>
                     {% if reservation.status == 'Z' %}
@@ -42,7 +42,7 @@
                         <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
                     {% endif %}
                     <td>
-                        <form action="{% url 'ReservationsManager_POST' reservation %}" method="post" role="form">
+                        <form action="{% url 'ReservationsManager_POST' reservation.id_rezerwacji_sali %}" method="post" role="form">
                             {% csrf_token %}
                             <div class="dropdown">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"

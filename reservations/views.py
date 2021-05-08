@@ -155,8 +155,10 @@ class ReservationManagerView(View):
         return render(request, 'reservations/ReservationsManagerTemplate.html', context)
 
     def post(self, request, reservation_id):
+        print(reservation_id)
         new_status = ChangeClassroomReservationStatusForm(request.POST)
         reservation = RezerwacjaSali.objects.get(pk=reservation_id)
+        print(reservation)
 
         print(request.POST)
 
@@ -263,7 +265,7 @@ class UserPermissionsPanelView(View):
 
 class ReservationsView(View):
     def get(self, request):
-        reservations = RezerwacjaSali.objects.all()
+        reservations = RezerwacjaSali.objects.filter(status="Z")
         reservations_filter = RezerwacjaSaliFilter(request.GET, queryset=reservations)
 
         context = {
