@@ -151,6 +151,7 @@ class RezerwacjaSali(models.Model):
     data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
     status = models.CharField(max_length=1, choices=status_labels, default="R")
     przedmiot = models.ForeignKey(Subject, on_delete=models.CASCADE,null=True)
+    opis = models.TextField(default="",max_length=200)
 
     # def save(self, *args, **kwargs):
     #     if self.data_od < timezone.now() or self.data_do < timezone.now():

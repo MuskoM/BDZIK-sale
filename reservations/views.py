@@ -77,7 +77,7 @@ class FacultyRoomView(View):
         room_type = self.room_types[room.rodzaj_pom]
 
         res = RezerwacjaSali.objects.first()
-        all_reservations = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id)
+        all_reservations = RezerwacjaSali.objects.filter(id_pomieszczenia=room_id,status="Z")
 
         if request.GET:
             reservations_array = []
@@ -104,6 +104,7 @@ class FacultyRoomView(View):
             new_reservation_form = new_reservation.save(commit=False)
             new_reservation_form.id_pomieszczenia = Pomieszczenie.objects.get(pk=room_id)
             new_reservation_form.id_uzytkownika = request.user.uzytkownik
+            new_reservation_form.opis=request.POST['comment']
             new_reservation_form.data_wykonania_rezerwacji = timezone.now()
             try:
                 if check_do_reservations_collide(new_reservation_form.data_od,
@@ -111,7 +112,7 @@ class FacultyRoomView(View):
                     messages.error(request, "Rezerwacje kolidują z innymi")
                 else:
                     new_reservation_form.save()
-                    messages.success(request, "Pomyślnie dokonano rezerwacji")
+                    messages.success(request, "Pomyślnie wysłano prośbę o dokonanie rezerwacji.")
             except ValidationError:
                 messages.error(request, "Błąd w dokonywaniu rezerwacji")
         return redirect('FacultyRoomPage', room_id)
@@ -148,8 +149,10 @@ class UserView(View):
 class ReservationManagerView(View):
     def get(self, request):
         reservations = RezerwacjaSali.objects.all()
+        today = timezone.now()
 
         context = {
+            "today":today,
             "reservations": reservations
         }
         return render(request, 'reservations/ReservationsManagerTemplate.html', context)
@@ -174,6 +177,7 @@ class ReservationManagerView(View):
             }
             html_message = render_to_string('mail_template.html', context)
             plain_message = strip_tags(html_message)
+
         elif request.POST['status'] == "O":
             print("ODRZUCONO")
             message_name = "Odrzucono rezerwację nr. " + str(reservation.id_rezerwacji_sali)
@@ -209,6 +213,7 @@ class ReservationManagerView(View):
 
         if new_status.is_valid():
             reservation.status = new_status.cleaned_data['status']
+            print("Reservation_status: ", reservation)
             send_mail(message_name,
                       plain_message,
                       'admin-e53753@inbox.mailtrap.io',
