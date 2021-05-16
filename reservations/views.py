@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views import View
-from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
+from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, RezerwacjeManageFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm
 from django.contrib.auth import get_user
 from django.contrib import messages
@@ -149,11 +149,12 @@ class UserView(View):
 class ReservationManagerView(View):
     def get(self, request):
         reservations = RezerwacjaSali.objects.all()
+        reservations_filter = RezerwacjeManageFilter(request.GET, queryset=reservations)
         today = timezone.now()
 
         context = {
-            "today":today,
-            "reservations": reservations
+            "today": today,
+            "reservations": reservations_filter
         }
         return render(request, 'reservations/ReservationsManagerTemplate.html', context)
 
