@@ -248,25 +248,27 @@ class ClassManager(View):
 
         if new_class_res_form.is_valid():
             new_reservation_form = new_class_res_form.save(commit=False)
-            # new_reservation_form.id_uzytkownika = request.user.uzytkownik
-            # new_reservation_form.data_wykonania_rezerwacji = timezone.now()
-            # new_reservation_form.status = 'Z'
+            new_reservation_form.id_uzytkownika = request.user.uzytkownik
+            new_reservation_form.data_wykonania_rezerwacji = timezone.now()
+            new_reservation_form.status = 'Z'
             # new_reservation_form.save()
             if new_reservation_form.cykliczny:
                 print("CYKLICZNY")
                 for i in range(0, new_reservation_form.how_many_times):
                     periodic_res_form = new_reservation_form
-                    periodic_res_form.data_od = periodic_res_form.data_od + timezone.timedelta(days=7*i)
-                    periodic_res_form.data_do = periodic_res_form.data_do + timezone.timedelta(days=7*i)
-                    periodic_res_form.id_uzytkownika = request.user.uzytkownik
-                    periodic_res_form.data_wykonania_rezerwacji = timezone.now()
-                    periodic_res_form.status = 'Z'
+                    periodic_res_form.pk = None
+                    if i != 0:
+                        periodic_res_form.data_od = periodic_res_form.data_od + timezone.timedelta(days=7)
+                        periodic_res_form.data_do = periodic_res_form.data_do + timezone.timedelta(days=7)
+                    # periodic_res_form.id_uzytkownika = request.user.uzytkownik
+                    # periodic_res_form.data_wykonania_rezerwacji = timezone.now()
+                    # periodic_res_form.status = 'Z'
                     periodic_res_form.save()
             else:
                 print("NIE I NIE")
-                new_reservation_form.id_uzytkownika = request.user.uzytkownik
-                new_reservation_form.data_wykonania_rezerwacji = timezone.now()
-                new_reservation_form.status = 'Z'
+                # new_reservation_form.id_uzytkownika = request.user.uzytkownik
+                # new_reservation_form.data_wykonania_rezerwacji = timezone.now()
+                # new_reservation_form.status = 'Z'
                 new_reservation_form.save()
 
         context = {
