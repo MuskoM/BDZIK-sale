@@ -1,18 +1,22 @@
 import datetime
-from django.utils import timezone
+
+from django.contrib import messages
+from django.contrib.auth import get_user
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db.models import Q, F
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
 from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, RezerwacjeManageFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm
 from django.contrib.auth import get_user
 from django.contrib import messages
-
 from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject
+from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
+from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm
 
 
 class MainSite(View):
@@ -244,10 +248,26 @@ class ClassManager(View):
 
         if new_class_res_form.is_valid():
             new_reservation_form = new_class_res_form.save(commit=False)
-            new_reservation_form.id_uzytkownika = request.user.uzytkownik
-            new_reservation_form.data_wykonania_rezerwacji = timezone.now()
-            new_reservation_form.status = 'Z'
-            new_reservation_form.save()
+            # new_reservation_form.id_uzytkownika = request.user.uzytkownik
+            # new_reservation_form.data_wykonania_rezerwacji = timezone.now()
+            # new_reservation_form.status = 'Z'
+            # new_reservation_form.save()
+            if new_reservation_form.cykliczny:
+                print("CYKLICZNY")
+                for i in range(0, new_reservation_form.how_many_times):
+                    periodic_res_form = new_reservation_form
+                    periodic_res_form.data_od = periodic_res_form.data_od + timezone.timedelta(days=7*i)
+                    periodic_res_form.data_do = periodic_res_form.data_do + timezone.timedelta(days=7*i)
+                    periodic_res_form.id_uzytkownika = request.user.uzytkownik
+                    periodic_res_form.data_wykonania_rezerwacji = timezone.now()
+                    periodic_res_form.status = 'Z'
+                    periodic_res_form.save()
+            else:
+                print("NIE I NIE")
+                new_reservation_form.id_uzytkownika = request.user.uzytkownik
+                new_reservation_form.data_wykonania_rezerwacji = timezone.now()
+                new_reservation_form.status = 'Z'
+                new_reservation_form.save()
 
         context = {
             'request': request.POST
