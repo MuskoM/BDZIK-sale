@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth import get_user
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db.models import Q, F
@@ -10,12 +11,10 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
-from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, RezerwacjeManageFilter
-from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm
-from django.contrib.auth import get_user
-from django.contrib import messages
+
 from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject
 from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
+from .filters import RezerwacjeManageFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm
 
 
@@ -34,7 +33,8 @@ class MainSite(View):
         return render(request, 'reservations/MainTemplate.html', context)
 
 
-class FacultiesView(View):
+class FacultiesView(LoginRequiredMixin, View):
+    login_url = "/registration/login"
     def get(self, request):
         classrooms_by_faculty = Pomieszczenie.objects.all()
         classrooms = PomieszczenieFilter(request.GET, queryset=classrooms_by_faculty)
@@ -122,7 +122,8 @@ class FacultyRoomView(View):
         return redirect('FacultyRoomPage', room_id)
 
 
-class DormView(View):
+class DormView(LoginRequiredMixin, View):
+    login_url = "/registration/login"
     def get(self, request, dorm_id):
         return render(request, 'reservations/DormsTemplate.html')
 
@@ -289,7 +290,6 @@ class UserPermissionsPanelView(View):
 
     def post(self, request):
         return render(request, 'reservations/UserPermissionsPanelTemplate.html')
-
 
 class ReservationsView(View):
     def get(self, request):
