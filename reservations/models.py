@@ -1,9 +1,10 @@
-from django.db import models
 from datetime import datetime
-from django.utils import timezone
-from django.db.models import Q,F
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.db.models import Q, F
+from django.utils import timezone
 
 
 def check_do_reservations_collide(begin_date,end_date,room_id):
@@ -145,13 +146,16 @@ class RezerwacjaSali(models.Model):
     )
     id_rezerwacji_sali = models.AutoField(primary_key=True)
     id_pomieszczenia = models.ForeignKey(Pomieszczenie, on_delete=models.CASCADE)
+    cykliczny = models.BooleanField(default=False)
+    how_many_times = models.IntegerField(default=1)
     data_od = models.DateTimeField()
     data_do = models.DateTimeField()
     id_uzytkownika = models.ForeignKey(Uzytkownik, related_name="rezerwacje_sal", on_delete=models.CASCADE)
-    data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
+    data_wykonania_rezerwacji = models.DateTimeField(default=timezone.now())
     status = models.CharField(max_length=1, choices=status_labels, default="R")
     przedmiot = models.ForeignKey(Subject, on_delete=models.CASCADE,null=True)
     opis = models.TextField(default="",max_length=200)
+
 
     # def save(self, *args, **kwargs):
     #     if self.data_od < timezone.now() or self.data_do < timezone.now():
@@ -244,7 +248,7 @@ class RezerwacjaPokoju(models.Model):
     data_od = models.DateTimeField()
     data_do = models.DateTimeField()
     id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
-    data_wykonania_rezerwacji = models.DateTimeField(default=datetime.now())
+    data_wykonania_rezerwacji = models.DateTimeField(default=timezone.now())
     status = models.CharField(max_length=1, choices=status_labels, default="R")
 
     def save(self, *args, **kwargs):

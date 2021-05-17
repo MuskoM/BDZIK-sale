@@ -1,7 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from django.contrib.admin.forms import AuthenticationForm
 
 from .models import RezerwacjaSali
 
@@ -35,4 +34,4 @@ class NewSubjectClassesReservationForm(forms.ModelForm):
 
     class Meta:
         model = RezerwacjaSali
-        fields = ['data_od', 'data_do', 'id_pomieszczenia','przedmiot']
+        fields = ['data_od', 'data_do', 'id_pomieszczenia', 'przedmiot', 'cykliczny', 'how_many_times']
