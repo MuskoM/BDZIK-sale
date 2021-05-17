@@ -67,7 +67,8 @@ def check_do_reservations_collide(begin_date, end_date, room_id):
         return False
 
 
-class FacultyRoomView(View):
+class FacultyRoomView(LoginRequiredMixin, View):
+    login_url = "/registration/login"
     room_types = {
         "S": "Sala wykładowa",
         "P": "Pracownia specjalistyczna",
@@ -128,7 +129,8 @@ class DormView(LoginRequiredMixin, View):
         return render(request, 'reservations/DormsTemplate.html')
 
 
-class DormRoomView(View):
+class DormRoomView(LoginRequiredMixin, View):
+    login_url = "/registration/login"
     def get(self, request, dorm_id, room_id):
         return render(request, "reservations/DormRoomTemplate.html")
 
