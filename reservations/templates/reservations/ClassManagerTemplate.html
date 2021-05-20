@@ -29,7 +29,7 @@
             <img src="{% static 'assets/outline_black_forward_arrow.png' %}" height="24px" alt="forward_arrow">
         </div>
     </div>
-    <div class="form-popup" id="myForm">
+    <div class="form-popup" id="myForm" style="min-width: 350px">
         <form action="{% url 'ClassManager' %}" class="form-container" method="post">
         {% csrf_token %}
             <h1>Nowy wpis</h1>
@@ -37,7 +37,7 @@
                 <label for="example-datetime-local-input">Początek</label>
                 <div class="col-10">
                     <input class="form-control" type="datetime-local" name="data_od"
-                           id="reservation-begin-datetime-input">
+                           id="reservation-begin-datetime-input" style="min-width: 230px">
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
                 <label for="example-datetime-local-input">Koniec</label>
                 <div class="col-10">
                     <input class="form-control" type="datetime-local" name="data_do"
-                           id="reservation-end-datetime-input">
+                           id="reservation-end-datetime-input" style="min-width: 230px">
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
 
             <div class="form-group">
                 <label for="exampleSelect2">Sala</label>
-                <select multiple="" class="form-control" id="exampleSelect2" name="id_pomieszczenia">
+                <select multiple="" class="form-control" id="exampleSelect2" name="id_pomieszczenia" style="min-width: 230px">
                     {% for classroom in classrooms_all %}
                         <option value="{{ classroom.id_pomieszczenia }}">{{ classroom }}</option>
                     {% endfor %}
@@ -70,7 +70,7 @@
 
             <div class="form-group">
                 <label for="exampleSelect2">Przedmiot</label>
-                <select multiple="" class="form-control" id="exampleSelect2" name="przedmiot">
+                <select multiple="" class="form-control" id="exampleSelect2" name="przedmiot" style="min-width: 230px">
                     {% for subject in subjects_all %}
                         <option value="{{ subject.subject_id }}">{{ subject.subject_name }}</option>
                     {% endfor %}
