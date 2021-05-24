@@ -19,7 +19,7 @@
         <h3 class="text-muted">Wydział: {{ classroom.id_wydzialu.nazwa_wydzialu }}</h3>
     </div>
 
-        <div class="form-popup" id="myForm">
+        <div class="form-popup" id="myForm" style="min-width: 330px">
             <form action="{% url 'FacultyRoomPage' classroom.id_pomieszczenia %}" class="form-container" method="post">
                 {% csrf_token %}
                 <h1>Nowy wpis</h1>
@@ -27,7 +27,7 @@
                     <label for="example-datetime-local-input">Początek</label>
                     <div class="col-10">
                         <input class="form-control" type="datetime-local" name="data_od"
-                               id="reservation-begin-datetime-input">
+                               id="reservation-begin-datetime-input" style="min-width: 230px">
                     </div>
                 </div>
 
@@ -35,14 +35,14 @@
                     <label for="example-datetime-local-input">Koniec</label>
                     <div class="col-10">
                         <input class="form-control" type="datetime-local" name="data_do"
-                               id="reservation-end-datetime-input">
+                               id="reservation-end-datetime-input" style="min-width: 230px">
                     </div>
                 </div>
 
                   <div class="form-group">
                     <label for="exampleSelect2">Opis</label>
-                    <textarea class="form-control col-10" name="comment"
-                                            id="reservation-contents-input"></textarea>
+                    <textarea class="form-control" name="comment"
+                              id="reservation-contents-input" style="min-width: 230px"></textarea>
                 </div>
 
                 <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
