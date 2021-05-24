@@ -155,7 +155,7 @@ class UserView(View):
         context = {
             "username": user,
             "is_coordinator": is_coordinator,
-            "is_admin":is_admin,
+            "is_admin": is_admin,
             "is_room_administrator":is_room_administrator,
             "made_reservations": made_reservations
         }
@@ -206,29 +206,15 @@ class ReservationManagerView(View):
                 'user': reservation.id_uzytkownika,
                 'reservation_date': reservation.data_wykonania_rezerwacji,
                 'status': "ODRZUCONA",
-                'comment': request.POST['comment'],
             }
             html_message = render_to_string('mail_template.html', context)
             plain_message = strip_tags(html_message)
 
         else:
-            print("KOMENTARZ")
-            message_name = "Nowy komentarz do rezerwacji nr. " + str(reservation.id_rezerwacji_sali)
+            message_name = "ERROR." + str(reservation.id_rezerwacji_sali)
             message_email = reservation.id_uzytkownika.e_mail
-            context = {
-                'type': request.POST['status'],
-                'user': reservation.id_uzytkownika,
-                'reservation_date': reservation.data_wykonania_rezerwacji,
-                'comment': request.POST['comment'],
-            }
-            html_message = render_to_string('mail_template.html', context)
+            html_message = render_to_string('mail_template.html')
             plain_message = strip_tags(html_message)
-
-            send_mail(message_name,
-                      plain_message,
-                      'admin-e53753@inbox.mailtrap.io',
-                      [message_email],
-                      html_message=html_message)
 
         if new_status.is_valid():
             reservation.status = new_status.cleaned_data['status']
