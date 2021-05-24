@@ -3,6 +3,25 @@
 
 {% block contents %}
 
-    <h1>User permissions panel</h1>
+    {% for user in users %}
+        <div class="card bg-secondary mb-2">
+            <div class="card-header">
+                {{ user }}
+            </div>
+            <div class="card-body">
+                <div class="form-inline padding">
+                    <div class="row margin10px">
+                        {% for group in user.konto.groups.all %}
+                            <div class="col-ms-4 marginleftright">
+                                {{ group }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
 
 {% endblock contents %}
