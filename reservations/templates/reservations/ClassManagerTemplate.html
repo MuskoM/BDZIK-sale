@@ -31,7 +31,7 @@
     </div>
     <div class="form-popup" id="myForm" style="min-width: 350px">
         <form action="{% url 'ClassManager' %}" class="form-container" method="post">
-        {% csrf_token %}
+            {% csrf_token %}
             <h1>Nowy wpis</h1>
             <div class="form-group">
                 <label for="example-datetime-local-input">Początek</label>
@@ -77,10 +77,16 @@
                 </select>
             </div>
             <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
-            <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-danger">Close</p>
+            <button id="delete-class" name="id_rezerwacji_sali" type="submit" class="btn-sm btn-danger" style="margin-bottom: 1rem;visibility: hidden">Delete</button>
+            <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-secondary">Close</p>
         </form>
     </div>
-
+    <div id="delete_form" type="hidden">
+        <form method="post" action="{% url 'ClassManager' %}">
+            {% csrf_token %}
+            <input type="hidden" >
+        </form>
+    </div>
     <div id="calendar"></div>
     <script>
         let calendarEl;
@@ -106,7 +112,14 @@
                 },
                 // IMPORTANT FUNCTION
                 eventClick: function (info) {
-                    openForm()
+                    var eventId = info.event.id;
+                    let date = new Date(info.event.startStr).toISOString().slice(0, 19)
+                    let begin_input = document.getElementById("reservation-begin-datetime-input")
+                    begin_input.value = date
+                    let end_input = document.getElementById("reservation-end-datetime-input")
+                    let date_end = new Date(info.event.endStr).toISOString().slice(0, 19)
+                    end_input.value = date_end
+                    openForm(eventId);
                 },
                 dateClick: function (info) {
                     openForm()
@@ -126,6 +139,7 @@
                 events: [
                     {% for i in reservations_all %}
                         {
+                            id: "{{ i.id_rezerwacji_sali }}",
                             title: "{{ i.przedmiot.subject_name }}",
                             start: "{{ i.data_od|date:'c'}}",
                             end: "{{ i.data_do|date:'c' }}"
@@ -136,8 +150,15 @@
             calendar.render();
         });
 
-        function openForm() {
+        function openForm(eventId) {
             document.getElementById("myForm").style.display = "block";
+            if(eventId !== undefined){
+                console.log(eventId)
+                document.getElementById("delete-class").value = eventId
+                document.getElementById("delete-class").style.visibility = "visible"
+            }else{
+                 document.getElementById("delete-class").style.visibility = "hidden"
+            }
         }
 
         function closeForm() {
