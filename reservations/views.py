@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth import get_user
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
@@ -138,6 +139,12 @@ class DormRoomView(LoginRequiredMixin, View):
 class UserView(View):
     def get(self, request):
         current_user = get_user(request)
+        groups = current_user.groups.all()
+        is_coordinator = groups.filter(name="Koordynator").exists()
+        is_admin = groups.filter(name__icontains="Administrator").exists()
+        is_room_administrator = groups.filter(name="Opiekun").exists()
+
+        print(is_coordinator,is_admin,is_room_administrator)
 
         try:
             user = Uzytkownik.objects.get(pk=current_user.pk)
@@ -147,6 +154,9 @@ class UserView(View):
         made_reservations = RezerwacjaSali.objects.order_by('-data_od').filter(id_uzytkownika=current_user.pk)
         context = {
             "username": user,
+            "is_coordinator": is_coordinator,
+            "is_admin":is_admin,
+            "is_room_administrator":is_room_administrator,
             "made_reservations": made_reservations
         }
 
@@ -155,7 +165,8 @@ class UserView(View):
 
 class ReservationManagerView(View):
     def get(self, request):
-        reservations = RezerwacjaSali.objects.all()
+        current_user = get_user(request)
+        reservations = RezerwacjaSali.objects.filter(id_pomieszczenia__opiekun=current_user.pk)
         reservations_filter = RezerwacjeManageFilter(request.GET, queryset=reservations)
         today = timezone.now()
 
@@ -288,7 +299,14 @@ class UserEditView(View):
 
 class UserPermissionsPanelView(View):
     def get(self, request):
-        return render(request, 'reservations/UserPermissionsPanelTemplate.html')
+        users = Uzytkownik.objects.all()
+
+        context = {
+
+            "users": users
+        }
+
+        return render(request, 'reservations/UserPermissionsPanelTemplate.html',context)
 
     def post(self, request):
         return render(request, 'reservations/UserPermissionsPanelTemplate.html')
