@@ -35,3 +35,10 @@ class NewSubjectClassesReservationForm(forms.ModelForm):
     class Meta:
         model = RezerwacjaSali
         fields = ['data_od', 'data_do', 'id_pomieszczenia', 'przedmiot', 'cykliczny', 'how_many_times']
+
+
+class DeleteSubjectClassesReservationForm(forms.ModelForm):
+
+    class Meta:
+        model = RezerwacjaSali
+        fields = ['id_rezerwacji_sali']

@@ -31,7 +31,7 @@
     </div>
     <div class="form-popup" id="myForm" style="min-width: 350px">
         <form action="{% url 'ClassManager' %}" class="form-container" method="post">
-        {% csrf_token %}
+            {% csrf_token %}
             <h1>Nowy wpis</h1>
             <div class="form-group">
                 <label for="example-datetime-local-input">Początek</label>
@@ -77,10 +77,16 @@
                 </select>
             </div>
             <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
+            <button id="delete-class" type="submit" class="btn btn-danger">Delete</button>
             <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-danger">Close</p>
         </form>
     </div>
-
+    <div id="delete_form" type="hidden">
+        <form method="post" action="{% url 'ClassManager' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id_rezerwacji_sali">
+        </form>
+    </div>
     <div id="calendar"></div>
     <script>
         let calendarEl;
@@ -106,7 +112,9 @@
                 },
                 // IMPORTANT FUNCTION
                 eventClick: function (info) {
-                    openForm()
+                    var eventId = info.event.id;
+
+                    openForm();
                 },
                 dateClick: function (info) {
                     openForm()
@@ -123,9 +131,30 @@
                     end_input.value = date_end
                     openForm()
                 },
+                eventDidMount: function (info) {
+                    $(info.el).append("<span class='removebtn' style='color: red'>X</span>");
+                    $(info.el).find(".removebtn").click(function () {
+                        const form = document.createElement('form');
+                        form.method = 'post';
+                        form.action = 'delete';
+                        const token = document.createElement('input');
+                        token.type = 'hidden';
+                        token.name = 'csrfmiddlewaretoken';
+                        token.value = '{{ csrf_token }}';
+                        form.appendChild(token);
+                        const hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = 'id_rezerwacji_sali';
+                        hiddenField.value = info.event.id;
+                        form.appendChild(hiddenField);
+                        form.submit();
+                        info.event.remove();
+                    });
+                },
                 events: [
                     {% for i in reservations_all %}
                         {
+                            id: "{{ i.id_rezerwacji_sali }}",
                             title: "{{ i.przedmiot.subject_name }}",
                             start: "{{ i.data_od|date:'c'}}",
                             end: "{{ i.data_do|date:'c' }}"
