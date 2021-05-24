@@ -245,10 +245,11 @@ class ClassManager(View):
         return render(request, 'reservations/ClassManagerTemplate.html', context)
 
     def post(self, request):
+        print(request.POST)
         new_class_res_form = NewSubjectClassesReservationForm(request.POST)
-        delete_class_res_form = DeleteSubjectClassesReservationForm(request.POST);
+        delete_class_res_form = DeleteSubjectClassesReservationForm(request.POST)
         if delete_class_res_form.is_valid():
-            found_res = RezerwacjaSali.filter(id_rezerwacji_sali=delete_class_res_form.id_rezerwacji_sali)
+            found_res = RezerwacjaSali.objects.filter(id_rezerwacji_sali=request.POST['id_rezerwacji_sali'])
             found_res.delete()
         elif new_class_res_form.is_valid():
             new_reservation_form = new_class_res_form.save(commit=False)

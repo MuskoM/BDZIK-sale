@@ -77,14 +77,14 @@
                 </select>
             </div>
             <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
-            <button id="delete-class" type="submit" class="btn btn-danger">Delete</button>
+            <button id="delete-class" name="id_rezerwacji_sali" type="submit" class="btn btn-danger">Delete</button>
             <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-danger">Close</p>
         </form>
     </div>
     <div id="delete_form" type="hidden">
         <form method="post" action="{% url 'ClassManager' %}">
             {% csrf_token %}
-            <input type="hidden" name="id_rezerwacji_sali">
+            <input type="hidden" >
         </form>
     </div>
     <div id="calendar"></div>
@@ -113,8 +113,13 @@
                 // IMPORTANT FUNCTION
                 eventClick: function (info) {
                     var eventId = info.event.id;
-
-                    openForm();
+                    let date = new Date(info.event.startStr).toISOString().slice(0, 19)
+                    let begin_input = document.getElementById("reservation-begin-datetime-input")
+                    begin_input.value = date
+                    let end_input = document.getElementById("reservation-end-datetime-input")
+                    let date_end = new Date(info.event.endStr).toISOString().slice(0, 19)
+                    end_input.value = date_end
+                    openForm(eventId);
                 },
                 dateClick: function (info) {
                     openForm()
@@ -131,26 +136,6 @@
                     end_input.value = date_end
                     openForm()
                 },
-                eventDidMount: function (info) {
-                    $(info.el).append("<span class='removebtn' style='color: red'>X</span>");
-                    $(info.el).find(".removebtn").click(function () {
-                        const form = document.createElement('form');
-                        form.method = 'post';
-                        form.action = 'delete';
-                        const token = document.createElement('input');
-                        token.type = 'hidden';
-                        token.name = 'csrfmiddlewaretoken';
-                        token.value = '{{ csrf_token }}';
-                        form.appendChild(token);
-                        const hiddenField = document.createElement('input');
-                        hiddenField.type = 'hidden';
-                        hiddenField.name = 'id_rezerwacji_sali';
-                        hiddenField.value = info.event.id;
-                        form.appendChild(hiddenField);
-                        form.submit();
-                        info.event.remove();
-                    });
-                },
                 events: [
                     {% for i in reservations_all %}
                         {
@@ -165,8 +150,12 @@
             calendar.render();
         });
 
-        function openForm() {
+        function openForm(eventId) {
             document.getElementById("myForm").style.display = "block";
+            if(eventId !== undefined){
+                console.log(eventId)
+                document.getElementById("delete-class").value = eventId
+            }
         }
 
         function closeForm() {
