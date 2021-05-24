@@ -13,25 +13,25 @@
 
 {% block contents %}
 
-{% load crispy_forms_tags %}
+    {% load crispy_forms_tags %}
 
     <div class="col-md-3 margin10px">
         <a class="btn btn-primary" role="button" data-toggle="collapse" href="#filtry"
-                aria-expanded="false" aria-controls="filtry">Filtry + </a>
+           aria-expanded="false" aria-controls="filtry">Filtry + </a>
     </div>
     <div class="collapse multi-collapse" id="filtry">
-        <div >
+        <div>
             <form method="get" class="form-inline padding">
-                    <div class="col-ms-4 marginleftright">
-                        {{ reservations.form.id_pomieszczenia|as_crispy_field }}
-                    </div>
-                    <div class="col-ms-4 marginleftright">
-                        {{ reservations.form.id_uzytkownika|as_crispy_field }}
-                    </div>
-                    <div class="col-ms-4 marginleftright">
-                        {{ reservations.form.status|as_crispy_field }}
-                    </div>
-                <input type="submit" class="btn btn-info" />
+                <div class="col-ms-4 marginleftright">
+                    {{ reservations.form.id_pomieszczenia|as_crispy_field }}
+                </div>
+                <div class="col-ms-4 marginleftright">
+                    {{ reservations.form.id_uzytkownika|as_crispy_field }}
+                </div>
+                <div class="col-ms-4 marginleftright">
+                    {{ reservations.form.status|as_crispy_field }}
+                </div>
+                <input type="submit" class="btn btn-info"/>
             </form>
         </div>
     </div>
@@ -52,10 +52,10 @@
                 <tr class="table table-hover table-striped">
                     <td>
                         <a href="{% url 'FacultyRoomPage' room_id=reservation.id_pomieszczenia.id_pomieszczenia %}">
-                            {{ reservation.id_pomieszczenia }}
+                            {{ reservation.id_pomieszczenia }} #{{ reservation.id_rezerwacji_sali }}
                         </a>
                     </td>
-                    <td>{{ reservation.data_od }} {{ reservation.id_rezerwacji_sali }}</td>
+                    <td>{{ reservation.data_od }}</td>
                     <td>{{ reservation.data_do }}</td>
                     <td>{{ reservation.id_uzytkownika }}</td>
                     {% if reservation.status == 'Z' %}
@@ -66,7 +66,8 @@
                         <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
                     {% endif %}
                     <td>
-                        <form action="{% url 'ReservationsManager_POST' reservation.id_rezerwacji_sali %}" method="post"
+                        <form action="{% url 'ReservationsManager_POST' reservation.id_rezerwacji_sali %}"
+                              method="post"
                               role="form">
                             {% csrf_token %}
                             <div class="dropdown">
@@ -77,36 +78,18 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     {% if reservation.data_od > today %}
+
                                         <button class="dropdown-item" name="status" value="Z" type="submit">Zatwierdź
                                         </button>
-                                        <button class="dropdown-item" onclick="openFormForDenial()" name="status"
-                                                type="button">Odrzuć
+
+                                        <button class="dropdown-item" value="O" name="status"
+                                                type="submit">Odrzuć
                                         </button>
                                     {% endif %}
-                                    <button type="button" onclick="openFormForComment()" class="dropdown-item">Dodaj
-                                        komentarz
-                                    </button>
                                 </div>
-                            </div>
-                            <div class="form-popup" id="myForm">
-                                <h1>Nowy komentarz</h1>
-                                <div class="form-group">
-                                    <label for="example-contents-input"></label>
-                                    <div class="col-10">
-                                        <textarea class="form-control" name="comment"
-                                                  id="reservation-contents-input"></textarea>
-                                    </div>
-                                </div>
-
-                                <button id="submit-new-class" type="submit" name="status" value="K"
-                                        class="btn btn-primary">Submit
-                                </button>
-                                <button id="temp-submit" type="button" onclick="closeForm()" class="btn-sm btn-danger">
-                                    Close
-                                </button>
-
                             </div>
                         </form>
+
                     </td>
                 </tr>
             {% endfor %}

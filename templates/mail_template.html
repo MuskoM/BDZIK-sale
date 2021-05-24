@@ -66,20 +66,18 @@
         <h1>Witaj,{{ user }}!</h1>
         {% if type == 'Z' %}
             <h3>Twoja rezerwacja z dnia {{ reservation_date|date:"d-m-Y" }}, godz. {{ reservation_date|time:'H:i' }}
-            została
+                została</h3>
             <span style="color: #4cae4c"><br>{{ status }}</span>
         {% elif type == 'O' %}
             <h3>Twoja rezerwacja z dnia {{ reservation_date|date:"d-m-Y" }}, godz. {{ reservation_date|time:'H:i' }}
-            została
+            została</h3>
             <span style="color: #b32626"><br>{{ status }}</span>
-            <h4>Powód:</h4>
-            <p>{{ comment }}</p>
         {% else %}
             <h3>Do twojej rezerwacji z dnia {{ reservation_date|date:"d-m-Y" }}, godz. {{ reservation_date|time:'H:i' }}
                 został dodany nowy komentarz</h3>
             <p>{{ comment }}</p>
         {% endif %}
-        <p>W razie problemów skontaktuj się z nami pod mailem</p>
+        <p>W razie problemów skontaktuj się z nami pod mailem: polibplan@gmail.com</p>
     </div>
 </div>
 
