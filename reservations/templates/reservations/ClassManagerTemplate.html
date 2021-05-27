@@ -77,7 +77,7 @@
                 </select>
             </div>
             <button id="submit-new-class" type="submit" class="btn btn-primary">Submit</button>
-            <button id="delete-class" name="id_rezerwacji_sali" type="submit" class="btn-sm btn-danger" style="margin-bottom: 1rem;visibility: hidden">Delete</button>
+            <button id="delete-class" name="id_rezerwacji_sali" value="0" type="submit" class="btn-sm btn-danger" style="margin-bottom: 1rem;visibility: hidden">Delete</button>
             <p id="temp-submit" onclick="closeForm()" class="btn-sm btn-secondary">Close</p>
         </form>
     </div>
@@ -134,7 +134,7 @@
                     let end_input = document.getElementById("reservation-end-datetime-input")
                     let date_end = new Date(info.endStr).toISOString().slice(0, 19)
                     end_input.value = date_end
-                    openForm()
+                    openForm(0)
                 },
                 events: [
                     {% for i in reservations_all %}
@@ -156,8 +156,10 @@
                 console.log(eventId)
                 document.getElementById("delete-class").value = eventId
                 document.getElementById("delete-class").style.visibility = "visible"
-            }else{
-                 document.getElementById("delete-class").style.visibility = "hidden"
+            }else if(eventId === 0){
+                console.log(eventId)
+                document.getElementById("delete-class").style.visibility = "hidden"
+                document.getElementById("delete-class").value = 0
             }
         }
 
