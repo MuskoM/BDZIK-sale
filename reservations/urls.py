@@ -15,10 +15,11 @@ urlpatterns += [
     path('classrooms/room=<int:room_id>', views.FacultyRoomView.as_view(), name="FacultyRoomPage"),
 
 
-    path('reservations/',views.ReservationsView.as_view(), name="ReservationsView"),
+
+    path('reservations/', views.ReservationsView.as_view(), name="ReservationsView"),
 
 
-    path('dorm=<int:dorm_id>', views.DormView.as_view(), name="DormsPage"),
+    path('dorms/', views.DormView.as_view(), name="DormsPage"),
     path('dorm=<int:dorm_id>/room=<int:room_id>', views.DormRoomView, name="DormRoomPage"),
 
     path('user/', views.UserView.as_view(),name="UserPage"),

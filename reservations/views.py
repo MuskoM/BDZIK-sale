@@ -13,8 +13,8 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
 
-from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject
-from .filters import PomieszczenieFilter, RezerwacjaSaliFilter
+from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject, Pokoj
+from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, PokojFilter
 from .filters import RezerwacjeManageFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm, \
     DeleteSubjectClassesReservationForm
@@ -127,8 +127,13 @@ class FacultyRoomView(LoginRequiredMixin, View):
 
 class DormView(LoginRequiredMixin, View):
     login_url = "/registration/login"
-    def get(self, request, dorm_id):
-        return render(request, 'reservations/DormsTemplate.html')
+    def get(self, request):
+        dorm_room = Pokoj.objects.all()
+        dormrooms = PokojFilter(request.GET, queryset=dorm_room)
+        context = {
+            "dormrooms": dormrooms,
+        }
+        return render(request, 'reservations/DormsTemplate.html', context)
 
 
 class DormRoomView(LoginRequiredMixin, View):
