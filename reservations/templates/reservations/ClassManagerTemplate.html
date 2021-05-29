@@ -124,8 +124,20 @@
                 dateClick: function (info) {
                     openForm()
                 },
-                eventMouseEnter: function (info) {
-                    info.el.title = info.event.title
+                eventDidMount: function(info) {
+                    $(info.el).tooltip({
+                    title: "Przedmiot: " + info.event.title + "{{ space|linebreaks }}"
+                    + "Pomieszczenie: " + info.event.extendedProps.pomieszczenie + "{{ space|linebreaks }}"
+                    + "Wydział : " + info.event.extendedProps.wydzial + "{{ space|linebreaks }}"
+                    + "Data rozpączęcia: " + info.event.start + "{{ space|linebreaks }}"
+                    + "Data zakończenia: " + info.event.end + "{{ space|linebreaks }}"
+                    + "Opis: " + info.event.extendedProps.description + "{{ space|linebreaks }}"
+                    + "Data wykonania rezerwacji: " + info.event.extendedProps.data_wykonania,
+                    placement: "left",
+                    trigger: "hover",
+                    container: "body",
+                    html: true
+                    });
                 },
                 select: function (info) {
                     let date = new Date(info.startStr).toISOString().slice(0, 19)
@@ -142,7 +154,11 @@
                             id: "{{ i.id_rezerwacji_sali }}",
                             title: "{{ i.przedmiot.subject_name }}",
                             start: "{{ i.data_od|date:'c'}}",
-                            end: "{{ i.data_do|date:'c' }}"
+                            end: "{{ i.data_do|date:'c' }}",
+                            description: "{{ i.opis }}",
+                            pomieszczenie: "{{ i.id_pomieszczenia }}",
+                            wydzial: "{{ i.id_pomieszczenia.id_wydzialu }}",
+                            data_wykonania: "{{ i.data_wykonania_rezerwacji }}"
                         },
                     {% endfor %}
                 ]
