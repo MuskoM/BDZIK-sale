@@ -4,16 +4,44 @@
 {% block contents %}
 
     {% for user in users %}
-        <div class="card bg-secondary mb-2">
+        <div class="card bg-transparent mb-2">
             <div class="card-header">
-                {{ user }}
+                <h3>{{ user }}</h3>
+                <div style="padding-bottom: 1rem">
+                    <button class="btn-sm btn-success" type="button">Dodaj Grupę Uprawnień</button>
+                </div>
+
+                <div class="add-new-group-form" id="new-group{{ user.id_uzytkownika }}">
+                    <form action="{% url 'PermissionsManager' %}" method="post">
+                        <fieldset>
+                            <div class="form-group col">
+                                <h6>Wybierz grupy</h6>
+                                <select multiple="" class="form-select">
+                                    {% for group in groups %}
+                                        <option>{{ group }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button class="btn-sm btn-success" type="submit">Dodaj</button>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <div class="form-inline padding">
                     <div class="row margin10px">
                         {% for group in user.konto.groups.all %}
-                            <div class="col-ms-4 marginleftright">
-                                {{ group }}
+                            <div class="col-ms-4 marginleftright card" style="display: flex">
+                                <div class="card-header">{{ group }}
+                                    <form action="{% url 'PermissionsManager' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="user-id" value="{{ user.id_uzytkownika }}"/>
+                                        <button class="btn-sm btn-danger" type="submit" name="group-name"
+                                                value="{{ group }}"> Remove
+                                        </button>
+                                    </form>
+                                </div>
+
                             </div>
                         {% endfor %}
                     </div>

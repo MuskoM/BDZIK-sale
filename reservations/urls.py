@@ -20,7 +20,7 @@ urlpatterns += [
 
 
     path('dorms/', views.DormView.as_view(), name="DormsPage"),
-    path('dorm=<int:dorm_id>/room=<int:room_id>', views.DormRoomView, name="DormRoomPage"),
+    path('dorms/room=<int:room_id>', views.DormRoomView.as_view(), name="DormRoomPage"),
 
     path('user/', views.UserView.as_view(),name="UserPage"),
     path('user/detail', views.UserEditView.as_view(),name="UserEditPage"),
