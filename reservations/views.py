@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db.models import Q, F
@@ -138,19 +139,26 @@ class DormView(LoginRequiredMixin, View):
 
 class DormRoomView(LoginRequiredMixin, View):
     login_url = "/registration/login"
-    def get(self, request, dorm_id, room_id):
-        return render(request, "reservations/DormRoomTemplate.html")
+
+    def get(self, request, room_id):
+        room = Pokoj.objects.get(id_pokoju=room_id)
+
+        context = {
+            "room": room
+        }
+        return render(request, "reservations/DormRoomTemplate.html",context)
 
 
 class UserView(View):
     def get(self, request):
-        current_user = get_user(request)
+        current_user = request.user
         groups = current_user.groups.all()
         is_coordinator = groups.filter(name="Koordynator").exists()
         is_admin = groups.filter(name__icontains="Administrator").exists()
         is_room_administrator = groups.filter(name="Opiekun").exists()
+        is_dorm_admin = groups.filter(name__icontains="akademików").exists()
 
-        print(is_coordinator,is_admin,is_room_administrator)
+        print(is_coordinator,is_admin,is_room_administrator,is_dorm_admin)
 
         try:
             user = Uzytkownik.objects.get(pk=current_user.pk)
@@ -163,6 +171,7 @@ class UserView(View):
             "is_coordinator": is_coordinator,
             "is_admin": is_admin,
             "is_room_administrator":is_room_administrator,
+            "is_dorm_admin": is_dorm_admin,
             "made_reservations": made_reservations
         }
 
@@ -287,16 +296,31 @@ class UserEditView(View):
 class UserPermissionsPanelView(View):
     def get(self, request):
         users = Uzytkownik.objects.all()
+        groups = Group.objects.all()
 
         context = {
-
-            "users": users
+            "users": users,
+            "groups": groups
         }
 
         return render(request, 'reservations/UserPermissionsPanelTemplate.html',context)
 
     def post(self, request):
-        return render(request, 'reservations/UserPermissionsPanelTemplate.html')
+        print(request.POST)
+        if "group-name" in request.POST:
+            group_to_delete = Group.objects.get(name=request.POST['group-name'])
+            user = Uzytkownik.objects.get(pk=request.POST['user-id'])
+            group_to_delete.user_set.remove(user.konto)
+
+        if "groups" in request.POST:
+            groups = request.POST.getlist("groups")
+            print(len(groups))
+            for group in groups:
+                group_to_add = Group.objects.get(name=group)
+                user = Uzytkownik.objects.get(pk=request.POST['user-id'])
+                group_to_add.user_set.add(user.konto)
+
+        return redirect('PermissionsManager')
 
 class ReservationsView(View):
     def get(self, request):

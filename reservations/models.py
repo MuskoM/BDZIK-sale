@@ -82,7 +82,7 @@ class Student(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if 100000000 < self.nr_telefonu or self.nr_telefonu < 999999999:
+        if 100000000 > self.nr_telefonu or self.nr_telefonu > 999999999:
             raise ValidationError("Nie ma takiego numeru telefonu! Podaj prawdziwy numer.")
         super(Student, self).save(*args, **kwargs)
 
@@ -226,6 +226,8 @@ class Akademik(models.Model):
 
 class Pokoj(models.Model):
     id_pokoju = models.AutoField(primary_key=True)
+    nr_pokoju = models.IntegerField()
+    nr_pietra = models.IntegerField()
     id_akademika = models.ForeignKey(Akademik, on_delete=models.CASCADE)
     ilosc_lozek = models.IntegerField()
     opis = models.TextField()

@@ -41,6 +41,10 @@
                                     <a href=" {% url 'PermissionsManager' %}" class="btn btn-danger"
                                        style="margin-bottom: 1rem">User permissions</a>
                                 {% endif %}
+                                {% if is_dorm_admin %}
+                                    <a href=" {% url 'PermissionsManager' %}" class="btn btn-success"
+                                       style="margin-bottom: 1rem">Dorm Reservations</a>
+                                {% endif %}
                             </div>
                         </div>
                     {% endif %}

@@ -4,16 +4,48 @@
 {% block contents %}
 
     {% for user in users %}
-        <div class="card bg-secondary mb-2">
+        <div class="card bg-transparent mb-2">
             <div class="card-header">
-                {{ user }}
+                <h3>{{ user }}</h3>
+                <div style="padding-bottom: 1rem">
+                    <button class="btn-sm btn-success add-new-group-btn" id="add-group-btn" type="button">Dodaj Grupę
+                        Uprawnień
+                    </button>
+                </div>
+                <div class="add-new-group-form" id="new-group{{ user.id_uzytkownika }}"
+                     style="visibility: hidden;height: 0px">
+                    <form action="{% url 'PermissionsManager' %}" method="post">
+                    {% csrf_token %}
+                        <fieldset>
+                            <div class="form-group col">
+                                <h6>Wybierz grupy</h6>
+                                <select multiple="" class="form-select" name="groups">
+                                    {% for group in groups %}
+                                        <option>{{ group }}</option>
+                                    {% endfor %}
+                                </select>
+                            <input type="hidden" name="user-id" value="{{ user.id_uzytkownika }}"/>
+                            </div>
+                            <button class="btn-sm btn-success" type="submit">Dodaj</button>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <div class="form-inline padding">
                     <div class="row margin10px">
                         {% for group in user.konto.groups.all %}
-                            <div class="col-ms-4 marginleftright">
-                                {{ group }}
+                            <div class="col-ms-4 marginleftright card" style="display: flex">
+                                <div class="card-header">{{ group }}
+                                    <form action="{% url 'PermissionsManager' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="user-id" value="{{ user.id_uzytkownika }}"/>
+                                        <button class="btn-sm btn-danger" type="submit" name="group-name"
+                                                value="{{ group }}"> Remove
+                                        </button>
+                                    </form>
+                                </div>
+
                             </div>
                         {% endfor %}
                     </div>
@@ -22,6 +54,21 @@
         </div>
     {% endfor %}
 
+    <script>
 
+        document.querySelectorAll('.add-new-group-btn').forEach(item => {
+            item.addEventListener('click', evt => {
+                let visibility = evt.composedPath()[2].children[2].style.visibility
+                if (visibility === "visible") {
+                    evt.composedPath()[2].children[2].style.visibility = "hidden"
+                    evt.composedPath()[2].children[2].style.height = "0px"
+                } else {
+                    evt.composedPath()[2].children[2].style.visibility = "visible"
+                    evt.composedPath()[2].children[2].style.height = "10rem"
+                }
+            })
+        })
+
+    </script>
 
 {% endblock contents %}

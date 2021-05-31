@@ -42,3 +42,4 @@ class DeleteSubjectClassesReservationForm(forms.ModelForm):
     class Meta:
         model = RezerwacjaSali
         fields = ['id_rezerwacji_sali']
+

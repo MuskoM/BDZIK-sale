@@ -6,7 +6,7 @@
 {% block breadcrumbs %}
     {% breadcrumb "Strona główna" "/" %}
     {% breadcrumb "Sale" "/classrooms/" %}
-    {% breadcrumb classroom.opis "/reservations/room={{ classroom.id }}" %}
+    {% breadcrumb classroom.id_pomieszczenia "/reservations/room={{ classroom.id }}" %}
 {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href={% static "css/FacultyRoom.css" %}>
@@ -14,7 +14,7 @@
 
 {% block contents %}
     <div class="jumbotron text-center rounded border border-primary margin10px shadow-lg p-3 mb-5 bg-white rounded kolor">
-        <h1 class="display-4">{{ classroom_type }} <b>{{ classroom.opis }}</b></h1>
+        <h1 class="display-4">{{ classroom_type }} <b>{{ classroom.id_pomieszczenia }}</b></h1>
         {#        <h2 class="text-muted">{{ classroom_type }}</h2>#}
         <h3 class="text-muted">Wydział: {{ classroom.id_wydzialu.nazwa_wydzialu }}</h3>
     </div>
