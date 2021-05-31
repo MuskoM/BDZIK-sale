@@ -312,6 +312,14 @@ class UserPermissionsPanelView(View):
             user = Uzytkownik.objects.get(pk=request.POST['user-id'])
             group_to_delete.user_set.remove(user.konto)
 
+        if "groups" in request.POST:
+            groups = request.POST.getlist("groups")
+            print(len(groups))
+            for group in groups:
+                group_to_add = Group.objects.get(name=group)
+                user = Uzytkownik.objects.get(pk=request.POST['user-id'])
+                group_to_add.user_set.add(user.konto)
+
         return redirect('PermissionsManager')
 
 class ReservationsView(View):
