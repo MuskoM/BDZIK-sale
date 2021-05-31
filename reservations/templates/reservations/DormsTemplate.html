@@ -1,11 +1,101 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 {% extends 'default_layout.html' %}
 {% load django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
     {% breadcrumb "Strona główna" "/reservations/" %}
-    {% breadcrumb "Akademiki" "/reservations/faculty/" %}
+    {% breadcrumb "Akademiki" "/reservations/" %}
 {% endblock %}
 {% block contents %}
 
-    <h1>DormsTemplate</h1>
+    <h3>Akademiki</h3>
+    <ul class="nav nav-tabs">
+        <li class="nav-item active"><a href="#alfa" data-toggle="tab" class="nav-link">ALFA</a></li>
+        <li class="nav-item"><a href="#beta" data-toggle="tab" class="nav-link">BETA</a></li>
+        <li class="nav-item"><a href="#gamma" data-toggle="tab" class="nav-link">GAMMA</a></li>
+        <li class="nav-item"><a href="#delta" data-toggle="tab" class="nav-link">DELTA</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="alfa">
+            {% if dormrooms.count == 0 %}
+            <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale.</h2>
+            {% else %}
+            <div class="row margin10px">
+                {% for room in dormrooms.qs %}
+                    {% if room.id_akademika|stringformat:"s" == "ALFA" %}
+                        <div class="col-sm-4 margintop">
+                            <a href="room={{ room.id_pokoju }}" class="card-link">
+                                <div class="card margintop">
+                                    <h4 class="card-title margin10px">Pokój {{ room.id_pokoju }}</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted margin10px" >Ilość łóżek: {{ room.ilosc_lozek }}</h6>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="beta">
+            {% if dormrooms.count == 0 %}
+            <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale.</h2>
+            {% else %}
+            <div class="row margin10px">
+                {% for room in dormrooms.qs %}
+                    {% if room.id_akademika|stringformat:"s" == "BETA" %}
+                        <div class="col-sm-4 margintop">
+                            <a href="room={{ room.id_pokoju }}" class="card-link">
+                                <div class="card margintop">
+                                    <h4 class="card-title margin10px">Pokój {{ room.id_pokoju }}</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted margin10px" >Ilość łóżek: {{ room.ilosc_lozek }}</h6>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="gamma">
+            {% if dormrooms.count == 0 %}
+            <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale.</h2>
+            {% else %}
+            <div class="row margin10px">
+                {% for room in dormrooms.qs %}
+                    {% if room.id_akademika|stringformat:"s" == "GAMMA" %}
+                        <div class="col-sm-4 margintop">
+                            <a href="room={{ room.id_pokoju }}" class="card-link">
+                                <div class="card margintop">
+                                    <h4 class="card-title margin10px">Pokój {{ room.id_pokoju }}</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted margin10px" >Ilość łóżek: {{ room.ilosc_lozek }}</h6>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="delta">
+            {% if dormrooms.count == 0 %}
+            <h2>Nie ma żadnych dostępnych pomieszczeń na tym wydziale.</h2>
+            {% else %}
+            <div class="row margin10px">
+                {% for room in dormrooms.qs %}
+                    {% if room.id_akademika|stringformat:"s" == "DELTA" %}
+                        <div class="col-sm-4 margintop">
+                            <a href="room={{ room.id_pokoju }}" class="card-link">
+                                <div class="card margintop">
+                                    <h4 class="card-title margin10px">Pokój {{ room.id_pokoju }}</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted margin10px" >Ilość łóżek: {{ room.ilosc_lozek }}</h6>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock contents %}
