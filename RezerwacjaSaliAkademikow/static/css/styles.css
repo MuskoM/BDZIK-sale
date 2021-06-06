@@ -96,6 +96,11 @@ body{
     height: 30rem;
 }
 
+#scrollable-res-classrooms {
+    overflow: auto;
+    height: 48rem;
+}
+
 #scrollable-res-main {
     overflow: auto;
     height: 100%;
