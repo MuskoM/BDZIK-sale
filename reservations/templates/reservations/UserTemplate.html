@@ -40,6 +40,8 @@
                                 {% if is_admin %}
                                     <a href=" {% url 'PermissionsManager' %}" class="btn btn-danger"
                                        style="margin-bottom: 1rem">User permissions</a>
+                                    <a href=" {% url 'ClasroomManager' %}" class="btn btn-secondary"
+                                       style="margin-bottom: 1rem">Clasroom Manager</a>
                                 {% endif %}
                                 {% if is_dorm_admin %}
                                     <a href=" {% url 'PermissionsManager' %}" class="btn btn-success"

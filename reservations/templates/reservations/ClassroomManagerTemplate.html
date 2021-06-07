@@ -1,0 +1,106 @@
+{% extends 'default_layout.html' %}
+
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block contents %}
+    <div id="scrollable-res-classrooms">
+        <div>
+            <div class="col-md-3 margin10px">
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#dodaj_sale"
+                   aria-expanded="false" aria-controls="filtry"> Dodaj Salę </a>
+            </div>
+            <div class="collapse multi-collapse" id="dodaj_sale">
+                <div>
+                    <form method="post" class="col-sm-3">
+                        {% csrf_token %}
+                        {{ new_clasroom_form|crispy }}
+                        <input type="submit" class="btn btn-info"/>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        {% for class in classrooms %}
+            <div class="card" style="margin: .3rem">
+                <div class="card-header" style="display: flex;flex-direction: row;justify-content: space-between">
+                    <div>
+                        {{ class }}
+                    </div>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between">
+                        <div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <button class="btn-sm btn-danger" type="submit" name="classroom_id"
+                                        value="{{ class.id_pomieszczenia }}">Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body"
+                     style="display: flex;flex-direction: row; justify-content: space-between;align-items: center">
+                    <div style="padding: .4rem;margin: .3rem;max-width: 60%">
+                        <div class="form-group">
+                            <form method="post">
+                                {% csrf_token %}
+                                <label for="opis">Opis</label>
+                                <textarea style="width: 200%;height: 200%" class="form-control" name="new_opis"
+                                          id="opis">{{ class.opis }}</textarea>
+                                <button style="margin-top: 1rem" class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}"
+                                        type="submit">Apply
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="text-align: start;">
+                        <div class="form-group">
+                            <form method="post">
+                                {% csrf_token %}
+                                <label for="exampleSelect1" class="form-label mt-4">Wydzial</label>
+                                <select class="form-select" id="exampleSelect1" name="new_wydzial_id">
+                                    {% for wydzial in wydzialy %}
+                                        {% if wydzial == class.id_wydzialu %}
+                                            <option value="{{ wydzial.id_wydzialu }}"
+                                                    selected="selected">{{ wydzial }}</option>
+                                        {% else %}
+                                            <option value="{{ wydzial.id_wydzialu }}"
+                                                    name="opiekun_id">{{ wydzial }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <button class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}"
+                                        type="submit">Apply
+                                </button>
+                            </form>
+                            <form method="post">
+                                {% csrf_token %}
+                                <label for="exampleSelect1" class="form-label mt-4">Opiekun</label>
+                                <select class="form-select" id="exampleSelect1" name="new_opiekun_id">
+                                    {% for opiekun in opiekunowie %}
+                                        {% if opiekun == class.opiekun %}
+                                            <option value="{{ opiekun.id_uzytkownika }}"
+                                                    selected="selected">{{ opiekun }}</option>
+                                        {% else %}
+                                            <option value="{{ opiekun.id_uzytkownika }}"
+                                                    name="opiekun_id">{{ opiekun }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <button class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}"
+                                        type="submit">Apply
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import RezerwacjaSali
+from .models import RezerwacjaSali,Pomieszczenie
 
 
 class NewClassroomReservationForm(forms.ModelForm):
@@ -43,3 +43,8 @@ class DeleteSubjectClassesReservationForm(forms.ModelForm):
         model = RezerwacjaSali
         fields = ['id_rezerwacji_sali']
 
+
+class NewClassroomForm(forms.ModelForm):
+    class Meta:
+        model = Pomieszczenie
+        fields = '__all__'

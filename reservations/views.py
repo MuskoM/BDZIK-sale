@@ -2,7 +2,6 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth import get_user
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
@@ -18,8 +17,7 @@ from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali
 from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, PokojFilter
 from .filters import RezerwacjeManageFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm, \
-    DeleteSubjectClassesReservationForm
-
+    DeleteSubjectClassesReservationForm, NewClassroomForm
 
 class MainSite(View):
 
@@ -321,6 +319,52 @@ class UserPermissionsPanelView(View):
                 group_to_add.user_set.add(user.konto)
 
         return redirect('PermissionsManager')
+
+class ClassroomManager(View):
+    def get(self,request):
+        classrooms = Pomieszczenie.objects.all()
+        opiekunowie = Uzytkownik.objects.filter(konto__groups__name__icontains="Opiekun")
+        wydzialy = Wydzial.objects.all()
+        new_clasroom_form = NewClassroomForm()
+
+
+        context = {
+            "classrooms": classrooms,
+            "wydzialy":wydzialy,
+            "new_clasroom_form":new_clasroom_form,
+            "opiekunowie":opiekunowie
+        }
+        return render(request,'reservations/ClassroomManagerTemplate.html',context)
+
+    def post(self,request):
+        new_classroom_form = NewClassroomForm(request.POST)
+
+        if "new_opis" in request.POST:
+            classroom_to_edit = Pomieszczenie.objects.get(pk=request.POST["class_id"])
+            classroom_to_edit.opis = request.POST["new_opis"]
+            classroom_to_edit.save()
+
+        if "new_wydzial_id" in request.POST:
+            print(request.POST)
+            wydzial_to_set = Wydzial.objects.get(pk=request.POST["new_wydzial_id"])
+            classroom_to_edit = Pomieszczenie.objects.get(pk=request.POST["class_id"])
+            classroom_to_edit.id_wydzialu = wydzial_to_set
+            classroom_to_edit.save()
+
+        if "new_opiekun_id" in request.POST:
+            opiekun_to_set = Uzytkownik.objects.get(pk=request.POST["new_opiekun_id"])
+            classroom_to_edit = Pomieszczenie.objects.get(pk=request.POST["class_id"])
+            classroom_to_edit.opiekun = opiekun_to_set
+            classroom_to_edit.save()
+
+        if new_classroom_form.is_valid():
+            new_classroom_form_validated = new_classroom_form
+            new_classroom_form_validated.save()
+
+        if "classroom_id" in request.POST:
+            classroom_to_delete = Pomieszczenie.objects.get(pk=request.POST['classroom_id'])
+            classroom_to_delete.delete()
+        return redirect('ClasroomManager')
 
 class ReservationsView(View):
     def get(self, request):
