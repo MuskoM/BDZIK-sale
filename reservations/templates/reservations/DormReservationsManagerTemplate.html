@@ -1,0 +1,121 @@
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+{% extends 'default_layout.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% load static %}
+{% block breadcrumbs %}
+    {% breadcrumb "Strona główna" "/" %}
+    {% breadcrumb "Panel użytkownika" "/user" %}
+    {% breadcrumb "Rezerwacje pokoi" "/user/dormReservationsManager" %}
+{% endblock breadcrumbs %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href={% static "css/reservationManager.css" %}>
+{% endblock %}
+
+{% block contents %}
+
+    {% load crispy_forms_tags %}
+
+    <div class="col-md-3 margin10px">
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#filtry"
+           aria-expanded="false" aria-controls="filtry">Filtry + </a>
+    </div>
+    <div class="collapse multi-collapse" id="filtry">
+        <div>
+            <form method="get" class="form-inline padding">
+                <div class="col-ms-4 marginleftright">
+                    {{ reservations.form.id_pokoju|as_crispy_field }}
+                </div>
+                <div class="col-ms-4 marginleftright">
+                    {{ reservations.form.id_uzytkownika|as_crispy_field }}
+                </div>
+                <div class="col-ms-4 marginleftright">
+                    {{ reservations.form.status|as_crispy_field }}
+                </div>
+                <input type="submit" class="btn btn-info"/>
+            </form>
+        </div>
+    </div>
+
+    <div id="scrollable-res">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <td>Pokój</td>
+                <td>Data od</td>
+                <td>Data do</td>
+                <td>Użytkownik</td>
+                <td>Status</td>
+                <td></td>
+            </tr>
+            </thead>
+            {% for reservation in reservations.qs %}
+                <tr class="table table-hover table-striped">
+                    <td>
+                        <a href="{% url 'DormRoomPage' room_id=reservation.id_pokoju.id_pokoju %}">
+                            {{ reservation.id_pokoju }} #{{ reservation.id_rezerwacji_pokoju }}
+                        </a>
+                    </td>
+                    <td>{{ reservation.data_od }}</td>
+                    <td>{{ reservation.data_do }}</td>
+                    <td>{{ reservation.id_uzytkownika }}</td>
+                    {% if reservation.status == 'Z' %}
+                        <td><span class="badge badge-pill badge-success">Zaakceptowano</span></td>
+                    {% elif reservation.status == 'O' %}
+                        <td><span class="badge badge-pill badge-danger">Odrzucono</span></td>
+                    {% else %}
+                        <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
+                    {% endif %}
+                    <td>
+                        <form action="{% url 'DormReservationsManager_POST' reservation.id_rezerwacji_pokoju %}"
+                              method="post"
+                              role="form">
+                            {% csrf_token %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Opcje
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    {% if reservation.data_od > today %}
+
+                                        <button class="dropdown-item" name="status" value="Z" type="submit">Zatwierdź
+                                        </button>
+
+                                        <button class="dropdown-item" value="O" name="status"
+                                                type="submit">Odrzuć
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </form>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock contents %}
+
+{% block scripts %}
+    <script>
+
+        function openFormForComment() {
+            console.log("OpenFormForComment")
+            document.getElementById('submit-new-class').value = 'K'
+            document.getElementById("myForm").style.display = "flex";
+        }
+
+        function openFormForDenial() {
+            console.log("OpenFormForDenial")
+            document.getElementById('submit-new-class').value = 'O'
+            document.getElementById("myForm").style.display = "flex";
+        }
+
+        function closeForm() {
+            console.log("closeForm")
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+{% endblock scripts %}

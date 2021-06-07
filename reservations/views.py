@@ -14,11 +14,11 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
 
-from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject, Pokoj
-from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, PokojFilter
+from reservations.models import Wydzial, Akademik, Pomieszczenie, RezerwacjaSali, Uzytkownik, Subject, Pokoj, RezerwacjaPokoju
+from .filters import PomieszczenieFilter, RezerwacjaSaliFilter, PokojFilter, DormRezerwacjeManageFilter
 from .filters import RezerwacjeManageFilter
 from .forms import NewClassroomReservationForm, ChangeClassroomReservationStatusForm, NewSubjectClassesReservationForm, \
-    DeleteSubjectClassesReservationForm
+    DeleteSubjectClassesReservationForm, NewDormRoomReservationForm, ChangeDormRoomReservationStatusForm
 
 
 class MainSite(View):
@@ -322,6 +322,7 @@ class UserPermissionsPanelView(View):
 
         return redirect('PermissionsManager')
 
+
 class ReservationsView(View):
     def get(self, request):
         reservations = RezerwacjaSali.objects.filter(status="Z")
@@ -333,3 +334,71 @@ class ReservationsView(View):
 
         return render(request, 'reservations/ReservationsTemplate.html',
                       context)
+
+
+class DormReservationManagerView(View):
+    def get(self, request):
+        current_user = get_user(request)
+        # reservations = RezerwacjaPokoju.objects.filter(id_pokoju__opiekun=current_user.pk)
+        reservations = RezerwacjaPokoju.objects
+        reservations_filter = DormRezerwacjeManageFilter(request.GET, queryset=reservations)
+        today = timezone.now()
+
+        context = {
+            "today": today,
+            "reservations": reservations_filter
+        }
+        return render(request, 'reservations/DormReservationsManagerTemplate.html', context)
+
+    def post(self, request, reservation_id):
+        print(reservation_id)
+        new_status = ChangeDormRoomReservationStatusForm(request.POST)
+        reservation = RezerwacjaPokoju.objects.get(pk=reservation_id)
+        print(reservation)
+
+        print(request.POST)
+
+        if request.POST['status'] == "Z":
+            print("ZAAKCEPTOWANO")
+            message_name = "Zaakceptowano rezerwację nr. " + str(reservation.id_rezerwacji_pokoju)
+            message_email = reservation.id_uzytkownika.e_mail
+            context = {
+                'type': request.POST['status'],
+                'user': reservation.id_uzytkownika,
+                'reservation_date': reservation.data_wykonania_rezerwacji,
+                'status': 'ZAAKCEPTOWANA'
+            }
+            html_message = render_to_string('mail_template.html', context)
+            plain_message = strip_tags(html_message)
+
+        elif request.POST['status'] == "O":
+            print("ODRZUCONO")
+            message_name = "Odrzucono rezerwację nr. " + str(reservation.id_rezerwacji_pokoju)
+            message_email = reservation.id_uzytkownika.e_mail
+            context = {
+                'type': request.POST['status'],
+                'user': reservation.id_uzytkownika,
+                'reservation_date': reservation.data_wykonania_rezerwacji,
+                'status': "ODRZUCONA",
+            }
+            html_message = render_to_string('mail_template.html', context)
+            plain_message = strip_tags(html_message)
+
+        else:
+            message_name = "ERROR." + str(reservation.id_rezerwacji_pokoju)
+            message_email = reservation.id_uzytkownika.e_mail
+            html_message = render_to_string('mail_template.html')
+            plain_message = strip_tags(html_message)
+
+        if new_status.is_valid():
+            reservation.status = new_status.cleaned_data['status']
+            print("Reservation_status: ", reservation)
+            send_mail(message_name,
+                      plain_message,
+                      'admin-e53753@inbox.mailtrap.io',
+                      [message_email],
+                      html_message=html_message)
+            print("Sent Mail")
+            reservation.save()
+
+        return redirect(request.META.get('HTTP_REFERER'))
