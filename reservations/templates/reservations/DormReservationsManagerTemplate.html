@@ -5,7 +5,7 @@
 {% block breadcrumbs %}
     {% breadcrumb "Strona główna" "/" %}
     {% breadcrumb "Panel użytkownika" "/user" %}
-    {% breadcrumb "Rezerwacje sal" "/user/reservations_manager" %}
+    {% breadcrumb "Rezerwacje pokoi" "/user/dormReservationsManager" %}
 {% endblock breadcrumbs %}
 
 {% block stylesheets %}
@@ -24,7 +24,7 @@
         <div>
             <form method="get" class="form-inline padding">
                 <div class="col-ms-4 marginleftright">
-                    {{ reservations.form.id_pomieszczenia|as_crispy_field }}
+                    {{ reservations.form.id_pokoju|as_crispy_field }}
                 </div>
                 <div class="col-ms-4 marginleftright">
                     {{ reservations.form.id_uzytkownika|as_crispy_field }}
@@ -41,7 +41,7 @@
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <td>Pomieszczenie</td>
+                <td>Pokój</td>
                 <td>Data od</td>
                 <td>Data do</td>
                 <td>Użytkownik</td>
@@ -52,8 +52,8 @@
             {% for reservation in reservations.qs %}
                 <tr class="table table-hover table-striped">
                     <td>
-                        <a href="{% url 'FacultyRoomPage' room_id=reservation.id_pomieszczenia.id_pomieszczenia %}">
-                            {{ reservation.id_pomieszczenia }} #{{ reservation.id_rezerwacji_sali }}
+                        <a href="{% url 'DormRoomPage' room_id=reservation.id_pokoju.id_pokoju %}">
+                            {{ reservation.id_pokoju }} #{{ reservation.id_rezerwacji_pokoju }}
                         </a>
                     </td>
                     <td>{{ reservation.data_od }}</td>
@@ -67,7 +67,7 @@
                         <td><span class="badge badge-pill badge-primary">W trakcie</span></td>
                     {% endif %}
                     <td>
-                        <form action="{% url 'ReservationsManager_POST' reservation.id_rezerwacji_sali %}"
+                        <form action="{% url 'DormReservationsManager_POST' reservation.id_rezerwacji_pokoju %}"
                               method="post"
                               role="form">
                             {% csrf_token %}

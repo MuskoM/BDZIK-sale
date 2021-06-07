@@ -29,6 +29,9 @@ urlpatterns += [
          name="ReservationsManager_POST"),
     path('user/permissionManager', views.UserPermissionsPanelView.as_view(), name="PermissionsManager"),
     path('user/classManager',views.ClassManager.as_view(), name="ClassManager"),
+    path('user/dormReservationsManager', views.DormReservationManagerView.as_view(), name="DormReservationsManager"),
+    path('user/dormReservationsManager/reservation_id=<int:reservation_id>', views.DormReservationManagerView.as_view(),
+         name="DormReservationsManager_POST"),
     path('user/classroomManager',views.ClassroomManager.as_view(),name="ClasroomManager")
 
 ]

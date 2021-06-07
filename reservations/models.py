@@ -254,7 +254,7 @@ class RezerwacjaPokoju(models.Model):
     status = models.CharField(max_length=1, choices=status_labels, default="R")
 
     def save(self, *args, **kwargs):
-        if self.data_od < datetime.now() or self.data_do < datetime.now():
+        if self.data_od < timezone.now() or self.data_do < timezone.now():
             raise ValidationError("Nie można użyć daty z przeszłości!")
         if self.data_od > self.data_do:
             raise ValidationError("Data początku rezerwacji poźniejsza od daty końca rezerwacji!")
