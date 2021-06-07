@@ -340,7 +340,7 @@ class DormReservationManagerView(View):
     def get(self, request):
         current_user = get_user(request)
         # reservations = RezerwacjaPokoju.objects.filter(id_pokoju__opiekun=current_user.pk)
-        reservations = RezerwacjaPokoju.objects
+        reservations = RezerwacjaPokoju.objects.all()
         reservations_filter = DormRezerwacjeManageFilter(request.GET, queryset=reservations)
         today = timezone.now()
 
@@ -360,7 +360,7 @@ class DormReservationManagerView(View):
 
         if request.POST['status'] == "Z":
             print("ZAAKCEPTOWANO")
-            message_name = "Zaakceptowano rezerwację nr. " + str(reservation.id_rezerwacji_pokoju)
+            message_name = "Zaakceptowano rezerwację pokoju nr. " + str(reservation.id_rezerwacji_pokoju)
             message_email = reservation.id_uzytkownika.e_mail
             context = {
                 'type': request.POST['status'],
@@ -373,7 +373,7 @@ class DormReservationManagerView(View):
 
         elif request.POST['status'] == "O":
             print("ODRZUCONO")
-            message_name = "Odrzucono rezerwację nr. " + str(reservation.id_rezerwacji_pokoju)
+            message_name = "Odrzucono rezerwację pokoju nr. " + str(reservation.id_rezerwacji_pokoju)
             message_email = reservation.id_uzytkownika.e_mail
             context = {
                 'type': request.POST['status'],
