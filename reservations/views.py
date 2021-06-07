@@ -324,10 +324,13 @@ class ClassroomManager(View):
     def get(self,request):
         classrooms = Pomieszczenie.objects.all()
         opiekunowie = Uzytkownik.objects.filter(konto__groups__name__icontains="Opiekun")
+        wydzialy = Wydzial.objects.all()
         new_clasroom_form = NewClassroomForm()
+
 
         context = {
             "classrooms": classrooms,
+            "wydzialy":wydzialy,
             "new_clasroom_form":new_clasroom_form,
             "opiekunowie":opiekunowie
         }
@@ -335,7 +338,19 @@ class ClassroomManager(View):
 
     def post(self,request):
         new_classroom_form = NewClassroomForm(request.POST)
-        print(request.POST)
+
+        if "new_opis" in request.POST:
+            classroom_to_edit = Pomieszczenie.objects.get(pk=request.POST["class_id"])
+            classroom_to_edit.opis = request.POST["new_opis"]
+            classroom_to_edit.save()
+
+        if "new_wydzial_id" in request.POST:
+            print(request.POST)
+            wydzial_to_set = Wydzial.objects.get(pk=request.POST["new_wydzial_id"])
+            classroom_to_edit = Pomieszczenie.objects.get(pk=request.POST["class_id"])
+            classroom_to_edit.id_wydzialu = wydzial_to_set
+            classroom_to_edit.save()
+
         if "new_opiekun_id" in request.POST:
             opiekun_to_set = Uzytkownik.objects.get(pk=request.POST["new_opiekun_id"])
             classroom_to_edit = Pomieszczenie.objects.get(pk=request.POST["class_id"])
@@ -344,7 +359,6 @@ class ClassroomManager(View):
 
         if new_classroom_form.is_valid():
             new_classroom_form_validated = new_classroom_form
-            print("FORM IS VALID")
             new_classroom_form_validated.save()
 
         if "classroom_id" in request.POST:

@@ -16,7 +16,7 @@
             </div>
             <div class="collapse multi-collapse" id="dodaj_sale">
                 <div>
-                    <form method="get" class="col-sm-3">
+                    <form method="post" class="col-sm-3">
                         {% csrf_token %}
                         {{ new_clasroom_form|crispy }}
                         <input type="submit" class="btn btn-info"/>
@@ -33,9 +33,6 @@
                     </div>
                     <div style="display: flex;flex-direction: row;justify-content: space-between">
                         <div>
-                            <button class="btn-sm btn-info">Edit</button>
-                        </div>
-                        <div>
                             <form method="post">
                                 {% csrf_token %}
                                 <button class="btn-sm btn-danger" type="submit" name="classroom_id"
@@ -48,13 +45,40 @@
                 <div class="card-body"
                      style="display: flex;flex-direction: row; justify-content: space-between;align-items: center">
                     <div style="padding: .4rem;margin: .3rem;max-width: 60%">
-                        Opis: {{ class.opis }}
-                    </div>
-                    <div style="text-align: start;">
-                        Wydział: {{ class.id_wydzialu }}<br>
                         <div class="form-group">
                             <form method="post">
-                            {% csrf_token %}
+                                {% csrf_token %}
+                                <label for="opis">Opis</label>
+                                <textarea style="width: 200%;height: 200%" class="form-control" name="new_opis"
+                                          id="opis">{{ class.opis }}</textarea>
+                                <button style="margin-top: 1rem" class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}"
+                                        type="submit">Apply
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="text-align: start;">
+                        <div class="form-group">
+                            <form method="post">
+                                {% csrf_token %}
+                                <label for="exampleSelect1" class="form-label mt-4">Wydzial</label>
+                                <select class="form-select" id="exampleSelect1" name="new_wydzial_id">
+                                    {% for wydzial in wydzialy %}
+                                        {% if wydzial == class.id_wydzialu %}
+                                            <option value="{{ wydzial.id_wydzialu }}"
+                                                    selected="selected">{{ wydzial }}</option>
+                                        {% else %}
+                                            <option value="{{ wydzial.id_wydzialu }}"
+                                                    name="opiekun_id">{{ wydzial }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <button class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}"
+                                        type="submit">Apply
+                                </button>
+                            </form>
+                            <form method="post">
+                                {% csrf_token %}
                                 <label for="exampleSelect1" class="form-label mt-4">Opiekun</label>
                                 <select class="form-select" id="exampleSelect1" name="new_opiekun_id">
                                     {% for opiekun in opiekunowie %}
@@ -67,7 +91,9 @@
                                         {% endif %}
                                     {% endfor %}
                                 </select>
-                                <button class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}" type="submit">Apply</button>
+                                <button class="btn-sm btn-success" name="class_id" value="{{ class.id_pomieszczenia }}"
+                                        type="submit">Apply
+                                </button>
                             </form>
                         </div>
                     </div>
